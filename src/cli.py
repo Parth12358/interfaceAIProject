@@ -81,7 +81,8 @@ def _make_live_surface(conf):
     from .platformx import browser
     from .surface.cdp_surface import CdpSurface
 
-    proc = browser.launch_chromium(conf.target_app_url, conf.chrome_debug_port, conf.viewport)
+    proc = browser.launch_chromium(conf.target_app_url, conf.chrome_debug_port, conf.viewport,
+                                   headless=conf.chrome_headless)
     surface = CdpSurface(conf.chrome_debug_port, conf.viewport)
     return surface, (lambda: browser.kill_process_group(proc))
 
@@ -184,7 +185,7 @@ def cmd_demo(args):
     configure_pytesseract()
     from .surface.scripted import ScriptedSurface
     artifact = store.load(ROOT / "artifacts" / "member_lookup.json")
-    base = _run_dir("demo")
+    base = pathlib.Path(args.evidence) if args.evidence else _run_dir("demo")
     summary = {}
     for name in ("happy", "not_found", "validation", "timeout"):
         initial, transitions, inputs = SCENARIOS[name]
@@ -239,6 +240,7 @@ def main(argv=None):
     o.set_defaults(func=cmd_operator)
 
     dm = sub.add_parser("demo", help="offline evidence run over saved screens")
+    dm.add_argument("--evidence", help="destination dir (e.g. evidence/replay_demo)")
     dm.set_defaults(func=cmd_demo)
 
     args = p.parse_args(argv)

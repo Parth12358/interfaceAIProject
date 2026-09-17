@@ -73,15 +73,26 @@ see the note below about sandboxed shells.)
 # 1. start the legacy target app
 python target_app/app.py            # serves http://127.0.0.1:5000/
 
-# 2. DISCOVER — one genuine LLM-driven run compiles a draft artifact + evidence
+# 2. DISCOVER — one genuine LLM-driven run compiles a draft artifact + evidence.
+#    --evidence writes the run to a committable path (the deliverable wants discovery
+#    evidence under /evidence/); --operator opens the handoff console in-process.
 python -m src.cli discover \
     --goal "Look up member 12345 and read their savings balance and name" \
-    --input member_id=12345 --cap-id member_lookup_discovered
-#   -> writes artifacts/member_lookup_discovered.json (status: draft) + evidence/runs/disc-*/
+    --input member_id=12345 --cap-id member_lookup_discovered \
+    --evidence evidence/discovery_demo --operator
+#   -> writes artifacts/member_lookup_discovered.json (status: draft)
+#      + evidence/discovery_demo/{log.jsonl, *.png, compile_notes.txt, artifact.json}
 
 # 3. REPLAY — deterministic, no LLM. Use the hand-written approved artifact or the discovered draft:
 python -m src.cli replay artifacts/member_lookup.json --input member_id=12345
 python -m src.cli replay artifacts/member_lookup_discovered.json --input member_id=12345 --allow-draft
+
+#    Escalation/handoff on the live run: --operator runs the console in the same process,
+#    so a replay that gets stuck actually pauses, lets you take control, and resumes.
+python -m src.cli replay artifacts/member_lookup.json --input member_id=12345 --operator
+
+#    Policy is configurable per app: --policy path/to/policy.json sets allowlist/risk/max_steps.
+#    --strict-inputs makes an input pattern mismatch a hard failure (default: warn + let the app validate).
 
 # error/outcome branches (no crash — a returned business outcome):
 python -m src.cli replay artifacts/member_lookup.json --input member_id=00000   # MEMBER_NOT_FOUND
@@ -111,6 +122,15 @@ pytest                 # perception/replay/policy/handoff over saved PNGs (deter
 lint-imports           # enforces: replay/ imports no agent/ code and no LLM SDK
 ```
 `tests/test_boundaries.py` additionally asserts `sys.platform` appears only in `src/platformx/`.
+
+Adversarial/hardening invariants asserted by the suite:
+- `ReplayEngine.run()` never raises — every internal error becomes a structured result (`test_engine_hardening.py`).
+- a `template_ref` cannot read outside the artifact directory (path-traversal fails closed).
+- every surface dispatch — normal **and** recovery — passes the policy gate (allowlist + screen-scope + risk, including typed values).
+- `max_steps` is enforced; the artifact's `app.id` must match the policy's allowed app.
+- `RunLog`/`result.json` redact recursively (nested `observed`/`outputs`).
+- escalation pauses automation, a human can take the live session, and resume re-derives state (`test_handoff_integration.py`).
+- discovery dead-ends (bad marks, repeated actions, provider errors) stop with a structured outcome, and typed literals are never persisted (`test_discovery_hardening.py`).
 
 ## License
 

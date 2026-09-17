@@ -74,7 +74,7 @@ The interesting part is not layout drift; it is runtime states. The result contr
 | "No member found" | `business_outcome` | stop, report | `business_outcome` + `MEMBER_NOT_FOUND` |
 | "Invalid member number" | `business_outcome` | stop, report | `business_outcome` + `INVALID_INPUT` |
 | Session-expired interstitial | `recoverable` | run bounded recovery, re-classify, continue | `success` (recovered) |
-| Slow load | `recoverable` | bounded wait/retry | continues |
+| Slow load | `recoverable` | bounded wait/retry | continues (state declared; the demo app has no slow-load screen, so this path is covered by unit tests rather than the live demo) |
 | Unknown screen / target not found / verify timeout | — | stop loudly with expected-vs-observed | `failed` (debuggable) |
 | Can't safely proceed | — | escalate | `escalated` |
 
@@ -106,6 +106,10 @@ multi-run stability signal detect version drift so a tenant that has diverged de
 
 Replay escalates on: unknown screen, recovery exhausted, a risky action, or a policy denial — returning
 `escalated` with capability id/version, step, reason, observed states, screenshot, and last log lines.
+The engine is wired to the control session (not just a parallel mock): before every surface dispatch it
+asserts it holds the automation token; on escalation it builds an `InterventionRequest`, hands it to the
+session, and **pauses**; `cli replay --operator` runs the console in the same process so the human drives
+the *same* session, then the engine re-derives state from the screen and resumes (or re-escalates).
 The handoff mechanism (`src/handoff/`) is a real **control-token state machine**:
 
 ```
@@ -114,36 +118,50 @@ AUTO_RUNNING → ESCALATED → HUMAN_CONTROL → RESUMING → (recognized? AUTO_
 
 **Exactly one controller holds the token** (`can_act(actor)`, asserted before every Surface action);
 automation emits zero input while the human holds it. The handoff is trivially real in a driver-less
-design — the human uses the actual mouse/keyboard on the same live window — and a `pynput` listener
-records their clicks/keys (+ nearby OCR text, before/after screenshots) into the same run log as
-`human_action` entries. **Resume never assumes what the human did**: the engine re-derives state from the
-screen; recognized → continue, still unknown → re-escalate. The operator console is a deliberately minimal
-FastAPI page (mocked UI, real mechanism). The state machine is unit-tested (`tests/test_handoff.py`).
+design — the human uses the actual mouse/keyboard on the same live window — and the engine starts a
+`pynput` listener around `HUMAN_CONTROL` that records their clicks/keys (+ nearby OCR text) into the same
+run log as `human_action` entries (X11 on Linux, as documented). **Resume never assumes what the human
+did**: the engine re-derives state from the screen; recognized → continue, still unknown → re-escalate.
+The operator console is a deliberately minimal FastAPI page (mocked UI, real mechanism). The state machine
+is unit-tested (`tests/test_handoff.py`) and the pause/resume seam is integration-tested end-to-end
+(`tests/test_handoff_integration.py`).
 
 ## 6. Safety
 
-One dispatch chokepoint (`src/policy/`), enforced for both discovery and replay:
-- **Allowlist** — permitted action kinds + max steps; unknown kinds default-deny.
+One dispatch chokepoint (`src/policy/`), enforced for both discovery and replay — **every** surface
+dispatch, including recovery actions, passes it:
+- **Allowlist** — permitted action kinds + `max_steps` (both enforced; a longer artifact is refused) and
+  the artifact's `app.id` must match the policy's allowed app; unknown kinds default-deny. The policy is
+  configurable per app (`--policy path/to/policy.json`).
 - **Screen-scope** — since there is no navigation API to gate, before every action the current screen
-  must match a known state of the allowed app; if the foreground content stops matching (wrong window),
-  acting is refused and the run escalates. This is how a driver-less system stays in its lane.
-- **Risk classes** — `read` is safe; a `click` whose target matches irreversible patterns ("Confirm
-  Transfer", "Delete", "Post Transaction", …) is **risky → blocked in unattended replay, escalated**.
-- **Redaction / secrets** — logs pass a redaction hook (mask account-number-shaped strings); the artifact
-  stores parameter *names* only, never discovery-time literals; `DEEPSEEK_API_KEY` via env; the target
-  app uses fake seeded data only.
+  must match a known state of the allowed app (`app_ready` is the app-level anchor); if the foreground
+  content stops matching (wrong window), acting is refused and the run escalates.
+- **Risk classes** — `read` is safe; a mutating action (`click`/`type`/`key`) whose target **or typed
+  value** matches irreversible patterns ("Confirm Transfer", "Delete", "Post Transaction", …) is
+  **risky → blocked in unattended replay, escalated**. Inspecting the typed value matters: a destructive
+  action can be triggered by a keystroke, not only by the clicked control's text.
+- **Containment** — a `template_ref` in a (possibly third-party) artifact is resolved and required to
+  stay inside the artifact directory; anything else fails closed rather than reading arbitrary files.
+- **Redaction / secrets** — logs and `result.json` pass a *recursive* redaction hook (nested
+  `observed`/`outputs` included; account-number-shaped strings masked); the artifact stores parameter
+  *names* only, and the compiler never persists a discovery-time literal (unmatched literals are
+  parameterized); `DEEPSEEK_API_KEY` via env; the target app uses fake seeded data only.
 
 ## 7. Cuts (and what's next)
 
 - **Live discovery is the user's run.** The genuine DeepSeek run needs an API key + a live browser; the
   code path is identical to the mock-driven `tests/test_discovery.py` round-trip (discover → compile →
-  replay), which is verified offline. Evidence committed here is the **replay** side; the discovery
-  evidence is produced by `python -m src.cli discover …`.
+  replay), which is verified offline. Evidence committed here is the **replay** side (`evidence/replay_demo/`);
+  the discovery bundle (`log.jsonl`, screenshots, `artifact.json`, `compile_notes.txt`) is produced
+  directly into a committable path by:
+  `python -m src.cli discover --goal "…" --input member_id=12345 --evidence evidence/discovery_demo`.
 - **Provider deviation:** DeepSeek V4.1 Flash instead of GPT-4o (vision + function calling via an
   OpenAI-compatible API); one adapter module, model/base_url in config.
-- **Deliberately thin/mocked (seam real):** operator console UX; multi-tenant `overrides[]`
-  (design-only); template-match rung and region-masking (present but lightly exercised); desktop &
-  Windows/Wayland paths (`OsSurface` compiles, documented costs).
+- **Deliberately thin/mocked (seam real):** operator console UX (the control-token mechanism itself is
+  real and engine-integrated); multi-tenant `overrides[]` (design-only); the template-match rung
+  (implemented + traversal-guarded, but no crops are generated yet, so it is lightly exercised); desktop
+  & Windows/Wayland paths (`OsSurface` compiles, documented costs). **Screenshot region-masking is not
+  implemented** — redaction is text/JSON-level only; this is the honest limit of the safety story.
 - **Next with more time:** confidence scoring → `draft→approved` gating on replay stability; a bounded,
   policy-checked single-step LLM recovery on replay failure (recorded as evidence); the multi-tenant
   base+overrides representation; assisted `dom_anchor` rung for clean-DOM surfaces.

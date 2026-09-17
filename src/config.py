@@ -38,6 +38,7 @@ class Config:
     inject_timeout: bool
     surface: str
     chrome_debug_port: int
+    chrome_headless: bool
     viewport: tuple[int, int]
 
 
@@ -53,5 +54,8 @@ def load() -> Config:
         inject_timeout=os.environ.get("CORESERV_INJECT_TIMEOUT", "0") == "1",
         surface=os.environ.get("SURFACE", "cdp"),
         chrome_debug_port=_int("CHROME_REMOTE_DEBUG_PORT", 9222),
+        # Headless is the reliable default in sandboxed/agent environments where a
+        # headed window's compositor never yields a stable frame (screenshots hang).
+        chrome_headless=os.environ.get("CHROME_HEADLESS", "1") == "1",
         viewport=(_int("VIEWPORT_W", 1280), _int("VIEWPORT_H", 800)),
     )

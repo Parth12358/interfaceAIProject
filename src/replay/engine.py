@@ -107,6 +107,7 @@ class ReplayEngine:
         self.strict_inputs = strict_inputs
         self.degraded = False
         self._cap = None
+        self._last_request: InterventionRequest | None = None
 
     # --- helpers -------------------------------------------------------------
     def _emit(self, type_, **f):
@@ -137,6 +138,13 @@ class ReplayEngine:
             return
         names = classify(words, states).names if words is not None else []
         self.policy.check(kind, label, names, value)
+
+    def _gate_or_escalate(self, kind, label, states, words, png, value=None) -> None:
+        """Policy gate that converts a denial into an escalation (used by recovery)."""
+        try:
+            self._policy_gate(kind, label, states, words, value)
+        except PolicyDenied as e:
+            raise _Escalation(f"policy_denied:{e.reason}", png)
 
     def _check_inputs(self, cap, inputs: dict) -> str | None:
         """Validate supplied inputs against the artifact's typed contract. Returns error or None."""
@@ -171,13 +179,13 @@ class ReplayEngine:
             elif rec.kind == "click" and rec.target is not None:
                 words = ocr.words(png)
                 label = rec.target.text_anchor.text if rec.target.text_anchor else None
-                self._policy_gate("click", label, states, words)
+                self._gate_or_escalate("click", label, states, words, png)
                 res = resolve_target(words, png, rec.target)
                 if res:
                     self._assert_automation()
                     self.surface.click(res.x, res.y)
             elif rec.kind == "key" and rec.value:
-                self._policy_gate("key", None, states, None, value=rec.value)
+                self._gate_or_escalate("key", None, states, None, png, value=rec.value)
                 self._assert_automation()
                 self.surface.key(rec.value)
             png = self._settle()
@@ -279,10 +287,10 @@ class ReplayEngine:
                 outcome = self._run_step(step, inputs, artifact_dir, states, outputs)
             except _Escalation as esc:
                 resumed = self._handle_escalation(step, esc, states)
-                if resumed and retries < self.max_step_retries:
+                if resumed is None and retries < self.max_step_retries:
                     retries += 1
-                    continue  # re-derive and retry the same step
-                return resumed or self._result("escalated", reason=esc.reason, failed_step=step.id)
+                    continue  # human fixed it; re-derive and retry the same step
+                return resumed or self._escalated_result(self._last_request)
             if outcome is not None:
                 return outcome
             retries = 0
@@ -314,7 +322,7 @@ class ReplayEngine:
             if name is None:
                 return self._fail_verify(step, png, states)
             if state.state_class == "business_outcome":  # pragma: no cover - defensive
-                return self._outcome(state, outputs)
+                return self._outcome(name, state, outputs)
             ta = step.target.text_anchor if step.target else None
             val = None
             if ta:
@@ -341,8 +349,13 @@ class ReplayEngine:
 
         # POLICY gate at the single dispatch chokepoint
         label = step.target.text_anchor.text if (step.target and step.target.text_anchor) else None
+        gate_value = None
+        if step.action.kind == "type":
+            gate_value = _substitute(step.action.value, inputs)  # risk-inspect the actual typed value
+        elif step.action.kind == "key":
+            gate_value = step.action.value
         try:
-            self._policy_gate(step.action.kind, label, states, words, value=step.action.value)
+            self._policy_gate(step.action.kind, label, states, words, value=gate_value)
         except PolicyDenied as e:
             raise _Escalation(f"policy_denied:{e.reason}", png)
 
@@ -357,7 +370,7 @@ class ReplayEngine:
             return self._fail_verify(step, png, states)
         self._emit("verify_ok", step=step.id, state=name, state_class=state.state_class)
         if state.state_class == "business_outcome":
-            return self._outcome(state, outputs)
+            return self._outcome(name, state, outputs)
         return None
 
     # --- handoff -------------------------------------------------------------
@@ -366,22 +379,28 @@ class ReplayEngine:
         human, re-derive state from the screen, and resume (or re-escalate). Returns a
         terminal ReplayResult to stop, or None if the run should retry the step."""
         req = self._build_request(step, esc.reason, states, esc.png)
+        self._last_request = req
         if self.control is not None and self.wait_for_human:
             try:
                 self.control.escalate(req)
             except ControlError:
                 pass  # already escalated (e.g. a re-entrant handoff); just wait
             self._emit("escalated_waiting", step=step.id, reason=esc.reason)
-            if self.control.wait_for_state(ControlState.HUMAN_CONTROL, self.escalation_timeout_s):
-                capture = HumanActionCapture(self.log) if self.log else None
-                if capture:
-                    capture.start()
-                try:
-                    handed_back = self.control.wait_for_state(ControlState.RESUMING,
-                                                              self.escalation_timeout_s)
-                finally:
+            took_over = self.control.wait_for_states(
+                {ControlState.HUMAN_CONTROL, ControlState.RESUMING}, self.escalation_timeout_s)
+            if took_over:
+                if self.control.state == ControlState.HUMAN_CONTROL:
+                    capture = HumanActionCapture(self.log) if self.log else None
                     if capture:
-                        capture.stop()
+                        capture.start()
+                    try:
+                        handed_back = self.control.wait_for_state(ControlState.RESUMING,
+                                                                  self.escalation_timeout_s)
+                    finally:
+                        if capture:
+                            capture.stop()
+                else:
+                    handed_back = True  # operator handed back inside one poll window
                 if handed_back:
                     png2 = self._settle()
                     cls = classify(ocr.words(png2), states)
@@ -429,9 +448,9 @@ class ReplayEngine:
         elif kind == "wait":
             time.sleep(1.0)
 
-    def _outcome(self, state, outputs) -> ReplayResult:
+    def _outcome(self, name, state, outputs) -> ReplayResult:
         return self._result("business_outcome", outputs=outputs, outcome_code=state.outcome_code,
-                            observed=[state.outcome_code] if state.outcome_code else None)
+                            observed=[name])
 
     def _fail_verify(self, step, png, states):
         observed = classify(ocr.words(png), states).names or [ocr.full_text(ocr.words(png))[:120]]

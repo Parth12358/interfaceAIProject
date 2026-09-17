@@ -1,7 +1,11 @@
 # Tech Doc — Computer-Use Automation System
 ### Vision-first discovery → typed capability artifact → deterministic, LLM-free replay
 
-**Status:** Locked for build. Deviations require a note in REPORT.md §Cuts.
+**Status: SUPERSEDED — historical design doc. See [README.md](README.md) and [REPORT.md](REPORT.md) for
+the implemented system.** This document captured the pre-build plan and is intentionally out of date in
+places (it specifies GPT-4o and an OS-level-primary surface; the implementation uses a DeepSeek adapter
+and a primary `CdpSurface`, and some mechanisms here — e.g. screenshot region-masking — were descoped).
+It is kept for provenance; where it conflicts with the code, the code and REPORT.md win.
 **Thesis:** The LLM is allowed to be uncertain exactly once — during discovery. That uncertainty is compiled into a typed artifact; production execution is deterministic replay with no model in the decision loop.
 
 ---

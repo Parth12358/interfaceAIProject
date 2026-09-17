@@ -6,7 +6,9 @@
       "member_name": "Ada Lovelace"
     },
     "degraded": false,
-    "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/happy"
+    "evidence_dir": "evidence/replay_demo/happy",
+    "capability_id": "member_lookup",
+    "capability_version": "1.0.0"
   },
   "not_found": {
     "status": "business_outcome",
@@ -15,7 +17,9 @@
       "no_member_found"
     ],
     "degraded": false,
-    "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/not_found"
+    "evidence_dir": "evidence/replay_demo/not_found",
+    "capability_id": "member_lookup",
+    "capability_version": "1.0.0"
   },
   "validation": {
     "status": "business_outcome",
@@ -24,7 +28,9 @@
       "validation_error"
     ],
     "degraded": false,
-    "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/validation"
+    "evidence_dir": "evidence/replay_demo/validation",
+    "capability_id": "member_lookup",
+    "capability_version": "1.0.0"
   },
   "timeout": {
     "status": "success",
@@ -33,6 +39,8 @@
       "member_name": "Ada Lovelace"
     },
     "degraded": false,
-    "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/timeout"
+    "evidence_dir": "evidence/replay_demo/timeout",
+    "capability_id": "member_lookup",
+    "capability_version": "1.0.0"
   }
 }

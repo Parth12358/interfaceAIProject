@@ -5,5 +5,7 @@
     "member_name": "Ada Lovelace"
   },
   "degraded": false,
-  "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/happy"
+  "evidence_dir": "evidence/replay_demo/happy",
+  "capability_id": "member_lookup",
+  "capability_version": "1.0.0"
 }

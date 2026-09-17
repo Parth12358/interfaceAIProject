@@ -47,10 +47,13 @@ _SYSTEM = (
 
 
 class DeepSeekProvider:
-    def __init__(self, api_key: str, base_url: str, model: str):
+    def __init__(self, api_key: str, base_url: str, model: str,
+                 timeout_s: float = 120.0, max_retries: int = 1):
         from openai import OpenAI
 
-        self._client = OpenAI(api_key=api_key, base_url=base_url)
+        # Bounded client: a stalled provider call must fail fast, not hang the run.
+        self._client = OpenAI(api_key=api_key, base_url=base_url,
+                              timeout=timeout_s, max_retries=max_retries)
         self._model = model
 
     def decide(self, goal: str, png_overlay: bytes, legend: str, history: list[str]) -> AgentAction:

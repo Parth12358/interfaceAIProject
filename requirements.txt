@@ -25,3 +25,9 @@ uvicorn[standard]>=0.29
 python-dotenv>=1      # load .env
 pytest>=8            # tests over saved PNGs
 import-linter>=2      # enforce replay/ has no agent/LLM imports
+
+# Test tooling
+hypothesis>=6        # property-based invariants (tests/test_fuzz.py)
+coverage>=7          # coverage report
+httpx>=0.27          # FastAPI TestClient for the operator console tests
+# mutmut>=2          # optional: mutation testing (see tests/FINDINGS.md)

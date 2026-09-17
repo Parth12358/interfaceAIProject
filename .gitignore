@@ -6,3 +6,7 @@ __pycache__/
 evidence/runs/
 *.egg-info/
 .DS_Store
+.coverage
+htmlcov/
+.hypothesis/
+.mutmut-cache/

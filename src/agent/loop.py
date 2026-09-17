@@ -62,6 +62,8 @@ def run_discovery(goal: str, surface, provider: Provider, run_log=None,
         by_id = {m.id: m for m in marks}
         if run_log:
             run_log.screenshot(overlay(png, marks), f"disc_{i:02d}")
+        if run_log:
+            run_log.event("decide_start", step=i, marks=len(marks))
         try:
             action: AgentAction = provider.decide(goal, overlay(png, marks), legend(marks), history)
         except Exception as e:  # provider/network failure must not crash discovery

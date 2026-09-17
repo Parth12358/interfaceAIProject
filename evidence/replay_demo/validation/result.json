@@ -5,5 +5,7 @@
     "validation_error"
   ],
   "degraded": false,
-  "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/validation"
+  "evidence_dir": "evidence/replay_demo/validation",
+  "capability_id": "member_lookup",
+  "capability_version": "1.0.0"
 }

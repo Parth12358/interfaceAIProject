@@ -97,6 +97,22 @@ class ControlSession:
             self.holder = None
         return self.state
 
+    def wait_for_states(self, targets, timeout_s: float = 600.0, poll_s: float = 0.1) -> bool:
+        """Like wait_for_state but returns as soon as any target state is current.
+
+        Needed so a fast operator (take → hand back within one poll interval) is not
+        missed between HUMAN_CONTROL and RESUMING.
+        """
+        wanted = set(targets)
+        deadline = time.monotonic() + timeout_s
+        while time.monotonic() < deadline:
+            if self.state in wanted:
+                return True
+            if self.state == ControlState.FAILED:
+                return False
+            time.sleep(poll_s)
+        return self.state in wanted
+
     def wait_for_state(self, target: "ControlState", timeout_s: float = 600.0,
                        poll_s: float = 0.1) -> bool:
         """Block until `target` is reached (used by the engine to pause for a human).

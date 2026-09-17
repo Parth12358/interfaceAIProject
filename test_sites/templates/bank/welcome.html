@@ -1,0 +1,10 @@
+{% extends base %}
+{% block body %}
+<table cellpadding="12" cellspacing="0" border="0" bgcolor="#ffffff" width="100%"><tr><td>
+  <b>{{ tenant.product }}</b><br>
+  {{ labels.prompt }}. Select a service from the menu to begin.
+</td></tr></table>
+<p style="margin-top:14px;">
+  <a class="btn" href="{{ url_for(request.blueprint ~ '.search') }}">{{ labels.nav_name }}</a>
+</p>
+{% endblock %}

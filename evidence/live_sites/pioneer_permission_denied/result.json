@@ -1,0 +1,11 @@
+{
+  "status": "business_outcome",
+  "outcome_code": "ACCESS_DENIED",
+  "observed": [
+    "permission_denied"
+  ],
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\pioneer_permission_denied",
+  "capability_id": "pioneer_member_lookup",
+  "capability_version": "1.0.0"
+}

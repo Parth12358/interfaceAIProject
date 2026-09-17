@@ -28,7 +28,7 @@ SCHEMA_VERSION = "1.0"
 
 ActionKind = Literal["click", "type", "read", "key", "wait"]
 Relation = Literal["right_of", "left_of", "below", "above", "near"]
-StateClass = Literal["precondition", "progress", "business_outcome", "recoverable"]
+StateClass = Literal["precondition", "progress", "business_outcome", "recoverable", "failure"]
 
 
 # --- Targeting (anchor bundle) ----------------------------------------------
@@ -103,7 +103,8 @@ class Recovery(BaseModel):
 class ScreenState(BaseModel):
     all_of: list[TextMatcher] = Field(default_factory=list)
     state_class: StateClass = Field(..., alias="class")
-    outcome_code: str | None = None  # for business_outcome
+    outcome_code: str | None = None  # for business_outcome: MEMBER_NOT_FOUND, ...
+    error_code: str | None = None  # for failure: APP_ERROR, INTEGRITY_ERROR, ...
     recovery: Recovery | None = None  # for recoverable
 
     model_config = {"populate_by_name": True}

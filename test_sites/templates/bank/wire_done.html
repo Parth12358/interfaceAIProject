@@ -1,0 +1,15 @@
+{% extends base %}
+{% block body %}
+<table cellpadding="14" cellspacing="0" border="1" bgcolor="#ffffff" width="80%" align="center"
+       style="border-color:#8a97a6;"><tr><td align="center">
+  <b><font color="{{ theme.ok }}">Wire sent</font></b>
+  <hr>
+  The wire for <b>{{ amount }}</b> from member <b>{{ member_id }}</b> has been submitted.
+  <table cellpadding="6" cellspacing="0" border="0" style="margin:10px auto 0 auto;"
+         class="legacy"><tr>
+    <td>Confirmation reference</td><td><b>{{ reference }}</b></td>
+  </tr></table>
+  <br>
+  <a href="{{ url_for(request.blueprint ~ '.search') }}">Return to Search</a>
+</td></tr></table>
+{% endblock %}

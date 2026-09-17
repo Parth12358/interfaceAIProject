@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Marcus Adeyemi",
+    "account_status": "Active",
+    "savings_balance": "$51,003.77",
+    "checking_balance": "$6,540.12"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\firstcoastal_slow_recovery",
+  "capability_id": "firstcoastal_member_lookup",
+  "capability_version": "1.0.0"
+}

@@ -1,0 +1,15 @@
+{
+  "app_id": "vaultcore",
+  "allowed_actions": ["click", "type", "read", "key", "wait"],
+  "max_steps": 25,
+  "risky_patterns": [
+    "confirm\\s+transfer",
+    "\\bdelete\\b",
+    "post\\s+transaction",
+    "\\bsubmit\\s+payment\\b",
+    "\\bwire\\b",
+    "\\bapprove\\b",
+    "\\bclose\\s+account\\b"
+  ],
+  "unattended": true
+}

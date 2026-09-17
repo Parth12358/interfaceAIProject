@@ -1,0 +1,12 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Jordan Avery",
+    "savings_balance": "$18,204.77",
+    "account_number": "NOVA-11111-57"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\novabank_open_subaccount",
+  "capability_id": "novabank_open_subaccount",
+  "capability_version": "1.0.0"
+}

@@ -1,0 +1,11 @@
+{
+  "status": "business_outcome",
+  "outcome_code": "MEMBER_NOT_FOUND",
+  "observed": [
+    "no_member_found"
+  ],
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\cascade_not_found",
+  "capability_id": "cascade_member_lookup",
+  "capability_version": "1.0.0"
+}

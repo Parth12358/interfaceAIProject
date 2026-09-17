@@ -1,0 +1,22 @@
+{% extends base %}
+{% block body %}
+<table cellpadding="12" cellspacing="0" border="1" bgcolor="#fffdf0" width="80%" align="center"
+       style="border-color:#c9b96a;"><tr><td>
+  <b><font color="{{ theme.warn }}">Wire review</font></b>
+  <hr>
+  Confirm the wire details below. Sending a wire is irreversible.
+  <table cellpadding="6" cellspacing="0" border="0" style="margin-top:10px;">
+    <tr><td align="right">Member</td><td><b>{{ member_id }}</b></td></tr>
+    <tr><td align="right">Beneficiary</td><td><b>{{ values.beneficiary }}</b></td></tr>
+    <tr><td align="right">Amount</td><td><b>{{ values.amount }}</b></td></tr>
+  </table>
+  <br>
+  <form action="{{ url_for(request.blueprint ~ '.wire_confirm') }}" method="post" style="display:inline">
+    <input type="hidden" name="member_key" value="{{ member_id }}">
+    <input type="hidden" name="amount" value="{{ values.amount }}">
+    <input type="submit" class="btn" value="Confirm Wire">
+  </form>
+  &nbsp;&nbsp;
+  <a href="{{ url_for(request.blueprint ~ '.search') }}">Cancel</a>
+</td></tr></table>
+{% endblock %}

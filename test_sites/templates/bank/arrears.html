@@ -1,0 +1,13 @@
+{% extends base %}
+{% block body %}
+<table cellpadding="12" cellspacing="0" border="1" bgcolor="#fffdf0" width="100%"
+       style="border-color:#c9b96a;">
+  <tr><td>
+    <b><font color="{{ theme.warn }}">Account in arrears</font></b>
+    <hr>
+    Member <b>{{ member_id }}</b> ({{ member.name }}) has a past-due balance.
+    Servicing actions are limited until the account is brought current.
+  </td></tr>
+</table>
+<p><a href="{{ url_for(request.blueprint ~ '.search') }}">Back to Search</a></p>
+{% endblock %}

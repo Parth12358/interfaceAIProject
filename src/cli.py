@@ -17,6 +17,7 @@ import uuid
 from . import config as cfg
 from .artifact import store
 from .evidence.run_log import RunLog
+from .platformx.identity import platform_name
 from .platformx.tesseract import configure_pytesseract
 from .policy.allowlist import Policy
 from .replay.engine import ReplayEngine
@@ -77,12 +78,12 @@ def _start_operator(port: int) -> tuple[object, threading.Thread]:
     return SESSION, thread
 
 
-def _make_live_surface(conf):
+def _make_live_surface(conf, url: str | None = None):
     from .platformx import browser
     from .surface.cdp_surface import CdpSurface
 
-    proc = browser.launch_chromium(conf.target_app_url, conf.chrome_debug_port, conf.viewport,
-                                   headless=conf.chrome_headless)
+    proc = browser.launch_chromium(url or conf.target_app_url, conf.chrome_debug_port,
+                                   conf.viewport, headless=conf.chrome_headless)
     surface = CdpSurface(conf.chrome_debug_port, conf.viewport)
     return surface, (lambda: browser.kill_process_group(proc))
 
@@ -107,10 +108,13 @@ def cmd_replay(args):
         inputs = inputs or demo_inputs
         surface = ScriptedSurface(FIXTURES, initial, transitions)
     else:
-        surface, cleanup = _make_live_surface(conf)
+        surface, cleanup = _make_live_surface(conf, args.target)
 
     try:
-        policy = Policy.load(args.policy) if args.policy else Policy()
+        # Default the policy to the artifact's own app so a CLI replay of any
+        # capability works without hand-writing a policy; --policy overrides.
+        policy = (Policy.load(args.policy) if args.policy
+                  else Policy(app_id=artifact.capability.app.id))
         engine = ReplayEngine(surface, policy=policy, run_log=log, control=control,
                               strict_inputs=args.strict_inputs)
         result = engine.run(artifact, inputs, allow_draft=args.allow_draft,
@@ -138,6 +142,8 @@ def cmd_discover(args):
     from .artifact.schema import AppRef
 
     inputs = _parse_inputs(args.input)
+    target_url = args.target or conf.target_app_url
+    app_id = args.app_id or "coreserv-demo"
     run_dir = pathlib.Path(args.evidence) if args.evidence else _run_dir("disc")
     log = RunLog(run_dir, kind="discovery")
     provider = DeepSeekProvider(conf.llm.api_key, conf.llm.base_url, conf.llm.model)
@@ -147,23 +153,25 @@ def cmd_discover(args):
     if args.operator:
         control, _ = _start_operator(args.operator_port)
 
-    surface, cleanup = _make_live_surface(conf)
+    surface, cleanup = _make_live_surface(conf, target_url)
     try:
-        policy = Policy.load(args.policy) if args.policy else Policy()
+        policy = Policy.load(args.policy) if args.policy else Policy(app_id=app_id)
         traj = run_discovery(goal, surface, provider, run_log=log, policy=policy,
-                             max_steps=args.max_steps, inputs=inputs)
+                             max_steps=args.max_steps, inputs=inputs,
+                             timeout_s=args.timeout, control=control)
     finally:
         surface.close()
         cleanup()
 
-    app = AppRef(id="coreserv-demo", entry=conf.target_app_url, viewport=conf.viewport)
+    app = AppRef(id=app_id, entry=target_url, viewport=conf.viewport)
     artifact, notes = compile_artifact(traj, args.cap_id, app, model=conf.llm.model,
-                                       discovery_run=_relativize(str(run_dir)) or str(run_dir))
+                                       discovery_run=_relativize(str(run_dir)) or str(run_dir),
+                                       platform=platform_name())
     out_path = ROOT / "artifacts" / f"{args.cap_id}.json"
     store.save(artifact, out_path)
     # Also persist the artifact alongside its evidence (deliverable §6.3).
     store.save(artifact, run_dir / "artifact.json")
-    (run_dir / "compile_notes.txt").write_text("\n".join(notes))
+    (run_dir / "compile_notes.txt").write_text("\n".join(notes), encoding="utf-8")
     log.event("discovery_done", outcome=traj.outcome, steps=len(traj.steps),
               artifact=_relativize(str(out_path)))
     print(f"discovery outcome: {traj.outcome}; steps: {len(traj.steps)}")
@@ -199,7 +207,7 @@ def cmd_demo(args):
         print(f"  {name:11s} -> {result.status}"
               + (f" ({result.outcome_code})" if result.outcome_code else "")
               + (f" outputs={result.outputs}" if result.outputs else ""))
-    (base / "summary.json").write_text(json.dumps(summary, indent=2))
+    (base / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print(f"\nevidence: {base}")
     return 0
 
@@ -214,6 +222,7 @@ def main(argv=None):
     r.add_argument("--surface", choices=["cdp", "scripted"], default="cdp")
     r.add_argument("--scenario", choices=list(SCENARIOS), default="happy", help="scripted surface only")
     r.add_argument("--evidence")
+    r.add_argument("--target", help="override the target URL to launch (default: TARGET_APP_URL)")
     r.add_argument("--allow-draft", action="store_true")
     r.add_argument("--strict-inputs", action="store_true",
                    help="treat an input pattern mismatch as a hard failure (default: warn, let the app validate)")
@@ -225,13 +234,17 @@ def main(argv=None):
 
     d = sub.add_parser("discover", help="run the LLM discovery loop -> draft artifact")
     d.add_argument("--goal", required=True)
+    d.add_argument("--target", help="target URL/entry point to launch (default: TARGET_APP_URL)")
+    d.add_argument("--app-id", help="app id recorded in the artifact+used by the policy (default: coreserv-demo)")
     d.add_argument("--input", action="append", help="key=value (repeatable)")
     d.add_argument("--cap-id", default="member_lookup_discovered")
     d.add_argument("--max-steps", type=int, default=12)
+    d.add_argument("--timeout", type=float, default=300.0,
+                   help="wall-clock budget in seconds for the whole discovery run")
     d.add_argument("--policy", help="path to a per-app policy JSON (allowlist/risk/max_steps)")
     d.add_argument("--evidence", help="evidence dir (use e.g. evidence/discovery_demo to commit it)")
     d.add_argument("--operator", action="store_true",
-                   help="run the operator console in-process for escalation/handoff")
+                   help="run the operator console in-process; a stuck discovery pauses for the human")
     d.add_argument("--operator-port", type=int, default=8700)
     d.set_defaults(func=cmd_discover)
 

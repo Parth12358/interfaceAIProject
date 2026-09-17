@@ -1,0 +1,12 @@
+{
+  "status": "failed",
+  "failed_step": "submit",
+  "observed": [
+    "compliance_hold"
+  ],
+  "degraded": false,
+  "reason": "COMPLIANCE_HOLD",
+  "evidence_dir": "evidence\\live_sites\\pioneer_compliance_hold",
+  "capability_id": "pioneer_member_lookup",
+  "capability_version": "1.0.0"
+}

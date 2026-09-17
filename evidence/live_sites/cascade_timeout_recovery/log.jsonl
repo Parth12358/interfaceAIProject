@@ -1,0 +1,104 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 275, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1559, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3180, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 57, "y": 105}
+{"seq": 5, "t_ms": 12508, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 12508, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 12509, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 14128, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 713, "y": 177}
+{"seq": 9, "t_ms": 14134, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 15428, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 15428, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 15429, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 16930, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 739, "y": 238}
+{"seq": 14, "t_ms": 26374, "type": "recovery_start", "recovery": "click", "max_attempts": 1}
+{"seq": 15, "t_ms": 37251, "type": "recovery_ok", "attempt": 1}
+{"seq": 16, "t_ms": 38704, "type": "screenshot", "file": "15_submit_after.png", "label": "submit_after"}
+{"seq": 17, "t_ms": 38705, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 18, "t_ms": 38705, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 19, "t_ms": 43325, "type": "extract", "step": "read_name", "output": "member_name", "value": "Nadia Fontaine"}
+{"seq": 20, "t_ms": 43326, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 21, "t_ms": 47976, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 22, "t_ms": 47977, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 23, "t_ms": 52639, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$30,115.55"}
+{"seq": 24, "t_ms": 52640, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 25, "t_ms": 57308, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$4,400.90"}
+{"seq": 26, "t_ms": 57309, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 272, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1532, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3159, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 57, "y": 105}
+{"seq": 5, "t_ms": 12498, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 12498, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 12499, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 14172, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 713, "y": 177}
+{"seq": 9, "t_ms": 14177, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 15545, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 15545, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 15546, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 17272, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 739, "y": 238}
+{"seq": 14, "t_ms": 26702, "type": "recovery_start", "recovery": "click", "max_attempts": 1}
+{"seq": 15, "t_ms": 37560, "type": "recovery_ok", "attempt": 1}
+{"seq": 16, "t_ms": 38995, "type": "screenshot", "file": "15_submit_after.png", "label": "submit_after"}
+{"seq": 17, "t_ms": 38996, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 18, "t_ms": 38996, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 19, "t_ms": 43637, "type": "extract", "step": "read_name", "output": "member_name", "value": "Nadia Fontaine"}
+{"seq": 20, "t_ms": 43637, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 21, "t_ms": 48268, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 22, "t_ms": 48268, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 23, "t_ms": 52925, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$30,115.55"}
+{"seq": 24, "t_ms": 52926, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 25, "t_ms": 57595, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$4,400.90"}
+{"seq": 26, "t_ms": 57596, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 275, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1537, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3142, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 57, "y": 105}
+{"seq": 5, "t_ms": 6155, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 6155, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 6155, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 7638, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 713, "y": 177}
+{"seq": 9, "t_ms": 7643, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 8904, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 8904, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 8904, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 10386, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 739, "y": 238}
+{"seq": 14, "t_ms": 19855, "type": "recovery_start", "recovery": "click", "max_attempts": 1}
+{"seq": 15, "t_ms": 30777, "type": "recovery_ok", "attempt": 1}
+{"seq": 16, "t_ms": 32216, "type": "screenshot", "file": "15_submit_after.png", "label": "submit_after"}
+{"seq": 17, "t_ms": 32217, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 18, "t_ms": 32217, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 19, "t_ms": 36870, "type": "extract", "step": "read_name", "output": "member_name", "value": "Nadia Fontaine"}
+{"seq": 20, "t_ms": 36870, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 21, "t_ms": 41556, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 22, "t_ms": 41556, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 23, "t_ms": 46208, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$30,115.55"}
+{"seq": 24, "t_ms": 46208, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 25, "t_ms": 50842, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$4,400.90"}
+{"seq": 26, "t_ms": 50843, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 276, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1545, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3193, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 57, "y": 105}
+{"seq": 5, "t_ms": 12595, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 12595, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 12595, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 14213, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 713, "y": 177}
+{"seq": 9, "t_ms": 14219, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 15592, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 15592, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 15592, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 17370, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 739, "y": 238}
+{"seq": 14, "t_ms": 26835, "type": "recovery_start", "recovery": "click", "max_attempts": 1}
+{"seq": 15, "t_ms": 37786, "type": "recovery_ok", "attempt": 1}
+{"seq": 16, "t_ms": 39250, "type": "screenshot", "file": "15_submit_after.png", "label": "submit_after"}
+{"seq": 17, "t_ms": 39250, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 18, "t_ms": 39250, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 19, "t_ms": 43993, "type": "extract", "step": "read_name", "output": "member_name", "value": "Nadia Fontaine"}
+{"seq": 20, "t_ms": 43994, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 21, "t_ms": 48640, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 22, "t_ms": 48641, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 23, "t_ms": 53585, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$30,115.55"}
+{"seq": 24, "t_ms": 53586, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 25, "t_ms": 58353, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$4,400.90"}
+{"seq": 26, "t_ms": 58354, "type": "run_end", "status": "success"}

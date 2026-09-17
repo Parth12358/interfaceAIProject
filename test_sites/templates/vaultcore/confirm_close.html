@@ -1,0 +1,20 @@
+{% extends "vaultcore/base.html" %}
+{% block body %}
+<table width="80%" align="center" class="legacy" cellpadding="14" cellspacing="0" border="0" bgcolor="#fffdf0"><tr><td>
+  <font size="3" color="{{ theme.warn }}"><b>Confirm account closure</b></font>
+  <hr>
+  <font size="2" color="#333333">
+    You are about to close member <b>{{ member_id }}</b>. This action is irreversible
+    and will settle all balances. Confirm to proceed.
+  </font>
+  <br><br>
+  <form action="{{ url_for(request.blueprint ~ '.close_final') }}" method="post" style="display:inline">
+    <input type="hidden" name="member_number" value="{{ member_id }}">
+    <input type="submit" class="btn" value="Confirm Close">
+  </form>
+  &nbsp;&nbsp;
+  <form action="{{ url_for(request.blueprint ~ '.search') }}" method="get" style="display:inline">
+    <input type="submit" class="btn" value="Cancel">
+  </form>
+</td></tr></table>
+{% endblock %}

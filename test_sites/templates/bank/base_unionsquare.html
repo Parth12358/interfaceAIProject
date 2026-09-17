@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ tenant.product }} — {{ tenant.institution }}</title>
+  <style>
+    body { margin:0; font-family:"Segoe UI",Tahoma,sans-serif; font-size:13px; background:#eceff3; }
+    a { color:{{ theme.link }}; text-decoration:none; } table { border-collapse:collapse; }
+    .top { background:{{ theme.masthead }}; color:#fff; padding:11px 18px; border-bottom:3px solid #b79247; }
+    .top b { font-size:18px; letter-spacing:.4px; }
+    .top .right { float:right; color:#c9d3df; font-size:11px; padding-top:5px; }
+    .ribbon { background:#2b3541; padding:0 14px; }
+    .ribbon a { display:inline-block; color:#cdd7e3; padding:7px 15px; font-size:12px;
+                border-right:1px solid #3d4854; }
+    .ribbon a.active { color:#f4d58d; font-weight:bold; }
+    .layout { display:flex; min-height:calc(100vh - 96px); }
+    .rail { width:190px; background:#f4f1ea; border-right:1px solid #d3ccbe; padding:14px 0; }
+    .rail .cap { color:#8a7a56; font-size:10px; font-weight:bold; letter-spacing:1px; padding:0 14px 8px; }
+    .rail a { display:block; color:#3a4652; padding:7px 14px; border-left:3px solid transparent; }
+    .rail a:hover { background:#e8e3d7; border-left-color:#b79247; }
+    .body { flex:1; padding:16px 20px; }
+    .hdr { font-family:Georgia,serif; font-size:17px; color:#2b3541; border-bottom:3px solid #b79247;
+           padding-bottom:6px; margin-bottom:14px; }
+    .panel { border:1px solid #c7cdd4; background:#fff; }
+    .panel .cap { background:#e3e8ee; border-bottom:1px solid #c7cdd4; padding:6px 10px;
+                  font-weight:bold; color:#2b3541; }
+    .panel .pad { padding:12px; }
+    .grid { width:100%; border:1px solid #c7cdd4; background:#fff; }
+    .grid th { background:#2b3541; color:#fff; text-align:left; padding:6px 10px; font-size:11px;
+               letter-spacing:.5px; }
+    .grid td { padding:6px 10px; border-bottom:1px solid #e6e9ed; font-family:"Consolas",monospace; }
+    .grid tr:nth-child(even) td { background:#f7f9fb; }
+    .btn { font-family:inherit; font-size:13px; padding:5px 16px; color:#2b3541; background:#e6e9ed;
+           border:1px solid #9aa4af; }
+    .legacy td + td { padding-left:12px; }
+    input[type=text] { border:1px solid #a9b2bb; padding:4px 6px; font-family:inherit; font-size:13px; }
+    .foot { color:#7a8794; font-size:10px; padding:10px 20px; }
+  </style>
+</head>
+<body>
+<div class="top">
+  <span class="right">{{ tenant.tagline }} &middot; Operations</span>
+  <b>{{ tenant.product }}</b> &nbsp; {{ tenant.institution }}
+</div>
+<div class="ribbon">
+  {% for label, route in tenant.nav %}{% if route is not none %}
+    <a class="{% if loop.first %}active{% endif %}" href="{{ url_for(request.blueprint ~ '.' ~ route) }}">{{ label }}</a>
+  {% endif %}{% endfor %}
+</div>
+<div class="layout">
+  <div class="rail">
+    <div class="cap">SERVICING</div>
+    {% for label, route in tenant.nav %}{% if route is not none %}
+      <a href="{{ url_for(request.blueprint ~ '.' ~ route) }}">{{ label }}</a>
+    {% endif %}{% endfor %}
+  </div>
+  <div class="body">
+    <div class="hdr">{{ title_bar }}</div>
+    {% block body %}{% endblock %}
+  </div>
+</div>
+<div class="foot">{{ tenant.product }} &copy; {{ tenant.institution }} — restricted internal system</div>
+</body>
+</html>

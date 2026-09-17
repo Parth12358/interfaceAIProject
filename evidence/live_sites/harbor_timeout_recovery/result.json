@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "HOWARD FINCH",
+    "account_status": "ACTIVE",
+    "savings_balance": "$15,220.48",
+    "checking_balance": "$2,010.00"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\harbor_timeout_recovery",
+  "capability_id": "harbor_member_lookup",
+  "capability_version": "1.0.0"
+}

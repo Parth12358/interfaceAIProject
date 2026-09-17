@@ -1,0 +1,15 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <h1>Member relationship</h1>
+  <div class="row"><span>Member ID</span><span><b>{{ member_id }}</b></span></div>
+  <div class="row"><span>Member Name</span><span><b>{{ member.name }}</b></span></div>
+  <div class="row"><span>Account Status</span><span><b>{{ member.status }}</b></span></div>
+  <div class="row"><span>Savings Balance</span><span><b>{{ member.savings }}</b></span></div>
+  <div class="row"><span>Checking Balance</span><span><b>{{ member.checking }}</b></span></div>
+  <form action="{{ url_for(request.blueprint ~ '.subaccount') }}" method="post" style="margin-top:18px;">
+    <input type="hidden" name="member_number" value="{{ member_id }}">
+    <button class="btn" type="submit">Open Sub-Account</button>
+  </form>
+</div>
+{% endblock %}

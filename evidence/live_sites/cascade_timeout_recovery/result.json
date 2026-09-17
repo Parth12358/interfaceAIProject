@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Nadia Fontaine",
+    "account_status": "Active",
+    "savings_balance": "$30,115.55",
+    "checking_balance": "$4,400.90"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\cascade_timeout_recovery",
+  "capability_id": "cascade_member_lookup",
+  "capability_version": "1.0.0"
+}

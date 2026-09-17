@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Samir Haddad",
+    "account_status": "Active",
+    "savings_balance": "$31,580.45",
+    "checking_balance": "$4,020.10"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\meridian_slow_recovery",
+  "capability_id": "vaultcore_member_lookup",
+  "capability_version": "1.0.0"
+}

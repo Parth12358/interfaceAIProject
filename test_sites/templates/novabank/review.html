@@ -1,0 +1,21 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <h1>Account review</h1>
+  <p class="muted">Confirm the details below before opening the sub-account.</p>
+  <div class="row"><span>Member ID</span><span><b>{{ member_id }}</b></span></div>
+  <div class="row"><span>Account type</span><span><b>{{ values.product }}</b></span></div>
+  <div class="row"><span>Nickname</span><span><b>{{ values.nickname }}</b></span></div>
+  <div class="row"><span>Initial Deposit</span><span><b>{{ values.deposit }}</b></span></div>
+  <form action="{{ url_for(request.blueprint ~ '.confirm') }}" method="post" style="margin-top:20px;">
+    <input type="hidden" name="member_number" value="{{ member_id }}">
+    <input type="hidden" name="product" value="{{ values.product }}">
+    <input type="hidden" name="nickname" value="{{ values.nickname }}">
+    <input type="hidden" name="deposit" value="{{ values.deposit }}">
+    <button class="btn" type="submit">Confirm Opening</button>
+  </form>
+  <p style="margin-top:12px;">
+    <a href="{{ url_for(request.blueprint ~ '.search') }}">Cancel and return to search</a>
+  </p>
+</div>
+{% endblock %}

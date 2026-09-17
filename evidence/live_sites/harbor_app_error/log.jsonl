@@ -1,0 +1,51 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 281, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1955, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3946, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 7684, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 7685, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 7685, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 9499, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 9506, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 11108, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 11108, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 11108, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 12988, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 23044, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 23044, "type": "verify_ok", "step": "submit", "state": "app_error", "state_class": "failure"}
+{"seq": 16, "t_ms": 23044, "type": "hard_failure", "step": "submit", "state": "app_error", "error_code": "APP_ERROR_500"}
+{"seq": 17, "t_ms": 23046, "type": "run_end", "status": "failed"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 274, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1935, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3954, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 7674, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 7674, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 7675, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 9500, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 9506, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 11137, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 11137, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 11137, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 13061, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 23146, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 23146, "type": "verify_ok", "step": "submit", "state": "app_error", "state_class": "failure"}
+{"seq": 16, "t_ms": 23147, "type": "hard_failure", "step": "submit", "state": "app_error", "error_code": "APP_ERROR_500"}
+{"seq": 17, "t_ms": 23147, "type": "run_end", "status": "failed"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 285, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1947, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3955, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 13707, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13707, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13707, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15652, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 15658, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 17285, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 17286, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 17286, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 19128, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 29186, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 29186, "type": "verify_ok", "step": "submit", "state": "app_error", "state_class": "failure"}
+{"seq": 16, "t_ms": 29187, "type": "hard_failure", "step": "submit", "state": "app_error", "error_code": "APP_ERROR_500"}
+{"seq": 17, "t_ms": 29187, "type": "run_end", "status": "failed"}

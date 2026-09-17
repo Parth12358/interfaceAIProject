@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ tenant.product }} — {{ title_bar or tenant.institution }}</title>
+  <style>
+    body { margin:0; font-family: Verdana, Geneva, sans-serif; background:#eef1f5; }
+    a { text-decoration:none; }
+    table { border-collapse:collapse; }
+    .btn { font-size:15px; font-family:Verdana,sans-serif; padding:5px 18px;
+           color:#000; background:#e6e6e6; border:1px solid #808080; }
+    .legacy { border:1px solid #8a97a6; background:#ffffff; }
+    /* Small gutter between a row label and its value: enough that vision-first
+       discovery yields separate label / value marks (read anchors stay label-only),
+       but small enough that "label + offset" still lands inside a value field. */
+    .legacy td + td { padding-left: 12px; }
+  </style>
+</head>
+<body>
+{% if not is_frame %}
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr><td bgcolor="{{ theme.masthead }}" height="42">&nbsp;
+    <font size="4" color="#ffffff"><b>&nbsp;{{ tenant.product }}</b></font>
+    &nbsp;&nbsp;<font size="2" color="#c9d6ea">{{ tenant.institution }} &middot; {{ tenant.tagline }}</font>
+  </td></tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top">
+    <td width="200" bgcolor="{{ theme.nav_bg }}">
+      {% include "vaultcore/_nav_inline.html" %}
+    </td>
+    <td>
+{% endif %}
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr><td bgcolor="{{ theme.accent }}" height="30">&nbsp;
+          <font size="3" color="#ffffff"><b>&nbsp;{{ title_bar or tenant.product }}</b></font>
+        </td></tr>
+      </table>
+      <table width="100%" cellpadding="10" cellspacing="0" border="0"><tr><td>
+        {% block body %}{% endblock %}
+      </td></tr></table>
+{% if not is_frame %}
+    </td>
+  </tr>
+</table>
+{% endif %}
+</body>
+</html>

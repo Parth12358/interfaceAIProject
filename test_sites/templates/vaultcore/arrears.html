@@ -1,0 +1,12 @@
+{% extends "vaultcore/base.html" %}
+{% block body %}
+<table width="100%" class="legacy" cellpadding="12" cellspacing="0" border="0" bgcolor="#fffdf0"><tr><td>
+  <font size="3" color="{{ theme.warn }}"><b>Account in arrears</b></font>
+  <hr>
+  <font size="2" color="#333333">
+    Member <b>{{ member_id }}</b> ({{ member.name }}) has a past-due balance.
+    Servicing actions are limited until the account is brought current.
+  </font>
+</td></tr></table>
+<br><a href="{{ url_for(request.blueprint ~ '.search') }}"><font size="2">Back to Search</font></a>
+{% endblock %}

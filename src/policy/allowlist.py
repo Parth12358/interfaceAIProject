@@ -48,7 +48,7 @@ class Policy:
 
     @staticmethod
     def load(path: str | pathlib.Path) -> "Policy":
-        data = json.loads(pathlib.Path(path).read_text())
+        data = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
         return Policy(
             app_id=data.get("app_id", "coreserv-demo"),
             allowed_actions=set(data.get("allowed_actions", ["click", "type", "read", "key", "wait"])),

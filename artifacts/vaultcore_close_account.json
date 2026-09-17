@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "capability": {
+    "id": "vaultcore_close_account",
+    "version": "1.0.0",
+    "status": "approved",
+    "description": "Look up a member, start account closure, clear the confirmation interstitial and close the account.",
+    "app": {
+      "id": "vaultcore",
+      "entry": "http://127.0.0.1:5055/meridian/",
+      "launch": "browser-app-mode",
+      "viewport": [1280, 800]
+    },
+    "inputs": {
+      "member_id": { "type": "string", "pattern": "^[0-9]{5}$", "description": "5-digit member number" }
+    },
+    "outputs": {
+      "closure_reference": { "type": "string", "extract": "step:read_reference", "description": "Closure confirmation reference" }
+    }
+  },
+  "steps": [
+    {
+      "id": "open_search",
+      "action": { "kind": "click" },
+      "target": { "text_anchor": { "text": "Member Lookup", "role_hint": "link", "fuzzy_min": 0.85 } },
+      "expect": { "any_of": ["search_form"], "timeout_ms": 8000 }
+    },
+    {
+      "id": "enter_id",
+      "action": { "kind": "type", "value": "{member_id}" },
+      "target": { "text_anchor": { "text": "Member Number", "relation": "right_of", "max_px": 300, "fuzzy_min": 0.85 } },
+      "expect": { "any_of": ["search_form"], "timeout_ms": 5000 }
+    },
+    {
+      "id": "submit",
+      "action": { "kind": "click" },
+      "target": { "text_anchor": { "text": "Find", "role_hint": "button", "fuzzy_min": 0.85 } },
+      "expect": { "any_of": ["member_detail", "no_member_found", "validation_error", "permission_denied", "arrears"], "timeout_ms": 10000 }
+    },
+    {
+      "id": "start_closure",
+      "action": { "kind": "click" },
+      "target": { "text_anchor": { "text": "Close Account", "role_hint": "button", "fuzzy_min": 0.85 } },
+      "expect": { "any_of": ["confirm_closure"], "timeout_ms": 8000 }
+    },
+    {
+      "id": "confirm_closure",
+      "action": { "kind": "click" },
+      "target": { "text_anchor": { "text": "Confirm Close", "role_hint": "button", "fuzzy_min": 0.85 } },
+      "expect": { "any_of": ["account_closed"], "timeout_ms": 8000 }
+    },
+    {
+      "id": "read_reference",
+      "action": { "kind": "read" },
+      "target": { "text_anchor": { "text": "Confirmation reference", "relation": "right_of", "max_px": 500, "fuzzy_min": 0.80 } },
+      "expect": { "any_of": ["account_closed"], "timeout_ms": 4000 },
+      "extract_as": "closure_reference"
+    }
+  ],
+  "screen_states": {
+    "app_ready": { "all_of": [{ "text": "VaultCore" }], "class": "precondition" },
+    "search_form": { "all_of": [{ "text": "Look up a member" }], "class": "progress" },
+    "member_detail": { "all_of": [{ "text": "Account Holder" }], "class": "progress" },
+    "confirm_closure": { "all_of": [{ "text": "Confirm account closure" }], "class": "progress" },
+    "account_closed": { "all_of": [{ "text": "Account closed" }], "class": "progress" },
+    "no_member_found": { "all_of": [{ "text": "No member found" }], "class": "business_outcome", "outcome_code": "MEMBER_NOT_FOUND" },
+    "validation_error": { "all_of": [{ "text": "Invalid member number" }], "class": "business_outcome", "outcome_code": "INVALID_INPUT" },
+    "permission_denied": { "all_of": [{ "text": "Access denied" }], "class": "business_outcome", "outcome_code": "ACCESS_DENIED" },
+    "arrears": { "all_of": [{ "text": "Account in arrears" }], "class": "business_outcome", "outcome_code": "ACCOUNT_IN_ARREARS" },
+    "app_error": { "all_of": [{ "text": "System error" }], "class": "failure", "error_code": "APP_ERROR_500" },
+    "compliance_hold": { "all_of": [{ "text": "Compliance hold" }], "class": "failure", "error_code": "COMPLIANCE_HOLD" },
+    "session_timeout": {
+      "all_of": [{ "text": "Session expired" }], "class": "recoverable",
+      "recovery": { "kind": "click", "target": { "text_anchor": { "text": "Continue" } }, "max_attempts": 1, "then": "retry_step" }
+    }
+  },
+  "provenance": {
+    "discovered_at": "hand-authored",
+    "model": "none",
+    "platform": "cross-platform",
+    "surface": "cdp",
+    "discovery_run": "n/a — proves the risky-action gate (blocked unattended) and the confirmation interstitial"
+  }
+}

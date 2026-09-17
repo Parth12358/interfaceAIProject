@@ -1,0 +1,11 @@
+{
+  "status": "business_outcome",
+  "outcome_code": "MEMBER_NOT_FOUND",
+  "observed": [
+    "no_member_found"
+  ],
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\novabank_not_found",
+  "capability_id": "novabank_open_subaccount",
+  "capability_version": "1.0.0"
+}

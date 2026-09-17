@@ -1,0 +1,21 @@
+{% extends "vaultcore/base.html" %}
+{% block body %}
+<form action="{{ url_for(request.blueprint ~ '.search') }}" method="post">
+<table width="100%" class="legacy" cellpadding="10" cellspacing="0" border="0">
+  <tr bgcolor="{{ theme.nav_bg }}"><td colspan="2">
+    <font size="2" color="{{ theme.accent }}"><b>Look up a member</b></font>
+  </td></tr>
+  <tr>
+    <td align="right" width="40%"><font size="2" color="#333333">Member Number</font></td>
+    <td><input type="text" name="member_number" size="20" maxlength="5"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" class="btn" value="Find"></td>
+  </tr>
+  <tr bgcolor="#f6f8fa"><td colspan="2">
+    <font size="1" color="#777777">Member numbers are 5 digits. Try 11111 or 22222.</font>
+  </td></tr>
+</table>
+</form>
+{% endblock %}

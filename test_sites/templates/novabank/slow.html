@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ tenant.institution }} — Please Wait</title>
+  <meta http-equiv="refresh" content="3; url={{ url_for(request.blueprint ~ '.slow_resolve', member_id=member_id) }}">
+  <style>
+    body { margin:0; font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+           background:#f7f8fa; color:#111827; }
+    .top { background:{{ theme.masthead }}; color:#fff; padding:14px 24px; }
+    .brand { font-size:20px; font-weight:700; }
+    .card { max-width:640px; margin:40px auto; background:#fff; border:1px solid #e5e7eb;
+            border-radius:10px; padding:24px; }
+  </style>
+</head>
+<body>
+<div class="top"><span class="brand">{{ tenant.institution }}</span></div>
+<div class="card">
+  <h1>Processing request</h1>
+  <p>Please wait while the records service responds. This may take a few moments.</p>
+  <p class="muted">Do not close this window.</p>
+</div>
+</body>
+</html>

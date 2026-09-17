@@ -419,7 +419,8 @@
             "precondition",
             "progress",
             "business_outcome",
-            "recoverable"
+            "recoverable",
+            "failure"
           ],
           "title": "Class",
           "type": "string"
@@ -435,6 +436,18 @@
           ],
           "default": null,
           "title": "Outcome Code"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Code"
         },
         "recovery": {
           "anyOf": [

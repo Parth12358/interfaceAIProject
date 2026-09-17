@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Tessa Whitcomb",
+    "account_status": "Active",
+    "savings_balance": "$22,410.08",
+    "checking_balance": "$3,118.55"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\firstcoastal_timeout_recovery",
+  "capability_id": "firstcoastal_member_lookup",
+  "capability_version": "1.0.0"
+}

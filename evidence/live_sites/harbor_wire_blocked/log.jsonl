@@ -1,0 +1,60 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 293, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1960, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3989, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 7796, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 7796, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 7796, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 9603, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 9610, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 11264, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 11265, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 11265, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 13188, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 23294, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 23294, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 23295, "type": "step_start", "step": "start_wire", "action": "click"}
+{"seq": 17, "t_ms": 25533, "type": "resolve", "step": "start_wire", "rung": "text_anchor", "score": 1.0, "x": 65, "y": 381}
+{"seq": 18, "t_ms": 27504, "type": "screenshot", "file": "17_start_wire_escalate.png", "label": "start_wire_escalate"}
+{"seq": 19, "t_ms": 27511, "type": "escalate", "step": "start_wire", "reason": "policy_denied:risky_action: 'Send Wire' requires human confirmation", "observed": ["app_ready", "search_form", "member_detail"]}
+{"seq": 20, "t_ms": 27512, "type": "run_end", "status": "escalated"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 280, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1975, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3994, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 7814, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 7814, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 7814, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 9689, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 9694, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 11327, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 11327, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 11328, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 13265, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 23325, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 23325, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 23326, "type": "step_start", "step": "start_wire", "action": "click"}
+{"seq": 17, "t_ms": 25568, "type": "resolve", "step": "start_wire", "rung": "text_anchor", "score": 1.0, "x": 65, "y": 381}
+{"seq": 18, "t_ms": 27568, "type": "screenshot", "file": "17_start_wire_escalate.png", "label": "start_wire_escalate"}
+{"seq": 19, "t_ms": 27576, "type": "escalate", "step": "start_wire", "reason": "policy_denied:risky_action: 'Send Wire' requires human confirmation", "observed": ["app_ready", "search_form", "member_detail"]}
+{"seq": 20, "t_ms": 27577, "type": "run_end", "status": "escalated"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 275, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1970, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3979, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 13706, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13707, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13707, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15609, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 15615, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 17250, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 17251, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 17251, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 19115, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 29249, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 29249, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 29249, "type": "step_start", "step": "start_wire", "action": "click"}
+{"seq": 17, "t_ms": 31529, "type": "resolve", "step": "start_wire", "rung": "text_anchor", "score": 1.0, "x": 65, "y": 381}
+{"seq": 18, "t_ms": 33523, "type": "screenshot", "file": "17_start_wire_escalate.png", "label": "start_wire_escalate"}
+{"seq": 19, "t_ms": 33529, "type": "escalate", "step": "start_wire", "reason": "policy_denied:risky_action: 'Send Wire' requires human confirmation", "observed": ["app_ready", "member_detail"]}
+{"seq": 20, "t_ms": 33530, "type": "run_end", "status": "escalated"}

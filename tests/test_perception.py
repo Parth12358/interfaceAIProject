@@ -74,3 +74,21 @@ def test_business_outcome_wins_over_precondition():
     name, state = cls.primary()
     assert name == "no_member_found"
     assert state.state_class == "business_outcome"
+
+
+def test_context_anchor_prefers_candidate_near_context():
+    from src.artifact.schema import ContextAnchor, Target, TextAnchor
+    from src.perception.ocr import Word
+
+    words = [
+        Word(text="Target", left=100, top=10, width=60, height=12, conf=90),
+        Word(text="Anchor", left=100, top=80, width=60, height=12, conf=90),
+        Word(text="Target", left=100, top=110, width=60, height=12, conf=90),
+    ]
+    target = Target(
+        text_anchor=TextAnchor(text="Target", relation="near"),
+        context_anchor=ContextAnchor(text="Anchor", relation="below", max_px=50),
+    )
+    res = resolve_target(words, b"", target)
+    assert res is not None and res.rung == "text_anchor"
+    assert abs(res.y - 116) <= 20  # the Target below the Anchor, not the one at the top

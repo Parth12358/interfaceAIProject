@@ -1,0 +1,31 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "discovery"}
+{"seq": 2, "t_ms": 1856, "type": "screenshot", "file": "01_disc_00.png", "label": "disc_00"}
+{"seq": 3, "t_ms": 1857, "type": "decide_start", "step": 0, "marks": 11}
+{"seq": 4, "t_ms": 3147, "type": "agent_action", "step": 0, "kind": "click", "mark": 6, "text": null}
+{"seq": 5, "t_ms": 13471, "type": "screenshot", "file": "04_disc_01.png", "label": "disc_01"}
+{"seq": 6, "t_ms": 13472, "type": "decide_start", "step": 1, "marks": 9}
+{"seq": 7, "t_ms": 14993, "type": "agent_action", "step": 1, "kind": "type", "mark": 9, "text": "<param>"}
+{"seq": 8, "t_ms": 17615, "type": "screenshot", "file": "07_disc_02.png", "label": "disc_02"}
+{"seq": 9, "t_ms": 17615, "type": "decide_start", "step": 2, "marks": 8}
+{"seq": 10, "t_ms": 19021, "type": "agent_action", "step": 2, "kind": "click", "mark": 7, "text": null}
+{"seq": 11, "t_ms": 29665, "type": "screenshot", "file": "10_disc_03.png", "label": "disc_03"}
+{"seq": 12, "t_ms": 29665, "type": "decide_start", "step": 3, "marks": 15}
+{"seq": 13, "t_ms": 31166, "type": "agent_action", "step": 3, "kind": "read", "mark": 7, "text": null}
+{"seq": 14, "t_ms": 34097, "type": "screenshot", "file": "13_disc_04.png", "label": "disc_04"}
+{"seq": 15, "t_ms": 34097, "type": "decide_start", "step": 4, "marks": 15}
+{"seq": 16, "t_ms": 36360, "type": "agent_action", "step": 4, "kind": "read", "mark": 7, "text": null}
+{"seq": 17, "t_ms": 39264, "type": "screenshot", "file": "16_disc_05.png", "label": "disc_05"}
+{"seq": 18, "t_ms": 39264, "type": "decide_start", "step": 5, "marks": 15}
+{"seq": 19, "t_ms": 40778, "type": "agent_action", "step": 5, "kind": "read", "mark": 7, "text": null}
+{"seq": 20, "t_ms": 43667, "type": "screenshot", "file": "19_disc_06.png", "label": "disc_06"}
+{"seq": 21, "t_ms": 43668, "type": "decide_start", "step": 6, "marks": 15}
+{"seq": 22, "t_ms": 46298, "type": "agent_action", "step": 6, "kind": "read", "mark": 9, "text": null}
+{"seq": 23, "t_ms": 49192, "type": "screenshot", "file": "22_disc_07.png", "label": "disc_07"}
+{"seq": 24, "t_ms": 49192, "type": "decide_start", "step": 7, "marks": 15}
+{"seq": 25, "t_ms": 51122, "type": "agent_action", "step": 7, "kind": "read", "mark": 7, "text": null}
+{"seq": 26, "t_ms": 54007, "type": "screenshot", "file": "25_disc_08.png", "label": "disc_08"}
+{"seq": 27, "t_ms": 54007, "type": "decide_start", "step": 8, "marks": 15}
+{"seq": 28, "t_ms": 56006, "type": "agent_action", "step": 8, "kind": "read", "mark": 7, "text": null}
+{"seq": 29, "t_ms": 58892, "type": "screenshot", "file": "28_disc_09.png", "label": "disc_09"}
+{"seq": 30, "t_ms": 58892, "type": "decide_start", "step": 9, "marks": 15}
+{"seq": 31, "t_ms": 61752, "type": "agent_action", "step": 9, "kind": "read", "mark": 7, "text": null}

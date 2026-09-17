@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Ingrid Solberg",
+    "account_status": "Active",
+    "savings_balance": "$73,204.55",
+    "checking_balance": "$12,010.00"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\pioneer_slow_recovery",
+  "capability_id": "pioneer_member_lookup",
+  "capability_version": "1.0.0"
+}

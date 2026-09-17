@@ -21,6 +21,8 @@ pre-build design doc — do not treat it as spec. Assignment requirements are in
 | Path | What |
 |---|---|
 | `target_app/` | Flask "CoreServ" legacy demo bank app (the surface to drive) |
+| `test_sites/` | Multi-tenant banking test bed: VaultCore frameset/single-page, NovaBank modern, plus five banks (`firstcoastal`, `pioneer`, `harbor` terminal, `cascade`, `unionsquare`) with every runtime condition |
+| `scripts/live_site_matrix.py` | Live replay pass over the test sites (real Chrome; no LLM) |
 | `src/surface/` | Surface protocol + `CdpSurface` (primary), `OsSurface` (secondary), `ScriptedSurface` (offline) |
 | `src/perception/` | Deterministic OCR word boxes, anchor resolution, screen-state matching |
 | `src/artifact/` | Pydantic v2 schema, load/save, exported JSON Schema |
@@ -103,7 +105,23 @@ python -m src.cli demo --evidence evidence/replay_demo   # offline end-to-end re
 python -m src.cli replay artifacts/member_lookup.json --input member_id=12345
 python -m src.cli replay artifacts/member_lookup.json --surface scripted --scenario timeout
 python -m src.cli operator              # handoff console at http://127.0.0.1:8700
+
+# Multi-site test bed + live pass (real Chrome; no API key — replay only)
+python -m test_sites.serve              # sites at http://127.0.0.1:5055/{meridian,summit,novabank,firstcoastal,pioneer,harbor,cascade,unionsquare}
+python scripts/build_bank_artifacts.py  # (re)generate the five banks' artifacts from tenant config
+python scripts/live_site_matrix.py      # 75 live replay cases; asserts the full result taxonomy
+python scripts/live_site_matrix.py --filter novabank --no-headless
+python scripts/live_site_matrix.py --filter _happy --repeat 3 --timing   # replay latency, no LLM
+python scripts/live_site_matrix.py --discover /meridian/                 # one genuine LLM discovery run
+python scripts/live_site_matrix.py --discover-all                        # every vendor + bank
+# Windows PowerShell:
+$env:RUN_LIVE=1; pytest tests/test_live_sites.py           # live pass as an opt-in pytest suite
 ```
+
+Discovery takes the goal **and the target** as input: `--target URL --app-id ID
+--timeout SECONDS` (defaults: `TARGET_APP_URL`, `coreserv-demo`, 300s). `--operator`
+wires the handoff console into discovery so a stuck run pauses for a human. A sample
+policy is at `policy.example.json`; replay defaults the policy to the artifact's app.
 
 `replay` supports: `--input k=v` (repeatable), `--surface cdp|scripted`, `--scenario
 happy|not_found|validation|timeout`, `--allow-draft`, `--strict-inputs`, `--policy FILE`,
@@ -147,7 +165,14 @@ it is a graded deliverable.
 
 ## Known open items (see `tests/FINDINGS.md` for the full list)
 
-- The genuine LLM discovery evidence is not committed yet (needs the key + a live run).
+- Discovery evidence exists in the working tree (`evidence/discovery_demo/` for CoreServ,
+  `evidence/live_sites/discovery_meridian/` for the frameset test site) but is not committed yet.
+- OCR reliability is the main real-world tax: white-on-saturated-color text (blue buttons,
+  decorative title bars) is often dropped by Tesseract, so artifacts anchor on high-contrast body
+  text. Cross-pass OCR garbage is suppressed by an IoU/containment dedupe (`src/perception/ocr.py`).
+- If discovery ever merges a row's label and value into one mark, a read anchor can capture the
+  value; the test bed keeps a small label/value gutter to avoid it. A general fix (split marks on
+  internal gaps) is not built.
 - The public remote is `Parth12358/interfaceAIProject`; `main` may be ahead of `origin/main`.
 - Screenshot region-masking is not implemented (redaction is text/JSON only).
 - Multi-tenant `overrides[]` is design-only; the multi-bank stress harness was deferred.

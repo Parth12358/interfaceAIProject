@@ -5,7 +5,7 @@
     "validation_error"
   ],
   "degraded": false,
-  "evidence_dir": "evidence/replay_demo/validation",
+  "evidence_dir": "evidence\\replay_demo\\validation",
   "capability_id": "member_lookup",
   "capability_version": "1.0.0"
 }

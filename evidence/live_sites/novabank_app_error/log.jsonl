@@ -1,0 +1,51 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 271, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1499, "type": "step_start", "step": "open_lookup", "action": "click"}
+{"seq": 4, "t_ms": 3061, "type": "resolve", "step": "open_lookup", "rung": "text_anchor", "score": 1.0, "x": 254, "y": 199}
+{"seq": 5, "t_ms": 12255, "type": "screenshot", "file": "04_open_lookup_after.png", "label": "open_lookup_after"}
+{"seq": 6, "t_ms": 12256, "type": "verify_ok", "step": "open_lookup", "state": "member_lookup", "state_class": "progress"}
+{"seq": 7, "t_ms": 12256, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 13651, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 215, "y": 195}
+{"seq": 9, "t_ms": 13657, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 14853, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 14853, "type": "verify_ok", "step": "enter_id", "state": "member_lookup", "state_class": "progress"}
+{"seq": 12, "t_ms": 14854, "type": "step_start", "step": "submit_search", "action": "click"}
+{"seq": 13, "t_ms": 16170, "type": "resolve", "step": "submit_search", "rung": "text_anchor", "score": 1.0, "x": 226, "y": 239}
+{"seq": 14, "t_ms": 25487, "type": "screenshot", "file": "13_submit_search_after.png", "label": "submit_search_after"}
+{"seq": 15, "t_ms": 25487, "type": "verify_ok", "step": "submit_search", "state": "app_error", "state_class": "failure"}
+{"seq": 16, "t_ms": 25487, "type": "hard_failure", "step": "submit_search", "state": "app_error", "error_code": "APP_ERROR_500"}
+{"seq": 17, "t_ms": 25488, "type": "run_end", "status": "failed"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 281, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1505, "type": "step_start", "step": "open_lookup", "action": "click"}
+{"seq": 4, "t_ms": 3073, "type": "resolve", "step": "open_lookup", "rung": "text_anchor", "score": 1.0, "x": 254, "y": 199}
+{"seq": 5, "t_ms": 12233, "type": "screenshot", "file": "04_open_lookup_after.png", "label": "open_lookup_after"}
+{"seq": 6, "t_ms": 12233, "type": "verify_ok", "step": "open_lookup", "state": "member_lookup", "state_class": "progress"}
+{"seq": 7, "t_ms": 12234, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 13646, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 215, "y": 195}
+{"seq": 9, "t_ms": 13652, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 14812, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 14812, "type": "verify_ok", "step": "enter_id", "state": "member_lookup", "state_class": "progress"}
+{"seq": 12, "t_ms": 14813, "type": "step_start", "step": "submit_search", "action": "click"}
+{"seq": 13, "t_ms": 16158, "type": "resolve", "step": "submit_search", "rung": "text_anchor", "score": 1.0, "x": 226, "y": 239}
+{"seq": 14, "t_ms": 25434, "type": "screenshot", "file": "13_submit_search_after.png", "label": "submit_search_after"}
+{"seq": 15, "t_ms": 25435, "type": "verify_ok", "step": "submit_search", "state": "app_error", "state_class": "failure"}
+{"seq": 16, "t_ms": 25435, "type": "hard_failure", "step": "submit_search", "state": "app_error", "error_code": "APP_ERROR_500"}
+{"seq": 17, "t_ms": 25436, "type": "run_end", "status": "failed"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 283, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1533, "type": "step_start", "step": "open_lookup", "action": "click"}
+{"seq": 4, "t_ms": 3180, "type": "resolve", "step": "open_lookup", "rung": "text_anchor", "score": 1.0, "x": 254, "y": 199}
+{"seq": 5, "t_ms": 6048, "type": "screenshot", "file": "04_open_lookup_after.png", "label": "open_lookup_after"}
+{"seq": 6, "t_ms": 6048, "type": "verify_ok", "step": "open_lookup", "state": "member_lookup", "state_class": "progress"}
+{"seq": 7, "t_ms": 6049, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 7399, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 215, "y": 195}
+{"seq": 9, "t_ms": 7405, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 8513, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 8513, "type": "verify_ok", "step": "enter_id", "state": "member_lookup", "state_class": "progress"}
+{"seq": 12, "t_ms": 8513, "type": "step_start", "step": "submit_search", "action": "click"}
+{"seq": 13, "t_ms": 9856, "type": "resolve", "step": "submit_search", "rung": "text_anchor", "score": 1.0, "x": 226, "y": 239}
+{"seq": 14, "t_ms": 19183, "type": "screenshot", "file": "13_submit_search_after.png", "label": "submit_search_after"}
+{"seq": 15, "t_ms": 19184, "type": "verify_ok", "step": "submit_search", "state": "app_error", "state_class": "failure"}
+{"seq": 16, "t_ms": 19184, "type": "hard_failure", "step": "submit_search", "state": "app_error", "error_code": "APP_ERROR_500"}
+{"seq": 17, "t_ms": 19185, "type": "run_end", "status": "failed"}

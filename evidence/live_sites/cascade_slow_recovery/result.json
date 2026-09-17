@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Tobias Mbeki",
+    "account_status": "Active",
+    "savings_balance": "$95,320.00",
+    "checking_balance": "$14,000.00"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\cascade_slow_recovery",
+  "capability_id": "cascade_member_lookup",
+  "capability_version": "1.0.0"
+}

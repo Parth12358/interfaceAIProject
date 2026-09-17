@@ -1,0 +1,12 @@
+{% extends "vaultcore/base.html" %}
+{% block body %}
+<table width="100%" class="legacy" cellpadding="12" cellspacing="0" border="0" bgcolor="#fff6f6"><tr><td>
+  <font size="3" color="{{ theme.bad }}"><b>Access denied</b></font>
+  <hr>
+  <font size="2" color="#333333">
+    You do not have permission to view member <b>{{ member_id }}</b>.
+    This record is restricted to the branch supervisor role.
+  </font>
+</td></tr></table>
+<br><a href="{{ url_for(request.blueprint ~ '.search') }}"><font size="2">Back to Search</font></a>
+{% endblock %}

@@ -1,0 +1,10 @@
+{
+  "status": "success",
+  "outputs": {
+    "wire_reference": "WR-11111-9"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\unionsquare_wire_permissive",
+  "capability_id": "unionsquare_send_wire",
+  "capability_version": "1.0.0"
+}

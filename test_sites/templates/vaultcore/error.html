@@ -1,0 +1,14 @@
+{% extends "vaultcore/base.html" %}
+{% block body %}
+<table width="100%" class="legacy" cellpadding="12" cellspacing="0" border="0" bgcolor="#f3f3f3"><tr><td>
+  <font size="3" color="{{ theme.bad }}"><b>System error</b></font>
+  <hr>
+  <font size="2" color="#333333">
+    The records service returned an unexpected error and the request could not be completed.
+  </font>
+  <br><br>
+  <font size="1" color="#555555">Reference code: <b>{{ error_code }}</b></font>
+  <br><br>
+  <a href="{{ url_for(request.blueprint ~ '.search') }}"><font size="2">Return to Search</font></a>
+</td></tr></table>
+{% endblock %}

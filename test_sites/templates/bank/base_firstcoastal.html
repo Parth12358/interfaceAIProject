@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ tenant.product }} — {{ tenant.institution }}</title>
+  <style>
+    body { margin:0; font-family:Verdana,Geneva,sans-serif; font-size:13px; background:#e9eef2; }
+    a { color:{{ theme.link }}; text-decoration:underline; } table { border-collapse:collapse; }
+    .mast { background:{{ theme.masthead }}; color:#fff; padding:10px 16px; }
+    .mast b { font-size:19px; letter-spacing:.5px; }
+    .mast .sub { color:#a9c7c4; font-size:11px; }
+    .sysbar { background:#082925; color:#8fd0c9; font-size:11px; padding:3px 16px;
+              border-top:1px solid #14514b; letter-spacing:.5px; }
+    .navcol { width:196px; background:{{ theme.nav_bg }}; border-right:1px solid #b8c9c6;
+              vertical-align:top; }
+    .navcol a { color:{{ theme.link }}; text-decoration:none; display:block; padding:5px 10px;
+                border-bottom:1px solid #d6e3e1; font-size:13px; }
+    .titlebar { background:{{ theme.accent }}; color:#fff; padding:6px 12px; font-weight:bold;
+                font-size:15px; }
+    .content { padding:14px 18px; }
+    .btn { font-family:Verdana,Geneva,sans-serif; font-size:13px; padding:4px 16px; color:#00201d;
+           background:#d7e6e4; border:1px outset #8fb3ae; }
+    .legacy { border:1px outset #9fb3c8; background:#ffffff; }
+    .legacy td + td { padding-left:12px; }
+    .foot { background:#dfe6ea; border-top:1px solid #b8c2c8; color:#5b6b73; font-size:10px;
+            padding:6px 16px; }
+    input[type=text] { border:1px inset #8fb3ae; padding:3px 5px; font-family:inherit; font-size:13px; }
+  </style>
+</head>
+<body>
+{% if not is_frame %}
+<div class="mast"><b>{{ tenant.product }}</b> &nbsp; <span class="sub">{{ tenant.institution }} &middot; {{ tenant.tagline }}</span></div>
+<div class="sysbar">SYSTEM ONLINE &nbsp;|&nbsp; {{ tenant.institution }} TELLER NETWORK &nbsp;|&nbsp; SESSION SECURE</div>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+    <td class="navcol">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr><td style="padding:8px 10px 4px; color:#4b6b67; font-size:10px; font-weight:bold;">NAVIGATION</td></tr>
+        {% for label, route in tenant.nav %}{% if route is not none %}
+          <tr><td><a href="{{ url_for(request.blueprint ~ '.' ~ route) }}">{{ label }}</a></td></tr>
+        {% endif %}{% endfor %}
+      </table>
+    </td>
+    <td>
+{% endif %}
+      <div class="titlebar">{{ title_bar }}</div>
+      <div class="content">{% block body %}{% endblock %}</div>
+{% if not is_frame %}
+    </td>
+  </tr>
+</table>
+<div class="foot">{{ tenant.product }} v4.2 &nbsp;·&nbsp; {{ tenant.institution }} &nbsp;·&nbsp; For internal servicing use only</div>
+{% endif %}
+</body>
+</html>

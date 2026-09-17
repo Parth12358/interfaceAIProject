@@ -1,0 +1,13 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <h1>Member lookup</h1>
+  {% if error %}<div class="alert bad">{{ error }}</div>{% endif %}
+  <form action="{{ url_for(request.blueprint ~ '.search') }}" method="post">
+    <label for="member_id">Member ID</label>
+    <input type="text" id="member_id" name="member_id" maxlength="5" autocomplete="off">
+    <p style="margin-top:16px;"><button class="btn" type="submit">Search</button></p>
+  </form>
+  <p class="muted">Member IDs are five digits. Try 11111 or 22222.</p>
+</div>
+{% endblock %}

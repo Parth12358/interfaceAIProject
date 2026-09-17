@@ -1,0 +1,78 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 284, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1604, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3276, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 60, "y": 96}
+{"seq": 5, "t_ms": 4665, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 4666, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 4666, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 6237, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 665, "y": 103}
+{"seq": 9, "t_ms": 6244, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 7610, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 7610, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 7610, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 9411, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 687, "y": 147}
+{"seq": 14, "t_ms": 11025, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 11026, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 11026, "type": "step_start", "step": "start_closure", "action": "click"}
+{"seq": 17, "t_ms": 12837, "type": "resolve", "step": "start_closure", "rung": "text_anchor", "score": 1.0, "x": 292, "y": 321}
+{"seq": 18, "t_ms": 14437, "type": "screenshot", "file": "17_start_closure_after.png", "label": "start_closure_after"}
+{"seq": 19, "t_ms": 14438, "type": "verify_ok", "step": "start_closure", "state": "confirm_closure", "state_class": "progress"}
+{"seq": 20, "t_ms": 14438, "type": "step_start", "step": "confirm_closure", "action": "click"}
+{"seq": 21, "t_ms": 16153, "type": "resolve", "step": "confirm_closure", "rung": "text_anchor", "score": 1.0, "x": 412, "y": 144}
+{"seq": 22, "t_ms": 17508, "type": "screenshot", "file": "21_confirm_closure_after.png", "label": "confirm_closure_after"}
+{"seq": 23, "t_ms": 17508, "type": "verify_ok", "step": "confirm_closure", "state": "account_closed", "state_class": "progress"}
+{"seq": 24, "t_ms": 17509, "type": "step_start", "step": "read_reference", "action": "read"}
+{"seq": 25, "t_ms": 21733, "type": "extract", "step": "read_reference", "output": "closure_reference", "value": "CLS-11111-A"}
+{"seq": 26, "t_ms": 21734, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 276, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1635, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3348, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 60, "y": 96}
+{"seq": 5, "t_ms": 4769, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 4770, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 4770, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 6362, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 665, "y": 103}
+{"seq": 9, "t_ms": 6369, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 7771, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 7772, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 7772, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 9603, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 687, "y": 147}
+{"seq": 14, "t_ms": 11210, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 11210, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 11211, "type": "step_start", "step": "start_closure", "action": "click"}
+{"seq": 17, "t_ms": 13113, "type": "resolve", "step": "start_closure", "rung": "text_anchor", "score": 1.0, "x": 292, "y": 321}
+{"seq": 18, "t_ms": 14796, "type": "screenshot", "file": "17_start_closure_after.png", "label": "start_closure_after"}
+{"seq": 19, "t_ms": 14797, "type": "verify_ok", "step": "start_closure", "state": "confirm_closure", "state_class": "progress"}
+{"seq": 20, "t_ms": 14797, "type": "step_start", "step": "confirm_closure", "action": "click"}
+{"seq": 21, "t_ms": 16529, "type": "resolve", "step": "confirm_closure", "rung": "text_anchor", "score": 1.0, "x": 412, "y": 144}
+{"seq": 22, "t_ms": 17907, "type": "screenshot", "file": "21_confirm_closure_after.png", "label": "confirm_closure_after"}
+{"seq": 23, "t_ms": 17907, "type": "verify_ok", "step": "confirm_closure", "state": "account_closed", "state_class": "progress"}
+{"seq": 24, "t_ms": 17907, "type": "step_start", "step": "read_reference", "action": "read"}
+{"seq": 25, "t_ms": 22209, "type": "extract", "step": "read_reference", "output": "closure_reference", "value": "CLS-11111-A"}
+{"seq": 26, "t_ms": 22210, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 271, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1629, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3336, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 60, "y": 96}
+{"seq": 5, "t_ms": 4783, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 4783, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 4784, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 6418, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 665, "y": 103}
+{"seq": 9, "t_ms": 6424, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 7828, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 7828, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 7828, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 9695, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 687, "y": 147}
+{"seq": 14, "t_ms": 11321, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 11321, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 11321, "type": "step_start", "step": "start_closure", "action": "click"}
+{"seq": 17, "t_ms": 13263, "type": "resolve", "step": "start_closure", "rung": "text_anchor", "score": 1.0, "x": 292, "y": 321}
+{"seq": 18, "t_ms": 14944, "type": "screenshot", "file": "17_start_closure_after.png", "label": "start_closure_after"}
+{"seq": 19, "t_ms": 14944, "type": "verify_ok", "step": "start_closure", "state": "confirm_closure", "state_class": "progress"}
+{"seq": 20, "t_ms": 14945, "type": "step_start", "step": "confirm_closure", "action": "click"}
+{"seq": 21, "t_ms": 16709, "type": "resolve", "step": "confirm_closure", "rung": "text_anchor", "score": 1.0, "x": 412, "y": 144}
+{"seq": 22, "t_ms": 18120, "type": "screenshot", "file": "21_confirm_closure_after.png", "label": "confirm_closure_after"}
+{"seq": 23, "t_ms": 18120, "type": "verify_ok", "step": "confirm_closure", "state": "account_closed", "state_class": "progress"}
+{"seq": 24, "t_ms": 18120, "type": "step_start", "step": "read_reference", "action": "read"}
+{"seq": 25, "t_ms": 22492, "type": "extract", "step": "read_reference", "output": "closure_reference", "value": "CLS-11111-A"}
+{"seq": 26, "t_ms": 22493, "type": "run_end", "status": "success"}

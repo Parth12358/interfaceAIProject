@@ -1,0 +1,12 @@
+{% extends base %}
+{% block body %}
+<table cellpadding="12" cellspacing="0" border="1" bgcolor="#fffdf0" width="100%"
+       style="border-color:#c9b96a;">
+  <tr><td>
+    <b><font color="{{ theme.warn }}">Invalid member number</font></b>
+    <hr>
+    "{{ value }}" is not a valid member number. Member numbers must be exactly 5 digits.
+  </td></tr>
+</table>
+<p><a href="{{ url_for(request.blueprint ~ '.search') }}">Back to Search</a></p>
+{% endblock %}

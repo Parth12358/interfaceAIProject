@@ -1,0 +1,13 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <div class="alert ok"><b>Account opened</b></div>
+  <h1>Sub-account confirmation</h1>
+  <div class="row"><span>Member ID</span><span><b>{{ member_id }}</b></span></div>
+  <div class="row"><span>New Account Number</span><span><b>{{ account_number }}</b></span></div>
+  <div class="row"><span>Account type</span><span><b>{{ product }}</b></span></div>
+  <div class="row"><span>Nickname</span><span><b>{{ nickname }}</b></span></div>
+  <div class="row"><span>Initial Deposit</span><span><b>{{ deposit }}</b></span></div>
+  <p style="margin-top:16px;"><a class="btn secondary" href="{{ url_for(request.blueprint ~ '.search') }}">New Search</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{
+  "status": "business_outcome",
+  "outcome_code": "ACCESS_DENIED",
+  "observed": [
+    "permission_denied"
+  ],
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\novabank_permission_denied",
+  "capability_id": "novabank_open_subaccount",
+  "capability_version": "1.0.0"
+}

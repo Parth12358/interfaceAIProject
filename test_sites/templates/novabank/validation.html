@@ -1,0 +1,8 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <div class="alert warn"><b>Invalid member number</b></div>
+  <p>"{{ value }}" is not a valid member ID. Member IDs must be exactly 5 digits.</p>
+  <p><a href="{{ url_for(request.blueprint ~ '.search') }}">Back to search</a></p>
+</div>
+{% endblock %}

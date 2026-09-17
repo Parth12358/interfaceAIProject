@@ -1,0 +1,37 @@
+{% extends "vaultcore/base.html" %}
+{% block body %}
+<table width="100%" class="legacy" cellpadding="8" cellspacing="0" border="0">
+  <tr bgcolor="{{ theme.nav_bg }}"><td colspan="2">
+    <font size="2" color="{{ theme.accent }}"><b>Account Holder</b></font>
+  </td></tr>
+  <tr>
+    <td align="right" width="45%"><font size="2" color="#333333">Member Number</font></td>
+    <td><font size="2" color="#000000"><b>{{ member_id }}</b></font></td>
+  </tr>
+  <tr>
+    <td align="right"><font size="2" color="#333333">Member Name</font></td>
+    <td><font size="2" color="#000000"><b>{{ member.name }}</b></font></td>
+  </tr>
+  <tr>
+    <td align="right"><font size="2" color="#333333">Account Status</font></td>
+    <td><font size="2" color="#000000"><b>{{ member.status }}</b></font></td>
+  </tr>
+  <tr bgcolor="{{ theme.nav_bg }}"><td colspan="2">
+    <font size="2" color="{{ theme.accent }}"><b>Balances</b></font>
+  </td></tr>
+  <tr>
+    <td align="right"><font size="2" color="#333333">Savings Balance</font></td>
+    <td><font size="2" color="{{ theme.ok }}"><b>{{ member.savings }}</b></font></td>
+  </tr>
+  <tr>
+    <td align="right"><font size="2" color="#333333">Checking Balance</font></td>
+    <td><font size="2" color="{{ theme.ok }}"><b>{{ member.checking }}</b></font></td>
+  </tr>
+</table>
+<br>
+<form action="{{ url_for(request.blueprint ~ '.close') }}" method="post">
+  <input type="hidden" name="member_number" value="{{ member_id }}">
+  <input type="submit" class="btn" value="Close Account">
+</form>
+<br><a href="{{ url_for(request.blueprint ~ '.search') }}"><font size="2">New Search</font></a>
+{% endblock %}

@@ -9,6 +9,7 @@ from src.agent.compiler import compile_artifact  # noqa: E402
 from src.agent.loop import DiscoveryStep, Trajectory, run_discovery  # noqa: E402
 from src.agent.provider import AgentAction, MockProvider  # noqa: E402
 from src.artifact.schema import AppRef  # noqa: E402
+from src.evidence.run_log import RunLog  # noqa: E402
 from src.policy.allowlist import Policy  # noqa: E402
 from fake_surface import FakeSurface  # noqa: E402
 
@@ -51,6 +52,23 @@ def test_policy_denial_escalates_discovery():
     assert "policy_denied" in (traj.reason or "")
 
 
+def test_discovery_wall_clock_timeout():
+    provider = MockProvider([AgentAction(kind="click", mark=1) for _ in range(20)])
+    traj = run_discovery("goal", FakeSurface("welcome", HAPPY), provider,
+                         max_steps=20, timeout_s=0.0)
+    assert traj.outcome == "timeout"
+    assert "budget" in (traj.reason or "")
+
+
+def test_discovery_logs_rationale(tmp_path):
+    log = RunLog(tmp_path / "disc", kind="discovery")
+    provider = MockProvider([AgentAction(kind="click", mark=1, reason="open the lookup"),
+                             AgentAction(kind="done", outputs={})])
+    run_discovery("goal", FakeSurface("welcome", HAPPY), provider, run_log=log, max_steps=3)
+    text = (tmp_path / "disc" / "log.jsonl").read_text(encoding="utf-8")
+    assert "open the lookup" in text
+
+
 # --- compiler -----------------------------------------------------------------
 def test_type_literal_without_input_is_parameterized_and_not_persisted():
     traj = Trajectory(goal="g", inputs={}, steps=[
@@ -61,6 +79,21 @@ def test_type_literal_without_input_is_parameterized_and_not_persisted():
     assert "hunter2secret" not in dump
     assert "param_0" in artifact.capability.inputs
     assert any("not persisted" in n for n in notes)
+
+
+def test_goal_input_literals_are_parameterized_not_persisted():
+    # The loop appends "Use these input values: {...}" to the goal so the model knows
+    # what to type; neither that discovery-only suffix nor the literal may reach the
+    # compiled description.
+    traj = Trajectory(
+        goal="Look up member 12345 and read their savings balance\n"
+             "Use these input values: {'member_id': '12345'}",
+        inputs={"member_id": "12345"}, steps=[])
+    artifact, _ = _compile(traj)
+    dump = artifact.model_dump_json()
+    assert "12345" not in dump
+    assert "{member_id}" in artifact.capability.description
+    assert "Use these input values" not in artifact.capability.description
 
 
 def test_compiler_emits_key_step():

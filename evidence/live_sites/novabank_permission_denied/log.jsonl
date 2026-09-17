@@ -1,0 +1,48 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 275, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1492, "type": "step_start", "step": "open_lookup", "action": "click"}
+{"seq": 4, "t_ms": 3078, "type": "resolve", "step": "open_lookup", "rung": "text_anchor", "score": 1.0, "x": 254, "y": 199}
+{"seq": 5, "t_ms": 12218, "type": "screenshot", "file": "04_open_lookup_after.png", "label": "open_lookup_after"}
+{"seq": 6, "t_ms": 12219, "type": "verify_ok", "step": "open_lookup", "state": "member_lookup", "state_class": "progress"}
+{"seq": 7, "t_ms": 12219, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 13625, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 215, "y": 195}
+{"seq": 9, "t_ms": 13631, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 14788, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 14788, "type": "verify_ok", "step": "enter_id", "state": "member_lookup", "state_class": "progress"}
+{"seq": 12, "t_ms": 14789, "type": "step_start", "step": "submit_search", "action": "click"}
+{"seq": 13, "t_ms": 16105, "type": "resolve", "step": "submit_search", "rung": "text_anchor", "score": 1.0, "x": 226, "y": 239}
+{"seq": 14, "t_ms": 25306, "type": "screenshot", "file": "13_submit_search_after.png", "label": "submit_search_after"}
+{"seq": 15, "t_ms": 25306, "type": "verify_ok", "step": "submit_search", "state": "permission_denied", "state_class": "business_outcome"}
+{"seq": 16, "t_ms": 25307, "type": "run_end", "status": "business_outcome"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 271, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1500, "type": "step_start", "step": "open_lookup", "action": "click"}
+{"seq": 4, "t_ms": 3121, "type": "resolve", "step": "open_lookup", "rung": "text_anchor", "score": 1.0, "x": 254, "y": 199}
+{"seq": 5, "t_ms": 5973, "type": "screenshot", "file": "04_open_lookup_after.png", "label": "open_lookup_after"}
+{"seq": 6, "t_ms": 5973, "type": "verify_ok", "step": "open_lookup", "state": "member_lookup", "state_class": "progress"}
+{"seq": 7, "t_ms": 5974, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 7318, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 215, "y": 195}
+{"seq": 9, "t_ms": 7324, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 8432, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 8433, "type": "verify_ok", "step": "enter_id", "state": "member_lookup", "state_class": "progress"}
+{"seq": 12, "t_ms": 8433, "type": "step_start", "step": "submit_search", "action": "click"}
+{"seq": 13, "t_ms": 9758, "type": "resolve", "step": "submit_search", "rung": "text_anchor", "score": 1.0, "x": 226, "y": 239}
+{"seq": 14, "t_ms": 18968, "type": "screenshot", "file": "13_submit_search_after.png", "label": "submit_search_after"}
+{"seq": 15, "t_ms": 18968, "type": "verify_ok", "step": "submit_search", "state": "permission_denied", "state_class": "business_outcome"}
+{"seq": 16, "t_ms": 18969, "type": "run_end", "status": "business_outcome"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 273, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1531, "type": "step_start", "step": "open_lookup", "action": "click"}
+{"seq": 4, "t_ms": 3171, "type": "resolve", "step": "open_lookup", "rung": "text_anchor", "score": 1.0, "x": 254, "y": 199}
+{"seq": 5, "t_ms": 6053, "type": "screenshot", "file": "04_open_lookup_after.png", "label": "open_lookup_after"}
+{"seq": 6, "t_ms": 6054, "type": "verify_ok", "step": "open_lookup", "state": "member_lookup", "state_class": "progress"}
+{"seq": 7, "t_ms": 6054, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 7406, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 215, "y": 195}
+{"seq": 9, "t_ms": 7412, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 8538, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 8538, "type": "verify_ok", "step": "enter_id", "state": "member_lookup", "state_class": "progress"}
+{"seq": 12, "t_ms": 8538, "type": "step_start", "step": "submit_search", "action": "click"}
+{"seq": 13, "t_ms": 9873, "type": "resolve", "step": "submit_search", "rung": "text_anchor", "score": 1.0, "x": 226, "y": 239}
+{"seq": 14, "t_ms": 19158, "type": "screenshot", "file": "13_submit_search_after.png", "label": "submit_search_after"}
+{"seq": 15, "t_ms": 19158, "type": "verify_ok", "step": "submit_search", "state": "permission_denied", "state_class": "business_outcome"}
+{"seq": 16, "t_ms": 19159, "type": "run_end", "status": "business_outcome"}

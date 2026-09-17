@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ tenant.product }} — Please Wait</title>
+  <meta http-equiv="refresh" content="3; url={{ url_for(request.blueprint ~ '.slow_resolve', member_id=member_id) }}">
+  <style>body{margin:0;font-family:Verdana,Geneva,sans-serif;background:#eef1f5;} a{text-decoration:none;}</style>
+</head>
+<body>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr><td bgcolor="{{ theme.masthead }}" height="42">&nbsp;
+    <font size="4" color="#ffffff"><b>&nbsp;{{ tenant.product }}</b></font>
+  </td></tr>
+</table>
+<table width="80%" align="center" cellpadding="14" cellspacing="0" border="1" bgcolor="#ffffff"
+       style="border-color:#8a97a6;margin-top:30px;">
+  <tr><td align="center">
+    <font size="3" color="{{ theme.accent }}"><b>Processing request</b></font>
+    <hr>
+    <font size="2" color="#333333">
+      Please wait while the records service responds. This may take a few moments.
+    </font>
+    <br><br>
+    <font size="1" color="#777777">Do not close this window.</font>
+  </td></tr>
+</table>
+</body>
+</html>

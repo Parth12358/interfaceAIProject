@@ -1,0 +1,25 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "discovery"}
+{"seq": 2, "t_ms": 2291, "type": "screenshot", "file": "01_disc_00.png", "label": "disc_00"}
+{"seq": 3, "t_ms": 2291, "type": "decide_start", "step": 0, "marks": 16}
+{"seq": 4, "t_ms": 3714, "type": "agent_action", "step": 0, "kind": "type", "mark": 16, "text": "<param>"}
+{"seq": 5, "t_ms": 7478, "type": "screenshot", "file": "04_disc_01.png", "label": "disc_01"}
+{"seq": 6, "t_ms": 7479, "type": "decide_start", "step": 1, "marks": 16}
+{"seq": 7, "t_ms": 8830, "type": "agent_action", "step": 1, "kind": "click", "mark": 11, "text": null}
+{"seq": 8, "t_ms": 20071, "type": "screenshot", "file": "07_disc_02.png", "label": "disc_02"}
+{"seq": 9, "t_ms": 20071, "type": "decide_start", "step": 2, "marks": 17}
+{"seq": 10, "t_ms": 21599, "type": "agent_action", "step": 2, "kind": "type", "mark": 17, "text": "<param>"}
+{"seq": 11, "t_ms": 25158, "type": "screenshot", "file": "10_disc_03.png", "label": "disc_03"}
+{"seq": 12, "t_ms": 25158, "type": "decide_start", "step": 3, "marks": 17}
+{"seq": 13, "t_ms": 26637, "type": "agent_action", "step": 3, "kind": "click", "mark": 13, "text": null}
+{"seq": 14, "t_ms": 38744, "type": "screenshot", "file": "13_disc_04.png", "label": "disc_04"}
+{"seq": 15, "t_ms": 38744, "type": "decide_start", "step": 4, "marks": 26}
+{"seq": 16, "t_ms": 40071, "type": "agent_action", "step": 4, "kind": "read", "mark": 13, "text": null}
+{"seq": 17, "t_ms": 44400, "type": "screenshot", "file": "16_disc_05.png", "label": "disc_05"}
+{"seq": 18, "t_ms": 44400, "type": "decide_start", "step": 5, "marks": 26}
+{"seq": 19, "t_ms": 45863, "type": "agent_action", "step": 5, "kind": "read", "mark": 15, "text": null}
+{"seq": 20, "t_ms": 50206, "type": "screenshot", "file": "19_disc_06.png", "label": "disc_06"}
+{"seq": 21, "t_ms": 50206, "type": "decide_start", "step": 6, "marks": 26}
+{"seq": 22, "t_ms": 51622, "type": "agent_action", "step": 6, "kind": "read", "mark": 17, "text": null}
+{"seq": 23, "t_ms": 55970, "type": "screenshot", "file": "22_disc_07.png", "label": "disc_07"}
+{"seq": 24, "t_ms": 55970, "type": "decide_start", "step": 7, "marks": 26}
+{"seq": 25, "t_ms": 57153, "type": "agent_action", "step": 7, "kind": "done", "mark": null, "text": null}

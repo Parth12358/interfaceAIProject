@@ -5,7 +5,7 @@
     "member_name": "Ada Lovelace"
   },
   "degraded": false,
-  "evidence_dir": "evidence/replay_demo/timeout",
+  "evidence_dir": "evidence\\replay_demo\\timeout",
   "capability_id": "member_lookup",
   "capability_version": "1.0.0"
 }

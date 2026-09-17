@@ -1,0 +1,40 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 279, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1750, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3666, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 68, "y": 52}
+{"seq": 5, "t_ms": 13240, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13241, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13241, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15021, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 539, "y": 156}
+{"seq": 9, "t_ms": 15028, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 16555, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 16555, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 16555, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 18483, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 559, "y": 200}
+{"seq": 14, "t_ms": 28279, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 28279, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 28279, "type": "step_start", "step": "start_closure", "action": "click"}
+{"seq": 17, "t_ms": 30275, "type": "resolve", "step": "start_closure", "rung": "text_anchor", "score": 1.0, "x": 69, "y": 312}
+{"seq": 18, "t_ms": 31992, "type": "screenshot", "file": "17_start_closure_escalate.png", "label": "start_closure_escalate"}
+{"seq": 19, "t_ms": 31998, "type": "escalate", "step": "start_closure", "reason": "policy_denied:risky_action: 'Close Account' requires human confirmation", "observed": ["app_ready", "search_form", "member_detail"]}
+{"seq": 20, "t_ms": 31999, "type": "run_end", "status": "escalated"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 290, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1781, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3633, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 68, "y": 52}
+{"seq": 5, "t_ms": 13272, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13273, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13273, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15094, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 539, "y": 156}
+{"seq": 9, "t_ms": 15100, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 16632, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 16632, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 16632, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 18564, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 559, "y": 200}
+{"seq": 14, "t_ms": 28347, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 28347, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 28347, "type": "step_start", "step": "start_closure", "action": "click"}
+{"seq": 17, "t_ms": 30334, "type": "resolve", "step": "start_closure", "rung": "text_anchor", "score": 1.0, "x": 69, "y": 312}
+{"seq": 18, "t_ms": 32070, "type": "screenshot", "file": "17_start_closure_escalate.png", "label": "start_closure_escalate"}
+{"seq": 19, "t_ms": 32077, "type": "escalate", "step": "start_closure", "reason": "policy_denied:risky_action: 'Close Account' requires human confirmation", "observed": ["app_ready", "search_form", "member_detail"]}
+{"seq": 20, "t_ms": 32078, "type": "run_end", "status": "escalated"}

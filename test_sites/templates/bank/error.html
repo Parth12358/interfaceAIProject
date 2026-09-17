@@ -1,0 +1,13 @@
+{% extends base %}
+{% block body %}
+<table cellpadding="12" cellspacing="0" border="1" bgcolor="#f3f3f3" width="100%"
+       style="border-color:#9aa0a6;">
+  <tr><td>
+    <b><font color="{{ theme.bad }}">System error</font></b>
+    <hr>
+    The records service returned an unexpected error and the request could not be completed.
+    <br><br><font size="1">Reference code: <b>{{ error_code }}</b></font>
+  </td></tr>
+</table>
+<p><a href="{{ url_for(request.blueprint ~ '.search') }}">Return to Search</a></p>
+{% endblock %}

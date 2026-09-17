@@ -1,0 +1,22 @@
+{% extends base %}
+{% block body %}
+{% if errors %}
+<table cellpadding="10" cellspacing="0" border="1" bgcolor="#fff6f6" width="100%"
+       style="border-color:#d9a0a0;"><tr><td>
+  <b><font color="{{ theme.bad }}">Please correct the following</font></b>
+  <ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+</td></tr></table><br>
+{% endif %}
+<form action="{{ url_for(request.blueprint ~ '.wire_submit') }}" method="post">
+<table cellpadding="10" cellspacing="0" border="1" bgcolor="#ffffff" width="100%"
+       style="border-color:#8a97a6;">
+  <tr><td colspan="2"><b>Wire transfer request</b></td></tr>
+  <tr><td align="right" width="40%">Beneficiary</td>
+      <td><input type="text" name="beneficiary" size="30" value="{{ values.beneficiary }}"></td></tr>
+  <tr><td align="right">Amount</td>
+      <td><input type="text" name="amount" size="20" value="{{ values.amount }}"></td></tr>
+  <tr><td>&nbsp;</td><td><input type="submit" class="btn" value="Review Wire"></td></tr>
+</table>
+<input type="hidden" name="member_key" value="{{ member_id }}">
+</form>
+{% endblock %}

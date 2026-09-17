@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ tenant.product }}</title>
+  <style>
+    body { margin:0; background:#000; color:{{ theme.link }};
+           font-family:"Consolas","Courier New",monospace; font-size:16px; line-height:1.45; }
+    a { color:{{ theme.link }}; text-decoration:none; }
+    table { border-collapse:collapse; }
+    /* 3270 screens are monochrome fields: neutralise the light panels the shared
+       page templates use so everything renders as amber-on-black. */
+    table, tr, td, th { background:transparent !important; border-color:{{ theme.link }} !important; }
+    .hdr { background:{{ theme.link }} !important; color:#000; font-weight:bold; padding:4px 10px; }
+    .fn { background:#000 !important; color:{{ theme.link }}; padding:4px 10px;
+          border-top:1px solid {{ theme.link }}; border-bottom:1px solid {{ theme.link }}; }
+    .fn b { color:#fff; }
+    .bar { padding:6px 10px; }
+    .rev { background:{{ theme.link }} !important; color:#000; padding:3px 10px; font-weight:bold; }
+    .cmd { border-top:1px solid {{ theme.link }}; padding:6px 10px; color:{{ theme.ok }}; }
+    .status { border-top:1px solid {{ theme.link }}; padding:4px 10px; color:{{ theme.warn }};
+              font-size:14px; }
+    .btn { font-family:inherit; font-size:16px; color:#000; background:{{ theme.link }};
+           border:0; padding:4px 16px; }
+    input[type=text] { background:#000; color:{{ theme.link }}; border:1px solid {{ theme.link }};
+                       font-family:inherit; font-size:16px; padding:3px 6px; }
+    .ok { color:{{ theme.ok }}; } .warn { color:{{ theme.warn }}; } .bad { color:{{ theme.bad }}; }
+  </style>
+</head>
+<body>
+<div class="hdr">{{ tenant.product }} &nbsp;::&nbsp; {{ tenant.institution }} &nbsp;::&nbsp; {{ tenant.tagline }}</div>
+<div class="fn">
+  {% for label, route in tenant.nav %}{% if route is none %}<b>{{ label }}</b>&nbsp;&nbsp;{% else %}<a href="{{ url_for(request.blueprint ~ '.' ~ route) }}">{{ label }}</a>&nbsp;&nbsp;{% endif %}{% endfor %}
+</div>
+<div class="bar"><span class="rev">{{ title_bar }}</span></div>
+<div style="padding:12px 10px;">{% block body %}{% endblock %}</div>
+<div class="cmd">&gt; _</div>
+<div class="status">SESSION READY &nbsp; 24.008 &nbsp; {{ tenant.institution }} &nbsp; DEV:{{ tenant.product }}</div>
+</body>
+</html>

@@ -1,0 +1,156 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 285, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1532, "type": "step_start", "step": "open_lookup", "action": "click"}
+{"seq": 4, "t_ms": 3154, "type": "resolve", "step": "open_lookup", "rung": "text_anchor", "score": 1.0, "x": 254, "y": 199}
+{"seq": 5, "t_ms": 12391, "type": "screenshot", "file": "04_open_lookup_after.png", "label": "open_lookup_after"}
+{"seq": 6, "t_ms": 12391, "type": "verify_ok", "step": "open_lookup", "state": "member_lookup", "state_class": "progress"}
+{"seq": 7, "t_ms": 12392, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 13858, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 215, "y": 195}
+{"seq": 9, "t_ms": 13865, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 15053, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 15053, "type": "verify_ok", "step": "enter_id", "state": "member_lookup", "state_class": "progress"}
+{"seq": 12, "t_ms": 15053, "type": "step_start", "step": "submit_search", "action": "click"}
+{"seq": 13, "t_ms": 16397, "type": "resolve", "step": "submit_search", "rung": "text_anchor", "score": 1.0, "x": 226, "y": 239}
+{"seq": 14, "t_ms": 28762, "type": "screenshot", "file": "13_submit_search_after.png", "label": "submit_search_after"}
+{"seq": 15, "t_ms": 28762, "type": "verify_ok", "step": "submit_search", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 28762, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 32804, "type": "extract", "step": "read_name", "output": "member_name", "value": "Samir Haddad"}
+{"seq": 18, "t_ms": 32804, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 19, "t_ms": 36843, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$31,580.45"}
+{"seq": 20, "t_ms": 36843, "type": "step_start", "step": "open_form", "action": "click"}
+{"seq": 21, "t_ms": 38339, "type": "resolve", "step": "open_form", "rung": "text_anchor", "score": 1.0, "x": 270, "y": 374}
+{"seq": 22, "t_ms": 41401, "type": "screenshot", "file": "21_open_form_after.png", "label": "open_form_after"}
+{"seq": 23, "t_ms": 41401, "type": "verify_ok", "step": "open_form", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 24, "t_ms": 41401, "type": "step_start", "step": "choose_product", "action": "click"}
+{"seq": 25, "t_ms": 42958, "type": "resolve", "step": "choose_product", "rung": "text_anchor", "score": 1.0, "x": 422, "y": 209}
+{"seq": 26, "t_ms": 44416, "type": "screenshot", "file": "25_choose_product_after.png", "label": "choose_product_after"}
+{"seq": 27, "t_ms": 44416, "type": "verify_ok", "step": "choose_product", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 28, "t_ms": 44416, "type": "step_start", "step": "enter_nickname", "action": "type"}
+{"seq": 29, "t_ms": 46161, "type": "resolve", "step": "enter_nickname", "rung": "text_anchor", "score": 1.0, "x": 237, "y": 278}
+{"seq": 30, "t_ms": 46168, "type": "type", "step": "enter_nickname", "param": "{nickname}"}
+{"seq": 31, "t_ms": 47521, "type": "screenshot", "file": "30_enter_nickname_after.png", "label": "enter_nickname_after"}
+{"seq": 32, "t_ms": 47521, "type": "verify_ok", "step": "enter_nickname", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 33, "t_ms": 47521, "type": "step_start", "step": "enter_deposit", "action": "type"}
+{"seq": 34, "t_ms": 49085, "type": "resolve", "step": "enter_deposit", "rung": "text_anchor", "score": 1.0, "x": 222, "y": 350}
+{"seq": 35, "t_ms": 49091, "type": "type", "step": "enter_deposit", "param": "{deposit}"}
+{"seq": 36, "t_ms": 50448, "type": "screenshot", "file": "35_enter_deposit_after.png", "label": "enter_deposit_after"}
+{"seq": 37, "t_ms": 50449, "type": "verify_ok", "step": "enter_deposit", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 38, "t_ms": 50449, "type": "step_start", "step": "accept_terms", "action": "click"}
+{"seq": 39, "t_ms": 52416, "type": "resolve", "step": "accept_terms", "rung": "text_anchor", "score": 0.966, "x": 277, "y": 382}
+{"seq": 40, "t_ms": 53838, "type": "screenshot", "file": "39_accept_terms_after.png", "label": "accept_terms_after"}
+{"seq": 41, "t_ms": 53838, "type": "verify_ok", "step": "accept_terms", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 42, "t_ms": 53839, "type": "step_start", "step": "review", "action": "click"}
+{"seq": 43, "t_ms": 55436, "type": "resolve", "step": "review", "rung": "text_anchor", "score": 1.0, "x": 260, "y": 427}
+{"seq": 44, "t_ms": 64870, "type": "screenshot", "file": "43_review_after.png", "label": "review_after"}
+{"seq": 45, "t_ms": 64871, "type": "verify_ok", "step": "review", "state": "account_review", "state_class": "progress"}
+{"seq": 46, "t_ms": 64871, "type": "step_start", "step": "confirm", "action": "click"}
+{"seq": 47, "t_ms": 66461, "type": "resolve", "step": "confirm", "rung": "text_anchor", "score": 1.0, "x": 263, "y": 371}
+{"seq": 48, "t_ms": 75777, "type": "screenshot", "file": "47_confirm_after.png", "label": "confirm_after"}
+{"seq": 49, "t_ms": 75778, "type": "verify_ok", "step": "confirm", "state": "account_opened", "state_class": "progress"}
+{"seq": 50, "t_ms": 75778, "type": "step_start", "step": "read_account_number", "action": "read"}
+{"seq": 51, "t_ms": 79874, "type": "extract", "step": "read_account_number", "output": "account_number", "value": "NOVA-77777-39"}
+{"seq": 52, "t_ms": 79874, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 280, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1516, "type": "step_start", "step": "open_lookup", "action": "click"}
+{"seq": 4, "t_ms": 3078, "type": "resolve", "step": "open_lookup", "rung": "text_anchor", "score": 1.0, "x": 254, "y": 199}
+{"seq": 5, "t_ms": 5919, "type": "screenshot", "file": "04_open_lookup_after.png", "label": "open_lookup_after"}
+{"seq": 6, "t_ms": 5920, "type": "verify_ok", "step": "open_lookup", "state": "member_lookup", "state_class": "progress"}
+{"seq": 7, "t_ms": 5920, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 7240, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 215, "y": 195}
+{"seq": 9, "t_ms": 7246, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 8343, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 8344, "type": "verify_ok", "step": "enter_id", "state": "member_lookup", "state_class": "progress"}
+{"seq": 12, "t_ms": 8344, "type": "step_start", "step": "submit_search", "action": "click"}
+{"seq": 13, "t_ms": 9660, "type": "resolve", "step": "submit_search", "rung": "text_anchor", "score": 1.0, "x": 226, "y": 239}
+{"seq": 14, "t_ms": 22030, "type": "screenshot", "file": "13_submit_search_after.png", "label": "submit_search_after"}
+{"seq": 15, "t_ms": 22030, "type": "verify_ok", "step": "submit_search", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 22030, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 26143, "type": "extract", "step": "read_name", "output": "member_name", "value": "Samir Haddad"}
+{"seq": 18, "t_ms": 26144, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 19, "t_ms": 30226, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$31,580.45"}
+{"seq": 20, "t_ms": 30227, "type": "step_start", "step": "open_form", "action": "click"}
+{"seq": 21, "t_ms": 31761, "type": "resolve", "step": "open_form", "rung": "text_anchor", "score": 1.0, "x": 270, "y": 374}
+{"seq": 22, "t_ms": 34849, "type": "screenshot", "file": "21_open_form_after.png", "label": "open_form_after"}
+{"seq": 23, "t_ms": 34850, "type": "verify_ok", "step": "open_form", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 24, "t_ms": 34850, "type": "step_start", "step": "choose_product", "action": "click"}
+{"seq": 25, "t_ms": 36390, "type": "resolve", "step": "choose_product", "rung": "text_anchor", "score": 1.0, "x": 422, "y": 209}
+{"seq": 26, "t_ms": 37725, "type": "screenshot", "file": "25_choose_product_after.png", "label": "choose_product_after"}
+{"seq": 27, "t_ms": 37725, "type": "verify_ok", "step": "choose_product", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 28, "t_ms": 37725, "type": "step_start", "step": "enter_nickname", "action": "type"}
+{"seq": 29, "t_ms": 39266, "type": "resolve", "step": "enter_nickname", "rung": "text_anchor", "score": 1.0, "x": 237, "y": 278}
+{"seq": 30, "t_ms": 39273, "type": "type", "step": "enter_nickname", "param": "{nickname}"}
+{"seq": 31, "t_ms": 40624, "type": "screenshot", "file": "30_enter_nickname_after.png", "label": "enter_nickname_after"}
+{"seq": 32, "t_ms": 40624, "type": "verify_ok", "step": "enter_nickname", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 33, "t_ms": 40624, "type": "step_start", "step": "enter_deposit", "action": "type"}
+{"seq": 34, "t_ms": 42451, "type": "resolve", "step": "enter_deposit", "rung": "text_anchor", "score": 1.0, "x": 222, "y": 350}
+{"seq": 35, "t_ms": 42456, "type": "type", "step": "enter_deposit", "param": "{deposit}"}
+{"seq": 36, "t_ms": 43828, "type": "screenshot", "file": "35_enter_deposit_after.png", "label": "enter_deposit_after"}
+{"seq": 37, "t_ms": 43828, "type": "verify_ok", "step": "enter_deposit", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 38, "t_ms": 43829, "type": "step_start", "step": "accept_terms", "action": "click"}
+{"seq": 39, "t_ms": 45666, "type": "resolve", "step": "accept_terms", "rung": "text_anchor", "score": 0.966, "x": 277, "y": 382}
+{"seq": 40, "t_ms": 47039, "type": "screenshot", "file": "39_accept_terms_after.png", "label": "accept_terms_after"}
+{"seq": 41, "t_ms": 47040, "type": "verify_ok", "step": "accept_terms", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 42, "t_ms": 47040, "type": "step_start", "step": "review", "action": "click"}
+{"seq": 43, "t_ms": 48609, "type": "resolve", "step": "review", "rung": "text_anchor", "score": 1.0, "x": 260, "y": 427}
+{"seq": 44, "t_ms": 58022, "type": "screenshot", "file": "43_review_after.png", "label": "review_after"}
+{"seq": 45, "t_ms": 58022, "type": "verify_ok", "step": "review", "state": "account_review", "state_class": "progress"}
+{"seq": 46, "t_ms": 58022, "type": "step_start", "step": "confirm", "action": "click"}
+{"seq": 47, "t_ms": 59603, "type": "resolve", "step": "confirm", "rung": "text_anchor", "score": 1.0, "x": 263, "y": 371}
+{"seq": 48, "t_ms": 68933, "type": "screenshot", "file": "47_confirm_after.png", "label": "confirm_after"}
+{"seq": 49, "t_ms": 68934, "type": "verify_ok", "step": "confirm", "state": "account_opened", "state_class": "progress"}
+{"seq": 50, "t_ms": 68934, "type": "step_start", "step": "read_account_number", "action": "read"}
+{"seq": 51, "t_ms": 73027, "type": "extract", "step": "read_account_number", "output": "account_number", "value": "NOVA-77777-41"}
+{"seq": 52, "t_ms": 73028, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 271, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1508, "type": "step_start", "step": "open_lookup", "action": "click"}
+{"seq": 4, "t_ms": 3137, "type": "resolve", "step": "open_lookup", "rung": "text_anchor", "score": 1.0, "x": 254, "y": 199}
+{"seq": 5, "t_ms": 5981, "type": "screenshot", "file": "04_open_lookup_after.png", "label": "open_lookup_after"}
+{"seq": 6, "t_ms": 5981, "type": "verify_ok", "step": "open_lookup", "state": "member_lookup", "state_class": "progress"}
+{"seq": 7, "t_ms": 5981, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 7312, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 215, "y": 195}
+{"seq": 9, "t_ms": 7317, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 8430, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 8431, "type": "verify_ok", "step": "enter_id", "state": "member_lookup", "state_class": "progress"}
+{"seq": 12, "t_ms": 8431, "type": "step_start", "step": "submit_search", "action": "click"}
+{"seq": 13, "t_ms": 9745, "type": "resolve", "step": "submit_search", "rung": "text_anchor", "score": 1.0, "x": 226, "y": 239}
+{"seq": 14, "t_ms": 22126, "type": "screenshot", "file": "13_submit_search_after.png", "label": "submit_search_after"}
+{"seq": 15, "t_ms": 22127, "type": "verify_ok", "step": "submit_search", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 22127, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 26321, "type": "extract", "step": "read_name", "output": "member_name", "value": "Samir Haddad"}
+{"seq": 18, "t_ms": 26322, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 19, "t_ms": 30480, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$31,580.45"}
+{"seq": 20, "t_ms": 30480, "type": "step_start", "step": "open_form", "action": "click"}
+{"seq": 21, "t_ms": 32009, "type": "resolve", "step": "open_form", "rung": "text_anchor", "score": 1.0, "x": 270, "y": 374}
+{"seq": 22, "t_ms": 35094, "type": "screenshot", "file": "21_open_form_after.png", "label": "open_form_after"}
+{"seq": 23, "t_ms": 35094, "type": "verify_ok", "step": "open_form", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 24, "t_ms": 35095, "type": "step_start", "step": "choose_product", "action": "click"}
+{"seq": 25, "t_ms": 36646, "type": "resolve", "step": "choose_product", "rung": "text_anchor", "score": 1.0, "x": 422, "y": 209}
+{"seq": 26, "t_ms": 38016, "type": "screenshot", "file": "25_choose_product_after.png", "label": "choose_product_after"}
+{"seq": 27, "t_ms": 38016, "type": "verify_ok", "step": "choose_product", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 28, "t_ms": 38016, "type": "step_start", "step": "enter_nickname", "action": "type"}
+{"seq": 29, "t_ms": 39573, "type": "resolve", "step": "enter_nickname", "rung": "text_anchor", "score": 1.0, "x": 237, "y": 278}
+{"seq": 30, "t_ms": 39580, "type": "type", "step": "enter_nickname", "param": "{nickname}"}
+{"seq": 31, "t_ms": 40946, "type": "screenshot", "file": "30_enter_nickname_after.png", "label": "enter_nickname_after"}
+{"seq": 32, "t_ms": 40947, "type": "verify_ok", "step": "enter_nickname", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 33, "t_ms": 40947, "type": "step_start", "step": "enter_deposit", "action": "type"}
+{"seq": 34, "t_ms": 42533, "type": "resolve", "step": "enter_deposit", "rung": "text_anchor", "score": 1.0, "x": 222, "y": 350}
+{"seq": 35, "t_ms": 42538, "type": "type", "step": "enter_deposit", "param": "{deposit}"}
+{"seq": 36, "t_ms": 43933, "type": "screenshot", "file": "35_enter_deposit_after.png", "label": "enter_deposit_after"}
+{"seq": 37, "t_ms": 43934, "type": "verify_ok", "step": "enter_deposit", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 38, "t_ms": 43934, "type": "step_start", "step": "accept_terms", "action": "click"}
+{"seq": 39, "t_ms": 45822, "type": "resolve", "step": "accept_terms", "rung": "text_anchor", "score": 0.966, "x": 277, "y": 382}
+{"seq": 40, "t_ms": 47240, "type": "screenshot", "file": "39_accept_terms_after.png", "label": "accept_terms_after"}
+{"seq": 41, "t_ms": 47240, "type": "verify_ok", "step": "accept_terms", "state": "subaccount_form", "state_class": "progress"}
+{"seq": 42, "t_ms": 47240, "type": "step_start", "step": "review", "action": "click"}
+{"seq": 43, "t_ms": 48841, "type": "resolve", "step": "review", "rung": "text_anchor", "score": 1.0, "x": 260, "y": 427}
+{"seq": 44, "t_ms": 58260, "type": "screenshot", "file": "43_review_after.png", "label": "review_after"}
+{"seq": 45, "t_ms": 58260, "type": "verify_ok", "step": "review", "state": "account_review", "state_class": "progress"}
+{"seq": 46, "t_ms": 58260, "type": "step_start", "step": "confirm", "action": "click"}
+{"seq": 47, "t_ms": 59883, "type": "resolve", "step": "confirm", "rung": "text_anchor", "score": 1.0, "x": 263, "y": 371}
+{"seq": 48, "t_ms": 69246, "type": "screenshot", "file": "47_confirm_after.png", "label": "confirm_after"}
+{"seq": 49, "t_ms": 69246, "type": "verify_ok", "step": "confirm", "state": "account_opened", "state_class": "progress"}
+{"seq": 50, "t_ms": 69246, "type": "step_start", "step": "read_account_number", "action": "read"}
+{"seq": 51, "t_ms": 73432, "type": "extract", "step": "read_account_number", "output": "account_number", "value": "NOVA-77777-57"}
+{"seq": 52, "t_ms": 73433, "type": "run_end", "status": "success"}

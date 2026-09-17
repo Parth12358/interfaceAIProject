@@ -48,11 +48,17 @@ def _fuzz(a: str, b: str) -> float:
 
 
 def find_text(words: list[Word], query: str, fuzzy_min: float = 0.85) -> list[Span]:
-    """Find fuzzy matches of `query` across visual lines; best span per line."""
+    """Find fuzzy matches of `query` across visual lines; best span per line.
+
+    The line grouping uses a slightly larger horizontal gap than the default so a
+    dropped symbol between words (e.g. OCR misses "&" in "Confirm & Open Account",
+    leaving a ~20px hole) does not split the phrase. Cross-column gaps (nav vs
+    content) are far larger, so columns stay separate.
+    """
     q_words = query.split()
     max_span = len(q_words) + 2
     spans: list[Span] = []
-    for line in lines(words):
+    for line in lines(words, gap_px=26):
         best: Span | None = None
         for i in range(len(line)):
             for j in range(i, min(i + max_span, len(line))):

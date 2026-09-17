@@ -1,0 +1,337 @@
+{
+  "schema_version": "1.0",
+  "capability": {
+    "id": "cascade_member_lookup",
+    "version": "1.0.0",
+    "status": "approved",
+    "description": "Look up a member at Cascade National Bank and read name, status, savings and checking balances.",
+    "app": {
+      "id": "cascadeone",
+      "entry": "http://127.0.0.1:5055/cascade/",
+      "launch": "browser-app-mode",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    "inputs": {
+      "member_id": {
+        "type": "string",
+        "pattern": "^[0-9]{5}$",
+        "description": "5-digit member id"
+      }
+    },
+    "outputs": {
+      "member_name": {
+        "type": "string",
+        "extract": "step:read_name",
+        "description": "Member Name"
+      },
+      "account_status": {
+        "type": "string",
+        "extract": "step:read_status",
+        "description": "Relationship Status"
+      },
+      "savings_balance": {
+        "type": "string",
+        "extract": "step:read_savings",
+        "description": "Savings Balance"
+      },
+      "checking_balance": {
+        "type": "string",
+        "extract": "step:read_checking",
+        "description": "Checking Balance"
+      }
+    }
+  },
+  "steps": [
+    {
+      "id": "open_search",
+      "action": {
+        "kind": "click"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Members",
+          "role_hint": "link",
+          "fuzzy_min": 0.85
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [
+          "search_form"
+        ],
+        "timeout_ms": 8000
+      }
+    },
+    {
+      "id": "enter_id",
+      "action": {
+        "kind": "type",
+        "value": "{member_id}"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Member Number",
+          "fuzzy_min": 0.85,
+          "relation": "right_of",
+          "max_px": 300
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [
+          "search_form"
+        ],
+        "timeout_ms": 5000
+      }
+    },
+    {
+      "id": "submit",
+      "action": {
+        "kind": "click"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Continue",
+          "role_hint": "button",
+          "fuzzy_min": 0.85
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [
+          "member_detail",
+          "no_member_found",
+          "validation_error",
+          "permission_denied",
+          "arrears",
+          "compliance_hold",
+          "app_error"
+        ],
+        "timeout_ms": 10000
+      }
+    },
+    {
+      "id": "read_name",
+      "action": {
+        "kind": "read"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Member Name",
+          "fuzzy_min": 0.85,
+          "relation": "right_of",
+          "max_px": 500
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [
+          "member_detail"
+        ],
+        "timeout_ms": 4000
+      },
+      "extract_as": "member_name"
+    },
+    {
+      "id": "read_status",
+      "action": {
+        "kind": "read"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Relationship Status",
+          "fuzzy_min": 0.85,
+          "relation": "right_of",
+          "max_px": 500
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [
+          "member_detail"
+        ],
+        "timeout_ms": 4000
+      },
+      "extract_as": "account_status"
+    },
+    {
+      "id": "read_savings",
+      "action": {
+        "kind": "read"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Savings Balance",
+          "fuzzy_min": 0.85,
+          "relation": "right_of",
+          "max_px": 500
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [
+          "member_detail"
+        ],
+        "timeout_ms": 4000
+      },
+      "extract_as": "savings_balance"
+    },
+    {
+      "id": "read_checking",
+      "action": {
+        "kind": "read"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Checking Balance",
+          "fuzzy_min": 0.85,
+          "relation": "right_of",
+          "max_px": 500
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [
+          "member_detail"
+        ],
+        "timeout_ms": 4000
+      },
+      "extract_as": "checking_balance"
+    }
+  ],
+  "screen_states": {
+    "app_ready": {
+      "all_of": [
+        {
+          "text": "CascadeOne",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "precondition"
+    },
+    "search_form": {
+      "all_of": [
+        {
+          "text": "Continue",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "progress"
+    },
+    "member_detail": {
+      "all_of": [
+        {
+          "text": "Member Overview",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "progress"
+    },
+    "no_member_found": {
+      "all_of": [
+        {
+          "text": "No member found",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "business_outcome",
+      "outcome_code": "MEMBER_NOT_FOUND"
+    },
+    "validation_error": {
+      "all_of": [
+        {
+          "text": "Invalid member number",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "business_outcome",
+      "outcome_code": "INVALID_INPUT"
+    },
+    "permission_denied": {
+      "all_of": [
+        {
+          "text": "Access denied",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "business_outcome",
+      "outcome_code": "ACCESS_DENIED"
+    },
+    "arrears": {
+      "all_of": [
+        {
+          "text": "Account in arrears",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "business_outcome",
+      "outcome_code": "ACCOUNT_IN_ARREARS"
+    },
+    "app_error": {
+      "all_of": [
+        {
+          "text": "System error",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "failure",
+      "error_code": "APP_ERROR_500"
+    },
+    "compliance_hold": {
+      "all_of": [
+        {
+          "text": "Compliance hold",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "failure",
+      "error_code": "COMPLIANCE_HOLD"
+    },
+    "slow_load": {
+      "all_of": [
+        {
+          "text": "Processing request",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "recoverable",
+      "recovery": {
+        "kind": "wait",
+        "ms": 1500,
+        "max_attempts": 4,
+        "then": "retry_step"
+      }
+    },
+    "session_timeout": {
+      "all_of": [
+        {
+          "text": "Session expired",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "recoverable",
+      "recovery": {
+        "kind": "click",
+        "target": {
+          "text_anchor": {
+            "text": "Continue",
+            "fuzzy_min": 0.85
+          },
+          "template_min": 0.9
+        },
+        "max_attempts": 1,
+        "then": "retry_step"
+      }
+    }
+  },
+  "provenance": {
+    "discovered_at": "hand-authored",
+    "model": "none",
+    "platform": "cross-platform",
+    "surface": "cdp",
+    "discovery_run": "n/a — generated from tenant config"
+  }
+}

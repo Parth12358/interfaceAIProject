@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ tenant.product }} — {{ tenant.institution }}</title>
+  <style>
+    body { margin:0; font-family:Arial,Helvetica,sans-serif; font-size:12px; background:#efe9e2; }
+    a { color:{{ theme.link }}; } table { border-collapse:collapse; }
+    .ribbon { background:{{ theme.masthead }}; color:#fff; padding:9px 16px; }
+    .ribbon b { font-size:17px; font-family:Georgia,serif; }
+    .ribbon .right { float:right; color:#e8cfcf; font-size:11px; padding-top:4px; }
+    .tabs { background:#5f2a24; padding:0 12px; }
+    .tabs a { display:inline-block; color:#f0d9d6; padding:7px 14px 6px; font-size:12px;
+              border-right:1px solid #7a3b32; text-decoration:none; }
+    .tabs a.active { background:{{ theme.nav_bg }}; color:{{ theme.link }}; font-weight:bold; }
+    .crumb { background:{{ theme.nav_bg }}; color:#7a5a4a; padding:4px 16px; font-size:11px;
+             border-bottom:1px solid #d6c6b6; }
+    .wrap { padding:14px 16px; }
+    .panel { border:1px solid #b9a897; background:#ffffff; }
+    .panel .head { background:{{ theme.accent }}; color:#fff; font-family:Georgia,serif;
+                   font-size:14px; padding:6px 10px; font-weight:bold; }
+    .panel .inner { padding:12px; }
+    .btn { font-family:Arial,sans-serif; font-size:12px; padding:4px 14px; color:#5f2a24;
+           background:#f0e6df; border:1px solid #7a3b32; }
+    .grid { border:1px solid #c3b3a3; background:#fff; width:100%; }
+    .grid th { background:#e7ddd2; text-align:left; padding:5px 8px; font-size:11px;
+               border-bottom:1px solid #c3b3a3; }
+    .grid td { padding:5px 8px; border-bottom:1px solid #ece3d8; }
+    .grid tr:nth-child(even) td { background:#faf6f1; }
+    .legacy td + td { padding-left:12px; }
+    input[type=text] { border:1px solid #a89484; padding:3px 5px; font-family:inherit; font-size:12px; }
+    .foot { color:#8a7666; font-size:10px; padding:10px 16px; }
+  </style>
+</head>
+<body>
+<div class="ribbon">
+  <span class="right">Branch 042 &middot; Teller 07 &middot; {{ tenant.tagline }}</span>
+  <b>{{ tenant.product }}</b> &nbsp; {{ tenant.institution }}
+</div>
+<div class="tabs">
+  {% for label, route in tenant.nav %}{% if route is not none %}
+    <a class="{% if loop.first %}active{% endif %}" href="{{ url_for(request.blueprint ~ '.' ~ route) }}">{{ label }}</a>
+  {% endif %}{% endfor %}
+</div>
+<div class="crumb">Home &nbsp;›&nbsp; {{ title_bar }}</div>
+<div class="wrap">{% block body %}{% endblock %}</div>
+<div class="foot">{{ tenant.product }} &copy; {{ tenant.institution }} — internal use</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Vivian Castellano",
+    "account_status": "Active",
+    "savings_balance": "$58,900.00",
+    "checking_balance": "$7,710.25"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\unionsquare_happy",
+  "capability_id": "unionsquare_member_lookup",
+  "capability_version": "1.0.0"
+}

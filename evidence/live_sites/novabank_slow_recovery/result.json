@@ -1,0 +1,12 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Samir Haddad",
+    "savings_balance": "$31,580.45",
+    "account_number": "NOVA-77777-57"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\novabank_slow_recovery",
+  "capability_id": "novabank_open_subaccount",
+  "capability_version": "1.0.0"
+}

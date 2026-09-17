@@ -1,0 +1,48 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 281, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1620, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3313, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 60, "y": 96}
+{"seq": 5, "t_ms": 4729, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 4729, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 4729, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 6329, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 665, "y": 103}
+{"seq": 9, "t_ms": 6335, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 7750, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 7750, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 7751, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 9600, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 687, "y": 147}
+{"seq": 14, "t_ms": 11048, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 11048, "type": "verify_ok", "step": "submit", "state": "permission_denied", "state_class": "business_outcome"}
+{"seq": 16, "t_ms": 11049, "type": "run_end", "status": "business_outcome"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 285, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1597, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3286, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 60, "y": 96}
+{"seq": 5, "t_ms": 4682, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 4682, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 4683, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 6280, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 665, "y": 103}
+{"seq": 9, "t_ms": 6285, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 7686, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 7687, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 7687, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 9529, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 687, "y": 147}
+{"seq": 14, "t_ms": 10982, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 10983, "type": "verify_ok", "step": "submit", "state": "permission_denied", "state_class": "business_outcome"}
+{"seq": 16, "t_ms": 10983, "type": "run_end", "status": "business_outcome"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 273, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1617, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3342, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 60, "y": 96}
+{"seq": 5, "t_ms": 4800, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 4800, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 4800, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 6428, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 665, "y": 103}
+{"seq": 9, "t_ms": 6434, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 7850, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 7851, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 7851, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 9718, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 687, "y": 147}
+{"seq": 14, "t_ms": 11185, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 11186, "type": "verify_ok", "step": "submit", "state": "permission_denied", "state_class": "business_outcome"}
+{"seq": 16, "t_ms": 11186, "type": "run_end", "status": "business_outcome"}

@@ -1,0 +1,10 @@
+<table cellpadding="6" cellspacing="0" border="0" width="100%">
+  {% for label, route in tenant.nav %}
+    {% if route is none %}
+      <tr><td><font size="1" color="#5a6b80"><b>{{ label }}</b></font></td></tr>
+    {% else %}
+      <tr><td><a href="{{ url_for(request.blueprint ~ '.' ~ route) }}">
+        <font color="{{ theme.link }}" size="2">{{ label }}</font></a></td></tr>
+    {% endif %}
+  {% endfor %}
+</table>

@@ -1,0 +1,12 @@
+{
+  "status": "failed",
+  "failed_step": "submit",
+  "observed": [
+    "app_error"
+  ],
+  "degraded": false,
+  "reason": "APP_ERROR_500",
+  "evidence_dir": "evidence\\live_sites\\pioneer_app_error",
+  "capability_id": "pioneer_member_lookup",
+  "capability_version": "1.0.0"
+}

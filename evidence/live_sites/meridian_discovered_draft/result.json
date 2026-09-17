@@ -1,0 +1,12 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Jordan Avery",
+    "account_status": "Active",
+    "savings_balance": "$18,204.77"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\meridian_discovered_draft",
+  "capability_id": "discovered_meridian",
+  "capability_version": "1.0.0"
+}

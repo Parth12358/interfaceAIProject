@@ -19,6 +19,7 @@ import json
 import time
 
 import requests
+from websockets.exceptions import ConnectionClosed
 from websockets.sync.client import connect
 
 # Minimal key map (extend as needed). CDP wants key/code/keyCode triplets.
@@ -31,12 +32,19 @@ _KEYS = {
 
 
 class CdpSurface:
+    # A form submit can swap the renderer and re-create the page target, so the
+    # websocket we hold may close (or stall) mid-navigation. Bound every recv so a
+    # stalled capture becomes a recoverable error instead of an infinite hang.
+    _RECV_TIMEOUT_S = 8.0
+
     def __init__(self, port: int, viewport: tuple[int, int] = (1280, 800)):
         self._port = port
         self._w, self._h = viewport
         self._id = 0
-        self._ws_url = self._find_page_target(port)
-        self._ws = connect(self._ws_url, max_size=64 * 1024 * 1024, open_timeout=10)
+        self._ws = None
+        self._reconnect()
+
+    def _configure(self) -> None:
         self._send("Page.enable")
         self._send("Runtime.enable")
         # Pin the coordinate space: screenshot px == CSS px == Input coords.
@@ -44,6 +52,18 @@ class CdpSurface:
             "Emulation.setDeviceMetricsOverride",
             {"width": self._w, "height": self._h, "deviceScaleFactor": 1, "mobile": False},
         )
+
+    def _reconnect(self) -> None:
+        """(Re)acquire the current page target. After a cross-process navigation
+        Chrome exposes a NEW target id; the old websocket is stale."""
+        try:
+            if self._ws is not None:
+                self._ws.close()
+        except Exception:
+            pass
+        self._ws_url = self._find_page_target(self._port)
+        self._ws = connect(self._ws_url, max_size=64 * 1024 * 1024, open_timeout=10)
+        self._configure()
 
     # --- CDP transport -------------------------------------------------------
     @staticmethod
@@ -66,7 +86,7 @@ class CdpSurface:
         self._ws.send(json.dumps({"id": msg_id, "method": method, "params": params or {}}))
         # Read until the matching command response; discard async events.
         while True:
-            raw = self._ws.recv()
+            raw = self._ws.recv(timeout=self._RECV_TIMEOUT_S)
             msg = json.loads(raw)
             if msg.get("id") == msg_id:
                 if "error" in msg:
@@ -75,7 +95,12 @@ class CdpSurface:
 
     # --- Surface protocol ----------------------------------------------------
     def screenshot(self) -> bytes:
-        result = self._send("Page.captureScreenshot", {"format": "png", "fromSurface": True})
+        try:
+            result = self._send("Page.captureScreenshot", {"format": "png", "fromSurface": True})
+        except (ConnectionClosed, OSError, TimeoutError):
+            # The target was replaced (navigation) — rebind and retry once.
+            self._reconnect()
+            result = self._send("Page.captureScreenshot", {"format": "png", "fromSurface": True})
         return base64.b64decode(result["data"])
 
     def click(self, x: int, y: int) -> None:

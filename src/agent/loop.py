@@ -7,6 +7,8 @@ typed artifact; the model is never consulted again.
 """
 from __future__ import annotations
 
+import hashlib
+import time
 from dataclasses import dataclass, field
 
 from ..perception import ocr
@@ -41,21 +43,86 @@ class Trajectory:
 
 
 def _neighbors(words, mark: Mark) -> list[str]:
-    near = [w.text for w in words if abs(w.cy - mark.cy) < 30 and w.text != mark.text]
-    return near[:6]
+    near = [w for w in words if abs(w.cy - mark.cy) < 30 and w.text != mark.text]
+    # Closest first: for an input field the label ("Member Number") sits on the same
+    # row, while unrelated nav text may also fall in the vertical band. Distance
+    # ordering makes the compiler's same-row label choice reliable.
+    near.sort(key=lambda w: abs(w.cx - mark.cx) + abs(w.cy - mark.cy))
+    return [w.text for w in near[:6]]
+
+
+def _settle(surface, timeout_s: float = 1.5, poll_s: float = 0.3) -> bytes:
+    """A click may trigger navigation; capture once two consecutive frames match
+    (or the deadline passes), mirroring replay's settle-before-classify."""
+    deadline = time.monotonic() + timeout_s
+    prev = surface.screenshot()
+    prev_h = hashlib.md5(prev).hexdigest()
+    while time.monotonic() < deadline:
+        time.sleep(poll_s)
+        cur = surface.screenshot()
+        cur_h = hashlib.md5(cur).hexdigest()
+        if cur_h == prev_h:
+            return cur
+        prev, prev_h = cur, cur_h
+    return prev
+
+
+def _discovery_handoff(control, run_log, step_no: int, reason: str) -> bool:
+    """Pause a stuck discovery and let a human take the same live session.
+
+    Returns True if a human took control and handed back (discovery should re-observe
+    and continue); False when no control session is wired or nobody responds.
+    """
+    if control is None:
+        return False
+    from ..handoff.control import ControlError, ControlState, InterventionRequest
+
+    req = InterventionRequest(
+        capability_id="discovery", version="0.0.0", step_id=f"discover_{step_no}",
+        reason=reason, observed=[], screenshot_path=None,
+        log_tail=run_log.tail(8) if run_log else [])
+    try:
+        control.escalate(req)
+    except ControlError:
+        pass  # already escalated (re-entrant handoff)
+    if run_log:
+        run_log.event("escalated_waiting", step=step_no, reason=reason)
+    took_over = control.wait_for_states(
+        {ControlState.HUMAN_CONTROL, ControlState.RESUMING}, 600.0)
+    if not took_over:
+        return False
+    if control.state == ControlState.HUMAN_CONTROL:
+        control.wait_for_state(ControlState.RESUMING, 600.0)
+    try:
+        control.resume(True)
+    except ControlError:
+        pass
+    if run_log:
+        run_log.event("resume_after_handoff", step=step_no)
+    return True
 
 
 def run_discovery(goal: str, surface, provider: Provider, run_log=None,
                   policy: Policy | None = None, max_steps: int = 12,
-                  inputs: dict | None = None) -> Trajectory:
+                  inputs: dict | None = None, timeout_s: float | None = None,
+                  control=None) -> Trajectory:
     traj = Trajectory(goal=goal, inputs=dict(inputs or {}))
     policy = policy or Policy()
     history: list[str] = []
     no_progress = 0
     repeats = 0
     last_signature: str | None = None
+    started = time.monotonic()
+
+    def expired() -> bool:
+        return timeout_s is not None and (time.monotonic() - started) > timeout_s
 
     for i in range(max_steps):
+        if expired():
+            traj.outcome, traj.reason = "timeout", f"wall-clock budget {timeout_s:.0f}s exceeded"
+            if run_log:
+                run_log.event("discovery_timeout", step=i, budget_s=timeout_s)
+            break
         png = surface.screenshot()
         words = ocr.words(png)
         marks = build_marks(words, png)
@@ -71,22 +138,33 @@ def run_discovery(goal: str, surface, provider: Provider, run_log=None,
             if run_log:
                 run_log.event("provider_error", error=str(e)[:200])
             break
+        label = by_id.get(action.mark).text if action.mark in by_id else None
         if run_log:
+            # Record the target control and the model's stated rationale ("what and why").
             run_log.event("agent_action", step=i, kind=action.kind, mark=action.mark,
-                          text=("<param>" if action.text else None))
+                          target=label, text=("<param>" if action.text else None),
+                          reason=action.reason or None)
 
         if action.kind == "done":
             traj.outcome, traj.outputs = "done", action.outputs
+            if run_log:
+                run_log.event("agent_done", step=i, outputs=sorted(action.outputs),
+                              reason=action.reason or None)
             break
         if action.kind == "escalate":
+            if _discovery_handoff(control, run_log, i, action.reason or "model escalated"):
+                last_signature, repeats, no_progress = None, 0, 0
+                continue
             traj.outcome, traj.reason = "escalated", action.reason
             break
 
         # Policy gate — same chokepoint as replay. current_states non-empty iff there is app content.
-        label = by_id.get(action.mark).text if action.mark in by_id else None
         try:
             policy.check(action.kind, label, ["discovery"] if marks else [])
         except PolicyDenied as e:
+            if _discovery_handoff(control, run_log, i, f"policy_denied:{e.reason}"):
+                last_signature, repeats, no_progress = None, 0, 0
+                continue
             traj.outcome, traj.reason = "escalated", f"policy_denied:{e.reason}"
             break
 
@@ -105,6 +183,9 @@ def run_discovery(goal: str, surface, provider: Provider, run_log=None,
             if run_log:
                 run_log.event("invalid_mark", step=i, mark=action.mark, kind=action.kind)
             if no_progress >= 3:
+                if _discovery_handoff(control, run_log, i, "model selected invalid marks repeatedly"):
+                    no_progress = 0
+                    continue
                 traj.outcome, traj.reason = "stalled", "model selected invalid marks repeatedly"
                 break
             history.append(f"{action.kind}(<invalid mark {action.mark}>)")
@@ -127,12 +208,22 @@ def run_discovery(goal: str, surface, provider: Provider, run_log=None,
             from ..perception.match import read_value
             rec.read_value = read_value(words, m.text, "right_of", 400) or m.text
 
-        post = ocr.words(surface.screenshot())
+        post = ocr.words(_settle(surface))
         rec.post_state_text = ocr.full_text(post)
         rec.post_words = post
         traj.steps.append(rec)
-        history.append(f"{action.kind}({label or action.text or action.name or ''})")
+        if action.kind == "read":
+            # Show the model the value it just read so it stops re-reading the same
+            # mark and can finish. Discovery-time values stay in the trajectory/
+            # history only — the compiler never persists them.
+            history.append(f"read('{rec.mark_text or ''}') -> {rec.read_value!r}")
+        else:
+            why = f" reason={action.reason}" if action.reason else ""
+            history.append(f"{action.kind}({label or action.text or action.name or ''}){why}")
         if repeats >= 3:
+            if _discovery_handoff(control, run_log, i, "model repeated the same action"):
+                last_signature, repeats = None, 0
+                continue
             traj.outcome, traj.reason = "stalled", "model repeated the same action repeatedly"
             break
 

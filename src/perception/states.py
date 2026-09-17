@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 from .match import find_text
 from .ocr import Word
 
-_PRIORITY = {"business_outcome": 3, "recoverable": 2, "progress": 1, "precondition": 0}
+_PRIORITY = {"failure": 4, "business_outcome": 3, "recoverable": 2, "progress": 1, "precondition": 0}
 
 
 def state_matches(words: list[Word], state) -> bool:

@@ -1,0 +1,10 @@
+{
+  "status": "success",
+  "outputs": {
+    "closure_reference": "CLS-11111-A"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\pioneer_close_permissive",
+  "capability_id": "pioneer_close_account",
+  "capability_version": "1.0.0"
+}

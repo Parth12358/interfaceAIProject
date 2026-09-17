@@ -1,0 +1,8 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <div class="alert warn"><b>Account in arrears</b></div>
+  <p>Member {{ member_id }} ({{ member.name }}) has a past-due balance; servicing actions are limited.</p>
+  <p><a href="{{ url_for(request.blueprint ~ '.search') }}">Back to search</a></p>
+</div>
+{% endblock %}

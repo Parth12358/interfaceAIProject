@@ -1,0 +1,195 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 286, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1992, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 4014, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 86, "y": 83}
+{"seq": 5, "t_ms": 5764, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 5764, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 5765, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 7735, "type": "target_not_found", "step": "enter_id"}
+{"seq": 9, "t_ms": 7736, "type": "screenshot", "file": "08_enter_id_target_not_found.png", "label": "enter_id_target_not_found"}
+{"seq": 10, "t_ms": 7737, "type": "run_end", "status": "failed"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 279, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 2017, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 4054, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 13843, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13844, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13844, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15727, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 15733, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 17377, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 17377, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 17377, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 19238, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 43, "y": 135}
+{"seq": 14, "t_ms": 31328, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 32919, "type": "verify_timeout", "step": "submit", "expected": ["member_detail", "no_member_found", "validation_error", "permission_denied", "arrears", "compliance_hold", "app_error"], "observed": ["app_ready", "search_form"]}
+{"seq": 16, "t_ms": 32920, "type": "screenshot", "file": "15_submit_verify_timeout.png", "label": "submit_verify_timeout"}
+{"seq": 17, "t_ms": 32921, "type": "run_end", "status": "failed"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 280, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1999, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 4001, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 13698, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13698, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13699, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15565, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 15570, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 17218, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 17218, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 17218, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 19075, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 29128, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 29128, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 29129, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 35329, "type": "extract", "step": "read_name", "output": "member_name", "value": "HOWARD FINCH"}
+{"seq": 18, "t_ms": 35330, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 41532, "type": "extract", "step": "read_status", "output": "account_status", "value": "ACTIVE"}
+{"seq": 20, "t_ms": 41532, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 47764, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$15,220.48"}
+{"seq": 22, "t_ms": 47765, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 53996, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$2,010.00"}
+{"seq": 24, "t_ms": 53997, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 279, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1987, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3999, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 13707, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13708, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13708, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15564, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 15570, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 17187, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 17188, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 17188, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 19050, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 29119, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 29119, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 29119, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 35335, "type": "extract", "step": "read_name", "output": "member_name", "value": "HOWARD FINCH"}
+{"seq": 18, "t_ms": 35335, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 41541, "type": "extract", "step": "read_status", "output": "account_status", "value": "ACTIVE"}
+{"seq": 20, "t_ms": 41542, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 47762, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$15,220.48"}
+{"seq": 22, "t_ms": 47762, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 54022, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$2,010.00"}
+{"seq": 24, "t_ms": 54023, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 283, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1946, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3967, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 13793, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13793, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13794, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15695, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 15701, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 17369, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 17369, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 17370, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 19257, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 29367, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 29367, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 29368, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 35635, "type": "extract", "step": "read_name", "output": "member_name", "value": "HOWARD FINCH"}
+{"seq": 18, "t_ms": 35636, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 41853, "type": "extract", "step": "read_status", "output": "account_status", "value": "ACTIVE"}
+{"seq": 20, "t_ms": 41854, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 48131, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$15,220.48"}
+{"seq": 22, "t_ms": 48131, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 54378, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$2,010.00"}
+{"seq": 24, "t_ms": 54379, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 285, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1966, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 4002, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 13740, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13740, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13742, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15655, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 15661, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 17335, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 17336, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 17336, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 19191, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 29240, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 29241, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 29241, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 35474, "type": "extract", "step": "read_name", "output": "member_name", "value": "HOWARD FINCH"}
+{"seq": 18, "t_ms": 35474, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 41659, "type": "extract", "step": "read_status", "output": "account_status", "value": "ACTIVE"}
+{"seq": 20, "t_ms": 41660, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 47842, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$15,220.48"}
+{"seq": 22, "t_ms": 47843, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 54019, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$2,010.00"}
+{"seq": 24, "t_ms": 54020, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 277, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1961, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3973, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 7719, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 7720, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 7720, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 9531, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 9536, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 11166, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 11167, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 11167, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 13088, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 23156, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 23157, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 23157, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 29504, "type": "extract", "step": "read_name", "output": "member_name", "value": "HOWARD FINCH"}
+{"seq": 18, "t_ms": 29504, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 35734, "type": "extract", "step": "read_status", "output": "account_status", "value": "ACTIVE"}
+{"seq": 20, "t_ms": 35735, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 41990, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$15,220.48"}
+{"seq": 22, "t_ms": 41990, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 48201, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$2,010.00"}
+{"seq": 24, "t_ms": 48202, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 286, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1932, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3975, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 13727, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13727, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13727, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15661, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 15667, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 17297, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 17297, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 17297, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 19152, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 29215, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 29215, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 29216, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 35478, "type": "extract", "step": "read_name", "output": "member_name", "value": "HOWARD FINCH"}
+{"seq": 18, "t_ms": 35479, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 41645, "type": "extract", "step": "read_status", "output": "account_status", "value": "ACTIVE"}
+{"seq": 20, "t_ms": 41645, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 47815, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$15,220.48"}
+{"seq": 22, "t_ms": 47816, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 53996, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$2,010.00"}
+{"seq": 24, "t_ms": 53998, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 273, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1992, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3981, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 92, "y": 209}
+{"seq": 5, "t_ms": 13686, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13686, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13686, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15586, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 538, "y": 181}
+{"seq": 9, "t_ms": 15593, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 17215, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 17215, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 17215, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 19042, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 563, "y": 229}
+{"seq": 14, "t_ms": 29116, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 29116, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 29116, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 35365, "type": "extract", "step": "read_name", "output": "member_name", "value": "HOWARD FINCH"}
+{"seq": 18, "t_ms": 35365, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 41594, "type": "extract", "step": "read_status", "output": "account_status", "value": "ACTIVE"}
+{"seq": 20, "t_ms": 41594, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 47864, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$15,220.48"}
+{"seq": 22, "t_ms": 47865, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 54096, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$2,010.00"}
+{"seq": 24, "t_ms": 54097, "type": "run_end", "status": "success"}

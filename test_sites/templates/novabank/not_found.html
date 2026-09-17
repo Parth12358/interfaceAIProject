@@ -1,0 +1,8 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <div class="alert bad"><b>No member found</b></div>
+  <p>No member matches ID <b>{{ member_id }}</b>. Verify the ID and search again.</p>
+  <p><a href="{{ url_for(request.blueprint ~ '.search') }}">Back to search</a></p>
+</div>
+{% endblock %}

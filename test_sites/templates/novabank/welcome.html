@@ -1,0 +1,11 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <h1>Relationship dashboard</h1>
+  <p class="muted">Search a member to view their relationship and open a new sub-account.</p>
+  <p><a class="btn" href="{{ url_for(request.blueprint ~ '.search') }}">Find a Member</a></p>
+  <h2>Recent activity</h2>
+  <div class="row"><span>Servicing queue</span><span>0 open</span></div>
+  <div class="row"><span>Pending requests</span><span>0</span></div>
+</div>
+{% endblock %}

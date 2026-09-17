@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Robin Okafor",
+    "account_status": "Active",
+    "savings_balance": "$42,318.09",
+    "checking_balance": "$761.55"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\summit_happy",
+  "capability_id": "vaultcore_member_lookup",
+  "capability_version": "1.0.0"
+}

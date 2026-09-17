@@ -84,6 +84,18 @@ def launch_chromium(
 
 def kill_process_group(proc: subprocess.Popen) -> None:
     """Kill chromium and all its child processes (it forks a process tree)."""
+    if sys.platform == "win32":
+        # Windows has no process groups: os.killpg is unavailable and proc.kill()
+        # terminates only the browser process, leaking the renderer/gpu children
+        # that keep holding the remote-debugging port. taskkill /T reaps the tree.
+        try:
+            subprocess.run(
+                ["taskkill", "/PID", str(proc.pid), "/T", "/F"],
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15,
+            )
+            return
+        except Exception:
+            pass
     import os
     import signal
 

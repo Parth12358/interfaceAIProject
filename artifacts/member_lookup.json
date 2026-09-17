@@ -25,6 +25,7 @@
       "action": { "kind": "click" },
       "target": {
         "text_anchor": { "text": "Member Lookup", "role_hint": "link", "fuzzy_min": 0.85 },
+        "context_anchor": { "text": "NAVIGATION", "relation": "below", "max_px": 300, "fuzzy_min": 0.85 },
         "fallback_point": { "x": 53, "y": 115 }
       },
       "expect": { "any_of": ["search_form"], "timeout_ms": 5000 }
@@ -41,7 +42,9 @@
       "id": "submit",
       "action": { "kind": "click" },
       "target": {
-        "text_anchor": { "text": "Find", "role_hint": "button", "fuzzy_min": 0.9 }
+        "text_anchor": { "text": "Find", "role_hint": "button", "fuzzy_min": 0.9 },
+        "template_ref": "crops/vaultcore_find.png",
+        "template_min": 0.9
       },
       "expect": {
         "any_of": ["member_detail", "no_member_found", "validation_error"],

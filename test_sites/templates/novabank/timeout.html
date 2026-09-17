@@ -1,0 +1,10 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <div class="alert warn"><b>Session expired</b></div>
+  <p>Your session was idle and has expired. Use the button below to resume where you left off.</p>
+  <form action="{{ url_for(request.blueprint ~ '.continue_session') }}" method="post">
+    <button class="btn" type="submit">Continue</button>
+  </form>
+</div>
+{% endblock %}

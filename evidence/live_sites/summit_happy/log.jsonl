@@ -1,0 +1,192 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 274, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1815, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3680, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 58, "y": 122}
+{"seq": 5, "t_ms": 13364, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13364, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13365, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15221, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 659, "y": 145}
+{"seq": 9, "t_ms": 15229, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 16762, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 16763, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 16763, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 18735, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 680, "y": 189}
+{"seq": 14, "t_ms": 28535, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 28535, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 28536, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 33868, "type": "extract", "step": "read_name", "output": "member_name", "value": "Robin Okafor"}
+{"seq": 18, "t_ms": 33869, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 39215, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 20, "t_ms": 39215, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 44548, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$42,318.09"}
+{"seq": 22, "t_ms": 44548, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 49889, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$761.55"}
+{"seq": 24, "t_ms": 49890, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 276, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1772, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3646, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 58, "y": 122}
+{"seq": 5, "t_ms": 13287, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13288, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13288, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15162, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 659, "y": 145}
+{"seq": 9, "t_ms": 15168, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 16717, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 16718, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 16718, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 18690, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 680, "y": 189}
+{"seq": 14, "t_ms": 28457, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 28458, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 28458, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 33734, "type": "extract", "step": "read_name", "output": "member_name", "value": "Robin Okafor"}
+{"seq": 18, "t_ms": 33735, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 39009, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 20, "t_ms": 39010, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 44312, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$42,318.09"}
+{"seq": 22, "t_ms": 44312, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 49605, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$761.55"}
+{"seq": 24, "t_ms": 49606, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 281, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1808, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3646, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 58, "y": 122}
+{"seq": 5, "t_ms": 7157, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 7157, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 7158, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 8888, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 659, "y": 145}
+{"seq": 9, "t_ms": 8894, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 10399, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 10399, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 10400, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 12418, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 680, "y": 189}
+{"seq": 14, "t_ms": 22201, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 22202, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 22202, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 27569, "type": "extract", "step": "read_name", "output": "member_name", "value": "Robin Okafor"}
+{"seq": 18, "t_ms": 27569, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 32857, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 20, "t_ms": 32858, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 38117, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$42,318.09"}
+{"seq": 22, "t_ms": 38117, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 43435, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$761.55"}
+{"seq": 24, "t_ms": 43436, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 278, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1766, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3595, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 58, "y": 122}
+{"seq": 5, "t_ms": 7064, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 7064, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 7064, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 8795, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 659, "y": 145}
+{"seq": 9, "t_ms": 8802, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 10312, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 10313, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 10313, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 12310, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 680, "y": 189}
+{"seq": 14, "t_ms": 22065, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 22065, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 22066, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 27345, "type": "extract", "step": "read_name", "output": "member_name", "value": "Robin Okafor"}
+{"seq": 18, "t_ms": 27346, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 32628, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 20, "t_ms": 32629, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 37912, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$42,318.09"}
+{"seq": 22, "t_ms": 37913, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 43220, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$761.55"}
+{"seq": 24, "t_ms": 43221, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 274, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1778, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3663, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 58, "y": 122}
+{"seq": 5, "t_ms": 13354, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13354, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13354, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15238, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 659, "y": 145}
+{"seq": 9, "t_ms": 15244, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 16814, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 16814, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 16815, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 18814, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 680, "y": 189}
+{"seq": 14, "t_ms": 28617, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 28617, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 28617, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 33929, "type": "extract", "step": "read_name", "output": "member_name", "value": "Robin Okafor"}
+{"seq": 18, "t_ms": 33930, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 39202, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 20, "t_ms": 39202, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 44536, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$42,318.09"}
+{"seq": 22, "t_ms": 44536, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 49911, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$761.55"}
+{"seq": 24, "t_ms": 49912, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 282, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1825, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3718, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 58, "y": 122}
+{"seq": 5, "t_ms": 13391, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13391, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13391, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15241, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 659, "y": 145}
+{"seq": 9, "t_ms": 15249, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 16842, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 16842, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 16842, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 18840, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 680, "y": 189}
+{"seq": 14, "t_ms": 28620, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 28620, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 28620, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 34037, "type": "extract", "step": "read_name", "output": "member_name", "value": "Robin Okafor"}
+{"seq": 18, "t_ms": 34038, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 39381, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 20, "t_ms": 39381, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 44790, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$42,318.09"}
+{"seq": 22, "t_ms": 44791, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 50183, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$761.55"}
+{"seq": 24, "t_ms": 50184, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 277, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1832, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3769, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 58, "y": 122}
+{"seq": 5, "t_ms": 13477, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 13478, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 13478, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 15317, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 659, "y": 145}
+{"seq": 9, "t_ms": 15323, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 16852, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 16852, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 16852, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 18855, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 680, "y": 189}
+{"seq": 14, "t_ms": 28583, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 28584, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 28584, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 33939, "type": "extract", "step": "read_name", "output": "member_name", "value": "Robin Okafor"}
+{"seq": 18, "t_ms": 33939, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 39295, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 20, "t_ms": 39295, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 44723, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$42,318.09"}
+{"seq": 22, "t_ms": 44723, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 50047, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$761.55"}
+{"seq": 24, "t_ms": 50048, "type": "run_end", "status": "success"}
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay"}
+{"seq": 2, "t_ms": 282, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1782, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 3615, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 58, "y": 122}
+{"seq": 5, "t_ms": 7103, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 7104, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 7104, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 8819, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 659, "y": 145}
+{"seq": 9, "t_ms": 8826, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 10347, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 10347, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 10348, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 12382, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 680, "y": 189}
+{"seq": 14, "t_ms": 22151, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 22151, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 22152, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 17, "t_ms": 27461, "type": "extract", "step": "read_name", "output": "member_name", "value": "Robin Okafor"}
+{"seq": 18, "t_ms": 27462, "type": "step_start", "step": "read_status", "action": "read"}
+{"seq": 19, "t_ms": 32777, "type": "extract", "step": "read_status", "output": "account_status", "value": "Active"}
+{"seq": 20, "t_ms": 32777, "type": "step_start", "step": "read_savings", "action": "read"}
+{"seq": 21, "t_ms": 38054, "type": "extract", "step": "read_savings", "output": "savings_balance", "value": "$42,318.09"}
+{"seq": 22, "t_ms": 38055, "type": "step_start", "step": "read_checking", "action": "read"}
+{"seq": 23, "t_ms": 43368, "type": "extract", "step": "read_checking", "output": "checking_balance", "value": "$761.55"}
+{"seq": 24, "t_ms": 43369, "type": "run_end", "status": "success"}

@@ -1,0 +1,22 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "discovery"}
+{"seq": 2, "t_ms": 2099, "type": "screenshot", "file": "01_disc_00.png", "label": "disc_00"}
+{"seq": 3, "t_ms": 2100, "type": "decide_start", "step": 0, "marks": 12}
+{"seq": 4, "t_ms": 3388, "type": "agent_action", "step": 0, "kind": "click", "mark": 8, "text": null}
+{"seq": 5, "t_ms": 14630, "type": "screenshot", "file": "04_disc_01.png", "label": "disc_01"}
+{"seq": 6, "t_ms": 14630, "type": "decide_start", "step": 1, "marks": 15}
+{"seq": 7, "t_ms": 15912, "type": "agent_action", "step": 1, "kind": "type", "mark": 15, "text": "<param>"}
+{"seq": 8, "t_ms": 19311, "type": "screenshot", "file": "07_disc_02.png", "label": "disc_02"}
+{"seq": 9, "t_ms": 19311, "type": "decide_start", "step": 2, "marks": 15}
+{"seq": 10, "t_ms": 20854, "type": "agent_action", "step": 2, "kind": "click", "mark": 13, "text": null}
+{"seq": 11, "t_ms": 32347, "type": "screenshot", "file": "10_disc_03.png", "label": "disc_03"}
+{"seq": 12, "t_ms": 32348, "type": "decide_start", "step": 3, "marks": 24}
+{"seq": 13, "t_ms": 33824, "type": "agent_action", "step": 3, "kind": "read", "mark": 12, "text": null}
+{"seq": 14, "t_ms": 37541, "type": "screenshot", "file": "13_disc_04.png", "label": "disc_04"}
+{"seq": 15, "t_ms": 37541, "type": "decide_start", "step": 4, "marks": 24}
+{"seq": 16, "t_ms": 38516, "type": "agent_action", "step": 4, "kind": "read", "mark": 15, "text": null}
+{"seq": 17, "t_ms": 42249, "type": "screenshot", "file": "16_disc_05.png", "label": "disc_05"}
+{"seq": 18, "t_ms": 42250, "type": "decide_start", "step": 5, "marks": 24}
+{"seq": 19, "t_ms": 43516, "type": "agent_action", "step": 5, "kind": "read", "mark": 19, "text": null}
+{"seq": 20, "t_ms": 47256, "type": "screenshot", "file": "19_disc_06.png", "label": "disc_06"}
+{"seq": 21, "t_ms": 47256, "type": "decide_start", "step": 6, "marks": 24}
+{"seq": 22, "t_ms": 48413, "type": "agent_action", "step": 6, "kind": "done", "mark": null, "text": null}

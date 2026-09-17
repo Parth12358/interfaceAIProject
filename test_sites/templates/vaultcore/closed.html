@@ -1,0 +1,16 @@
+{% extends "vaultcore/base.html" %}
+{% block body %}
+<table width="80%" align="center" class="legacy" cellpadding="14" cellspacing="0" border="0"><tr><td>
+  <font size="3" color="{{ theme.ok }}"><b>Account closed</b></font>
+  <hr>
+  <font size="2" color="#333333">Member <b>{{ member_id }}</b> has been closed.</font>
+  <table class="legacy" cellpadding="6" cellspacing="0" border="0" style="margin-top:10px;">
+    <tr>
+      <td><font size="2" color="#333333">Confirmation reference</font></td>
+      <td><font size="2"><b>{{ reference }}</b></font></td>
+    </tr>
+  </table>
+  <br>
+  <a href="{{ url_for(request.blueprint ~ '.search') }}"><font size="2">Return to Search</font></a>
+</td></tr></table>
+{% endblock %}

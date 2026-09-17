@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Jordan Avery",
+    "account_status": "Active",
+    "savings_balance": "$18,204.77",
+    "checking_balance": "$2,915.40"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\meridian_happy",
+  "capability_id": "vaultcore_member_lookup",
+  "capability_version": "1.0.0"
+}

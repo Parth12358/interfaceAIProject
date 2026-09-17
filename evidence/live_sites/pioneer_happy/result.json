@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Beatrice Lindholm",
+    "account_status": "Active",
+    "savings_balance": "$9,340.12",
+    "checking_balance": "$1,002.44"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\pioneer_happy",
+  "capability_id": "pioneer_member_lookup",
+  "capability_version": "1.0.0"
+}

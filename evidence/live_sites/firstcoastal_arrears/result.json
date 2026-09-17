@@ -1,0 +1,11 @@
+{
+  "status": "business_outcome",
+  "outcome_code": "ACCOUNT_IN_ARREARS",
+  "observed": [
+    "arrears"
+  ],
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\firstcoastal_arrears",
+  "capability_id": "firstcoastal_member_lookup",
+  "capability_version": "1.0.0"
+}

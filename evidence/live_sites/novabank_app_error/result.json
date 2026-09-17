@@ -1,0 +1,12 @@
+{
+  "status": "failed",
+  "failed_step": "submit_search",
+  "observed": [
+    "app_error"
+  ],
+  "degraded": false,
+  "reason": "APP_ERROR_500",
+  "evidence_dir": "evidence\\live_sites\\novabank_app_error",
+  "capability_id": "novabank_open_subaccount",
+  "capability_version": "1.0.0"
+}

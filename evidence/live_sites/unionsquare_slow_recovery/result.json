@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "Bianca Moretti",
+    "account_status": "Active",
+    "savings_balance": "$120,450.00",
+    "checking_balance": "$18,000.00"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\unionsquare_slow_recovery",
+  "capability_id": "unionsquare_member_lookup",
+  "capability_version": "1.0.0"
+}

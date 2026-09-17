@@ -1,0 +1,8 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <h1>Open a new sub-account</h1>
+  <p class="muted">Member {{ member_id }}</p>
+  {% include "novabank/_subaccount_form.html" %}
+</div>
+{% endblock %}

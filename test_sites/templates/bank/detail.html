@@ -1,0 +1,29 @@
+{% extends base %}
+{% block body %}
+<table cellpadding="8" cellspacing="0" border="1" bgcolor="#ffffff" width="100%"
+       style="border-color:#8a97a6;">
+  <tr><td colspan="2"><b>{{ labels.detail_title }}</b></td></tr>
+  <tr><td align="right" width="45%">{{ labels.member }}</td><td><b>{{ member_id }}</b></td></tr>
+  <tr><td align="right">{{ labels.name }}</td><td><b>{{ member.name }}</b></td></tr>
+  <tr><td align="right">{{ labels.status }}</td><td><b>{{ member.status }}</b></td></tr>
+  <tr><td align="right">{{ labels.savings }}</td>
+      <td><font color="{{ theme.ok }}"><b>{{ member.savings }}</b></font></td></tr>
+  <tr><td align="right">{{ labels.checking }}</td>
+      <td><font color="{{ theme.ok }}"><b>{{ member.checking }}</b></font></td></tr>
+</table>
+
+{% if tenant.special_flow == "closure" %}
+<form action="{{ url_for(request.blueprint ~ '.close') }}" method="post" style="margin-top:14px;">
+  <input type="hidden" name="member_key" value="{{ member_id }}">
+  <input type="submit" class="btn" value="Close Account">
+</form>
+{% elif tenant.special_flow == "wire" %}
+<form action="{{ url_for(request.blueprint ~ '.wire') }}" method="post" style="margin-top:14px;">
+  <input type="hidden" name="member_key" value="{{ member_id }}">
+  <input type="submit" class="btn" value="Send Wire">
+</form>
+{% endif %}
+<p style="margin-top:12px;">
+  <a href="{{ url_for(request.blueprint ~ '.search') }}">New Search</a>
+</p>
+{% endblock %}

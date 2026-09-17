@@ -1,0 +1,13 @@
+{% extends base %}
+{% block body %}
+<table cellpadding="12" cellspacing="0" border="1" bgcolor="#fff6f6" width="100%"
+       style="border-color:#d9a0a0;">
+  <tr><td>
+    <b><font color="{{ theme.bad }}">Access denied</font></b>
+    <hr>
+    You do not have permission to view member <b>{{ member_id }}</b>.
+    This record is restricted to the branch supervisor role.
+  </td></tr>
+</table>
+<p><a href="{{ url_for(request.blueprint ~ '.search') }}">Back to Search</a></p>
+{% endblock %}

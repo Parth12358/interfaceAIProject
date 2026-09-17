@@ -1,0 +1,13 @@
+{% extends base %}
+{% block body %}
+<table cellpadding="14" cellspacing="0" border="1" bgcolor="#ffffff" width="80%" align="center"
+       style="border-color:#8a97a6;"><tr><td align="center">
+  <b><font color="{{ theme.bad }}">Session expired</font></b>
+  <hr>
+  Your session was idle and has expired. Use the button below to resume where you left off.
+  <br><br>
+  <form action="{{ url_for(request.blueprint ~ '.continue_session') }}" method="post">
+    <input type="submit" class="btn" value="Continue">
+  </form>
+</td></tr></table>
+{% endblock %}

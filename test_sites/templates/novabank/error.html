@@ -1,0 +1,9 @@
+{% extends "novabank/base.html" %}
+{% block body %}
+<div class="card">
+  <div class="alert bad"><b>System error</b></div>
+  <p>The servicing platform returned an unexpected error and could not complete the request.</p>
+  <p class="muted">Reference code: <b>{{ error_code }}</b></p>
+  <p><a href="{{ url_for(request.blueprint ~ '.search') }}">Return to search</a></p>
+</div>
+{% endblock %}

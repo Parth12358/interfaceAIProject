@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ tenant.product }} — {{ tenant.institution }}</title>
+  <style>
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+           background:#f4f5f9; color:#111827; }
+    a { color:{{ theme.link }}; text-decoration:none; }
+    .shell { display:flex; min-height:100vh; }
+    .side { width:244px; background:#0f172a; color:#c7d2fe; padding:20px 16px; }
+    .side .brand { font-size:19px; font-weight:800; color:#fff; }
+    .side .org { font-size:11px; color:#94a3b8; margin:2px 0 22px; }
+    .side a { display:block; color:#c7d2fe; padding:10px 12px; border-radius:10px; font-size:14px;
+              margin-bottom:4px; }
+    .side a:hover, .side a.active { background:#1e293b; color:#fff; }
+    .side .user { position:absolute; bottom:18px; font-size:11px; color:#64748b; }
+    .main { flex:1; }
+    .topbar { background:#fff; border-bottom:1px solid #e5e7eb; padding:14px 28px;
+              display:flex; justify-content:space-between; align-items:center; }
+    .topbar .crumb { font-size:13px; color:#6b7280; }
+    .pill { background:{{ theme.accent }}; color:#fff; border-radius:999px; padding:3px 12px;
+            font-size:12px; margin-left:8px; }
+    .page { max-width:900px; margin:28px auto; padding:0 24px; }
+    .card { background:#fff; border:1px solid #eceef3; border-radius:16px; padding:26px;
+            box-shadow:0 6px 24px rgba(15,23,42,.06); }
+    h1 { font-size:22px; margin:0 0 6px; }
+    .muted { color:#6b7280; font-size:12px; }
+    table { border:0 !important; width:100%; }
+    td, th { border:0 !important; border-bottom:1px solid #eef0f4 !important; padding:10px 4px;
+             font-size:15px; }
+    tr:last-child td { border-bottom:0 !important; }
+    .btn { background:#ede9fe; color:#5b21b6; border:1px solid #c4b5fd; border-radius:10px;
+           padding:11px 20px; font-size:15px; font-weight:600; cursor:pointer; }
+    label { display:block; font-size:13px; color:#374151; margin:12px 0 4px; }
+    input[type=text] { width:100%; max-width:380px; padding:11px 12px; border:1px solid #d1d5db;
+                       border-radius:10px; font-size:15px; }
+    .legacy td + td { padding-left:12px; }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <div class="side">
+    <div class="brand">{{ tenant.product }}</div>
+    <div class="org">{{ tenant.institution }}</div>
+    {% for label, route in tenant.nav %}{% if route is not none %}
+      <a class="{% if loop.first %}active{% endif %}" href="{{ url_for(request.blueprint ~ '.' ~ route) }}">{{ label }}</a>
+    {% endif %}{% endfor %}
+    <div class="user">Signed in · servicing desk</div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <div class="crumb">{{ tenant.institution }} › <b>{{ title_bar }}</b></div>
+      <div><span class="pill">{{ tenant.tagline }}</span></div>
+    </div>
+    <div class="page"><div class="card">{% block body %}{% endblock %}</div></div>
+  </div>
+</div>
+</body>
+</html>

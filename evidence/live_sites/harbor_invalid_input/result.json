@@ -1,0 +1,11 @@
+{
+  "status": "business_outcome",
+  "outcome_code": "INVALID_INPUT",
+  "observed": [
+    "validation_error"
+  ],
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\harbor_invalid_input",
+  "capability_id": "harbor_member_lookup",
+  "capability_version": "1.0.0"
+}

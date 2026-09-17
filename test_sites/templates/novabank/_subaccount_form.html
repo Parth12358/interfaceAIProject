@@ -1,0 +1,24 @@
+{% if errors %}
+<div class="alert bad">
+  <b>Please correct the following</b>
+  <ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+<form action="{{ url_for(request.blueprint ~ '.subaccount_submit') }}" method="post">
+  <input type="hidden" name="member_number" value="{{ member_id }}">
+  <label>Account type</label>
+  <div class="radio-row">
+    {% for name in products %}
+      <label><input type="radio" name="product" value="{{ name }}"
+        {% if values.product == name %}checked{% endif %}> {{ name }}</label>
+    {% endfor %}
+  </div>
+  <label for="nickname">Account Nickname</label>
+  <input type="text" id="nickname" name="nickname" value="{{ values.nickname }}">
+  <label for="deposit">Initial Deposit</label>
+  <input type="text" id="deposit" name="deposit" value="{{ values.deposit }}">
+  <label style="margin-top:14px;">
+    <input type="checkbox" name="agree" {% if values.agree %}checked{% endif %}>
+    I agree to the account terms</label>
+  <p style="margin-top:18px;"><button class="btn" type="submit">Review Account</button></p>
+</form>

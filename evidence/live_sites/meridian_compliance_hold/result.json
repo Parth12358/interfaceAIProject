@@ -1,0 +1,12 @@
+{
+  "status": "failed",
+  "failed_step": "submit",
+  "observed": [
+    "compliance_hold"
+  ],
+  "degraded": false,
+  "reason": "COMPLIANCE_HOLD",
+  "evidence_dir": "evidence\\live_sites\\meridian_compliance_hold",
+  "capability_id": "vaultcore_member_lookup",
+  "capability_version": "1.0.0"
+}

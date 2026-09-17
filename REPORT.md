@@ -2,166 +2,135 @@
 
 **Thesis.** The LLM is allowed to be uncertain exactly once — during *discovery*. That uncertainty is
 compiled into a typed capability artifact; production is deterministic replay with no model in the
-decision loop. Everything below serves making that split real and mechanically checkable.
+decision loop.
 
 ## 1. Architecture
 
 ```
 goal ──► DISCOVERY (LLM, once) ──► ARTIFACT (typed, versioned) ──► REPLAY (deterministic) ──► result
-              │  set-of-marks + DeepSeek                                │  OCR + anchors
-              └── recorder → compiler                                   └── escalate → HUMAN HANDOFF
+              │ set-of-marks + DeepSeek                               │ OCR + anchors
+              └ recorder → compiler                                    └ escalate → HUMAN HANDOFF
 ```
 
 The load-bearing seam is the **Surface protocol** (`screenshot`, `click(x,y)`, `type`, `key`): *how we
 perceive/act on a surface*. Above it, `perception/` answers *how we deterministically find things in
-pixels*, and the **artifact is expressed only in anchors + surface actions** — so it is surface-neutral.
-There are three real Surface implementations behind that one protocol:
-
-- **`CdpSurface` (primary):** Chrome DevTools Protocol over a websocket — `Page.captureScreenshot` for
-  pixels, `Input.dispatchMouseEvent/Key` for coordinate input, `deviceScaleFactor` pinned to 1 so
-  screenshot px == CSS px == click coords. **No DOM management**: we never query/select nodes or read the
-  a11y tree. This is a deliberate pivot from an OS-level-primary design — CDP is a *transport for pixels +
-  coordinate input, not a selector engine* — chosen because it is cross-platform and dodges the
-  Linux/Wayland synthetic-input problem while staying literally DOM-blind.
-- **`OsSurface` (secondary):** `mss` + `pyautogui`. The "generalizes to a native desktop app, where there
-  is no DOM at all" path. Kept real to prove the seam; it carries the documented X11/DPI costs.
-- **`ScriptedSurface`:** returns saved PNG screens; used for deterministic offline tests/evidence.
-
-Pointing the system at a native desktop app is a `launch()` + Surface change — **not** a schema or replay
-change. That sentence is the generalization story, and it is demonstrated, not just asserted (the same
-artifact replays over `CdpSurface` and `ScriptedSurface`).
+pixels*; the artifact is expressed only in anchors + surface actions, so it is surface-neutral. Three real
+implementations sit behind one protocol — **`CdpSurface`** (primary: CDP as a transport for pixels and
+coordinate input only; no DOM queries, no a11y tree; `deviceScaleFactor=1` so screenshot px == click px),
+**`OsSurface`** (mss + pyautogui; the native-desktop path, with documented X11/DPI costs), and
+**`ScriptedSurface`** (saved frames for deterministic offline tests). Pointing the system at a desktop app
+is a `launch()` + Surface change, not a schema/replay change — demonstrated by the same artifact replaying
+over `CdpSurface` and `ScriptedSurface`.
 
 **Boundaries (CI-enforced).** `replay/` may not import `agent/` or any LLM SDK (import-linter contract);
-`sys.platform` appears only in `src/platformx/` (test). Single process; no queues/services — replay is a
-synchronous per-step loop. Simplicity is the point; the abstractions, not infrastructure, carry scale.
+`sys.platform` appears only in `src/platformx/` (test). Single process, synchronous per-step loop — the
+abstractions, not infrastructure, carry scale.
 
 ## 2. Artifact schema
 
-The artifact (`src/artifact/schema.py`, JSON in `artifacts/`, JSON Schema exported to
-`artifacts/artifact.schema.json`) is the contract between the calling agent and the replay engine. Shape:
+`src/artifact/schema.py` (Pydantic v2; JSON in `artifacts/`, exported JSON Schema alongside) is the
+calling-agent contract:
 
-- **`capability`** — `id`, semver `version`, `status` (`draft|approved`), typed **`inputs`** (name → type
-  + regex `pattern`) and **`outputs`** (name → `extract: step:<id>`). This is the agent-facing contract:
-  what it needs, what it gets back.
-- **`steps[]`** — each an `action` (`click|type|read|key|wait`) + a **`target` anchor bundle** with an
-  **ordered degradation path**: `text_anchor` (+ optional `context_anchor` to disambiguate) →
-  `template_ref` (saved crop) → `fallback_point`. Using a lower rung is *reported* (run flagged
-  `degraded`), never silent. Each step carries **`expect.any_of`** — the set of screen-states it may
-  legitimately land on.
-- **`screen_states{}`** — the error taxonomy as data, not code. Each state has text matchers and a
-  `class`: `precondition` (am I even on the right app?), `progress`, `business_outcome`
-  (+`outcome_code`), or `recoverable` (+`recovery`).
-- **`provenance`** — model, platform, surface, discovery-run pointer (informational; an artifact
-  discovered on one platform/surface replays on another).
+- **`capability`** — `id`, semver `version`, `status` (`draft|approved`), typed **`inputs`** (type + regex
+  `pattern`) and **`outputs`** (`extract: step:<id>`): what the agent supplies and gets back.
+- **`steps[]`** — an `action` (`click|type|read|key|wait`) + a **`target` anchor bundle** with an ordered
+  degradation path: `text_anchor` (+ optional `context_anchor` disambiguator) → `template_ref` saved crop
+  → `fallback_point`. Lower rungs are reported, never silent. Each step declares **`expect.any_of`**, the
+  screen-states it may legitimately land on.
+- **`screen_states{}`** — the error taxonomy as data: `precondition` (is this the right app?), `progress`,
+  `business_outcome` (+`outcome_code`), `recoverable` (+`recovery`), or `failure` (+`error_code`).
+- **`provenance`** — model, platform, surface, discovery-run pointer (informational only).
 
-Design choices that matter: input values are **placeholders** (`{member_id}`) — discovery-time literals
-are never persisted; `expect.any_of` makes **every step a branch over known states**, so the error
-taxonomy lives in the artifact; `status` gates unattended replay (`draft` is refused without
-`--allow-draft`).
+Inputs are **placeholders** (`{member_id}`) — discovery-time literals are never persisted. `expect.any_of`
+makes every step a branch over known states, so the taxonomy lives in the artifact. `status` gates
+unattended replay.
 
 ## 3. Determinism & error handling
 
-Replay (`src/replay/engine.py`) is a pure function of pixels + artifact. No model calls; OCR and matching
-are deterministic; all waits are bounded and condition-based (never bare sleeps); window geometry and
-`deviceScaleFactor` are pinned. Per step: **settle** (two identical frames) → **classify** →
-**resolve** (anchor bundle, each rung logged with confidence) → **policy** → **act** → **verify**
-(`expect.any_of` within timeout) → **extract** (for reads).
+Replay is a pure function of pixels + artifact: no model calls, deterministic OCR/matching, bounded
+condition-based waits, pinned geometry. Per step: **settle** (two identical frames) → **classify** →
+**resolve** (anchor bundle, rung logged) → **policy** → **act** → **verify** (`expect.any_of`) →
+**extract**. The interesting failures are runtime states, not layout drift; the result contract separates:
 
-The interesting part is not layout drift; it is runtime states. The result contract separates them:
+| Situation | Class | Result |
+|---|---|---|
+| No member / invalid number | `business_outcome` | outcome + `MEMBER_NOT_FOUND` / `INVALID_INPUT` |
+| Permission denied / arrears | `business_outcome` | outcome + `ACCESS_DENIED` / `ACCOUNT_IN_ARREARS` |
+| Session-expired interstitial | `recoverable` | recovered, run continues |
+| Slow load | `recoverable` | bounded wait/retry, continues |
+| Outright app error (outage, compliance) | `failure` | `failed` + `APP_ERROR_500` / `COMPLIANCE_HOLD` |
+| Unknown screen / target missing / verify timeout | — | `failed`, expected-vs-observed |
+| Risky/irreversible action | — | `escalated` |
 
-| Situation | Class | Replay behavior | Result |
-|---|---|---|---|
-| "No member found" | `business_outcome` | stop, report | `business_outcome` + `MEMBER_NOT_FOUND` |
-| "Invalid member number" | `business_outcome` | stop, report | `business_outcome` + `INVALID_INPUT` |
-| Session-expired interstitial | `recoverable` | run bounded recovery, re-classify, continue | `success` (recovered) |
-| Slow load | `recoverable` | bounded wait/retry | continues (state declared; the demo app has no slow-load screen, so this path is covered by unit tests rather than the live demo) |
-| Unknown screen / target not found / verify timeout | — | stop loudly with expected-vs-observed | `failed` (debuggable) |
-| Can't safely proceed | — | escalate | `escalated` |
+A **business outcome is not a failure**; a declared **`failure`** is an app error the caller can debug —
+kept distinct from both outcomes and escalations. `verify` also recovers interstitials appearing *between*
+action and expected outcome. Anything unrecognized halts rather than proceeding blindly. OCR robustness
+(the no-DOM tax) uses a two-pass merge (PSM 3 ∪ PSM 11), 2× upscale, geometric line grouping, geometric
+dedupe of cross-pass garbage, and fuzzy matching. A single capture spanning a navigation is classified
+before the verify deadline so it cannot masquerade as a timeout.
 
-A **business outcome is not a failure** — conflating them is the classic mistake here, so it is a
-first-class status. `verify` also recovers interstitials that appear *between* action and expected
-outcome. Every branch is enumerated in the artifact; anything unrecognized halts rather than proceeding
-blindly. OCR robustness (the real-world tax of a no-DOM surface) is handled with a two-pass merge
-(PSM 3 ∪ PSM 11) + 2× upscale + geometric line grouping + fuzzy matching — enough to read colored
-values, small legacy fonts, and multi-column layouts deterministically. Evidence in
-`evidence/replay_demo/` shows a timeout run: `recovery_start → recovery_ok → verify_ok(member_detail) →
-extract`.
+## 4. Heterogeneity & multi-tenant
 
-## 4. Heterogeneity & multi-tenant (design)
+**Surfaces.** Because the artifact is anchors + actions, extending to a modern web app or a desktop app is
+a new Surface, not a schema change. A cleaner-DOM surface could add a `dom_anchor` rung *above*
+`text_anchor`; the degradation path already models "prefer the strong locator, fall back to pixels."
 
-**Surfaces.** Because the artifact is anchors + actions, extending from this legacy web app to a modern
-web app or a desktop app is a new Surface, not a schema change — shown by three working Surface impls
-today. A cleaner-DOM surface could add a `dom_anchor` rung *above* `text_anchor` in the same bundle; the
-degradation path already models "prefer the strong locator, fall back to pixels."
-
-**Multi-tenant reuse.** Hundreds of tenants run ~20 apps, many the same vendor product branded/versioned
-differently. The artifact carries `app.id`; the plan is a **base artifact per vendor product + per-tenant
-`overrides[]`** (anchor text, viewport, an extra recovery state) rather than re-recording per tenant.
-Concrete routes/values canonicalize to parameters (`/item/12345 → /item/:id`); `provenance` + a
-multi-run stability signal detect version drift so a tenant that has diverged degrades gracefully
-(falls to a lower anchor rung, flags `degraded`, or escalates) instead of silently misfiring. Not built
-(explicitly out of scope) but the schema leaves room and nothing here paints us into a corner.
+**Multi-tenant reuse.** Tenants run the same vendor product branded/versioned differently. The artifact
+carries `app.id`; the plan is a **base artifact per vendor product + per-tenant `overrides[]`** rather than
+re-recording. Concrete routes/values canonicalize to parameters (`/item/12345 → /item/:id`); `provenance` +
+a multi-run stability signal detect drift so a diverged tenant degrades (lower rung, `degraded`, escalate)
+instead of misfiring. Demonstrated live: `test_sites/` serves **8 branded sites** — two instances of one
+legacy vendor product (frameset + single page), a modern app, and five more banks (dense legacy, a 3270
+terminal, a modern fintech, an enterprise ledger). **One** VaultCore artifact replays on both tenants, and
+`scripts/live_site_matrix.py` runs **75 cases covering every runtime state** (plus a genuinely
+LLM-discovered draft). Multi-tenant `overrides[]` itself remains design-only.
 
 ## 5. Escalation & handoff
 
-Replay escalates on: unknown screen, recovery exhausted, a risky action, or a policy denial — returning
-`escalated` with capability id/version, step, reason, observed states, screenshot, and last log lines.
-The engine is wired to the control session (not just a parallel mock): before every surface dispatch it
-asserts it holds the automation token; on escalation it builds an `InterventionRequest`, hands it to the
-session, and **pauses**; `cli replay --operator` runs the console in the same process so the human drives
-the *same* session, then the engine re-derives state from the screen and resumes (or re-escalates).
-The handoff mechanism (`src/handoff/`) is a real **control-token state machine**:
+Replay escalates on unknown screen, exhausted recovery, a risky action, or a policy denial, returning an
+`escalated` result with capability id/version, step, reason, observed states, screenshot, and log tail. It
+is wired to a real control session: before every dispatch it asserts it holds the automation token; on
+escalation it builds an `InterventionRequest`, hands it over, and **pauses**. `cli replay --operator` runs
+the console in the same process so the human drives the *same* session; the engine then re-derives state
+and resumes (or re-escalates). `src/handoff/` is a real control-token state machine:
 
 ```
 AUTO_RUNNING → ESCALATED → HUMAN_CONTROL → RESUMING → (recognized? AUTO_RUNNING : ESCALATED)
 ```
 
-**Exactly one controller holds the token** (`can_act(actor)`, asserted before every Surface action);
-automation emits zero input while the human holds it. The handoff is trivially real in a driver-less
-design — the human uses the actual mouse/keyboard on the same live window — and the engine starts a
-`pynput` listener around `HUMAN_CONTROL` that records their clicks/keys (+ nearby OCR text) into the same
-run log as `human_action` entries (X11 on Linux, as documented). **Resume never assumes what the human
-did**: the engine re-derives state from the screen; recognized → continue, still unknown → re-escalate.
-The operator console is a deliberately minimal FastAPI page (mocked UI, real mechanism). The state machine
-is unit-tested (`tests/test_handoff.py`) and the pause/resume seam is integration-tested end-to-end
+Exactly one controller holds the token (`can_act(actor)`, asserted before every action); automation emits
+zero input while the human holds it. A `pynput` listener records the human's clicks/keys with nearby OCR
+text into the same run log (X11 on Linux, documented). **Resume never assumes** what the human did. The
+same handoff is reachable from discovery (`cli discover --operator`): a stuck/escalating discovery pauses
+for a human and re-observes on hand-back. Unit-tested (`tests/test_handoff.py`) and integration-tested
 (`tests/test_handoff_integration.py`).
 
 ## 6. Safety
 
-One dispatch chokepoint (`src/policy/`), enforced for both discovery and replay — **every** surface
-dispatch, including recovery actions, passes it:
-- **Allowlist** — permitted action kinds + `max_steps` (both enforced; a longer artifact is refused) and
-  the artifact's `app.id` must match the policy's allowed app; unknown kinds default-deny. The policy is
-  configurable per app (`--policy path/to/policy.json`).
-- **Screen-scope** — since there is no navigation API to gate, before every action the current screen
-  must match a known state of the allowed app (`app_ready` is the app-level anchor); if the foreground
-  content stops matching (wrong window), acting is refused and the run escalates.
-- **Risk classes** — `read` is safe; a mutating action (`click`/`type`/`key`) whose target **or typed
-  value** matches irreversible patterns ("Confirm Transfer", "Delete", "Post Transaction", …) is
-  **risky → blocked in unattended replay, escalated**. Inspecting the typed value matters: a destructive
-  action can be triggered by a keystroke, not only by the clicked control's text.
-- **Containment** — a `template_ref` in a (possibly third-party) artifact is resolved and required to
-  stay inside the artifact directory; anything else fails closed rather than reading arbitrary files.
-- **Redaction / secrets** — logs and `result.json` pass a *recursive* redaction hook (nested
-  `observed`/`outputs` included; account-number-shaped strings masked); the artifact stores parameter
-  *names* only, and the compiler never persists a discovery-time literal (unmatched literals are
-  parameterized); `DEEPSEEK_API_KEY` via env; the target app uses fake seeded data only.
+One dispatch chokepoint (`src/policy/`), applied to both discovery and replay, including recoveries:
+- **Allowlist** — permitted action kinds + `max_steps`, and the artifact's `app.id` must match the policy's
+  app; unknown kinds default-deny. Configurable per app (`--policy`, sample at `policy.example.json`).
+- **Screen-scope** — since there is no navigation API, the current screen must match a known state of the
+  allowed app before acting; a wrong/unrecognized foreground refuses and escalates.
+- **Risk classes** — `read` is safe; a mutating action whose target **or typed value** matches irreversible
+  patterns ("Confirm Transfer", "Delete", "Wire", "Close Account", …) is **blocked in unattended replay and
+  escalated**.
+- **Containment** — a `template_ref` must resolve inside the artifact directory or it fails closed.
+- **Redaction** — logs and `result.json` pass a recursive hook masking account-number shapes **and
+  credential shapes** (provider keys, bearer tokens, JWT-ish, `password=/token=`); artifacts store parameter
+  *names* only and the compiler never persists a discovery literal. Fake seeded data only.
 
-## 7. Cuts (and what's next)
+## 7. Cuts
 
-- **Live discovery is the user's run.** The genuine DeepSeek run needs an API key + a live browser; the
-  code path is identical to the mock-driven `tests/test_discovery.py` round-trip (discover → compile →
-  replay), which is verified offline. Evidence committed here is the **replay** side (`evidence/replay_demo/`);
-  the discovery bundle (`log.jsonl`, screenshots, `artifact.json`, `compile_notes.txt`) is produced
-  directly into a committable path by:
-  `python -m src.cli discover --goal "…" --input member_id=12345 --evidence evidence/discovery_demo`.
-- **Provider deviation:** DeepSeek V4.1 Flash instead of GPT-4o (vision + function calling via an
-  OpenAI-compatible API); one adapter module, model/base_url in config.
-- **Deliberately thin/mocked (seam real):** operator console UX (the control-token mechanism itself is
-  real and engine-integrated); multi-tenant `overrides[]` (design-only); the template-match rung
-  (implemented + traversal-guarded, but no crops are generated yet, so it is lightly exercised); desktop
-  & Windows/Wayland paths (`OsSurface` compiles, documented costs). **Screenshot region-masking is not
-  implemented** — redaction is text/JSON-level only; this is the honest limit of the safety story.
-- **Next with more time:** confidence scoring → `draft→approved` gating on replay stability; a bounded,
-  policy-checked single-step LLM recovery on replay failure (recorded as evidence); the multi-tenant
-  base+overrides representation; assisted `dom_anchor` rung for clean-DOM surfaces.
+- **Live discovery is real and committed.** Genuine DeepSeek runs are committed under `evidence/` —
+  `evidence/discovery_demo/` (CoreServ) plus `evidence/live_sites/discovery_*/` for the test sites — with
+  `log.jsonl`, screenshots, `artifact.json`, and `compile_notes.txt`. Discovery is bounded by `max_steps`
+  **and** a wall-clock `--timeout`, and records the model's stated rationale per action.
+- **Provider deviation:** DeepSeek (vision + function calling via an OpenAI-compatible API), one adapter
+  module, model/base_url in config.
+- **Thin/mocked (seam real):** operator console UX (the control-token mechanism itself is real and
+  engine-integrated); multi-tenant `overrides[]` (design-only); desktop/Wayland paths (OsSurface compiles,
+  documented costs). **Screenshot region-masking is not implemented** — redaction is text/JSON only.
+- **Next:** confidence scoring → `draft→approved` gating on replay stability; a bounded, policy-checked
+  single-step LLM recovery on replay failure (recorded as evidence); the base+overrides representation; an
+  assisted `dom_anchor` rung.

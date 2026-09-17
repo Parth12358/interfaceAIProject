@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head><title>{{ tenant.product }}</title></head>
+<frameset cols="210,*" border="1" frameborder="1">
+  <frame name="nav" src="{{ url_for(request.blueprint ~ '.nav') }}" scrolling="no">
+  <frame name="content" src="{{ url_for(request.blueprint ~ '.welcome') }}">
+  <noframes><body>This application requires frames.</body></noframes>
+</frameset>
+</html>

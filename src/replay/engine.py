@@ -207,17 +207,18 @@ class ReplayEngine:
         """
         expected = expect.any_of or list(states.keys())  # empty any_of == "any known state"
         deadline = time.monotonic() + expect.timeout_ms / 1000
-        last_png = self.surface.screenshot()
-        while time.monotonic() < deadline:
-            png = self._settle()
-            last_png = png
+        png = self.surface.screenshot()
+        while True:
             words = ocr.words(png)
             allc = classify(words, states)
             prim = allc.primary()
+            if prim and prim[1].state_class == "failure":
+                return (prim[0], prim[1], png)  # hard failure: stop and surface it
             if prim and prim[1].state_class == "recoverable" and prim[0] not in expected:
                 cleared = self._run_recovery(png, prim[1], states)
                 if cleared is None:
                     return (None, None, png)
+                png = cleared
                 continue
             exp = classify(words, states, expected=expected)
             if exp.matched:
@@ -228,8 +229,13 @@ class ReplayEngine:
             if biz:
                 name, state = biz[0]
                 return (name, state, png)
+            # Classify BEFORE checking the deadline: a single frame spanning a
+            # navigation can block for seconds; the resulting screen must still be
+            # evaluated even if the nominal timeout has already elapsed.
+            if time.monotonic() >= deadline:
+                return (None, None, png)
             time.sleep(self.poll_ms / 1000)
-        return (None, None, last_png)
+            png = self._settle()
 
     # --- run -----------------------------------------------------------------
     def run(self, artifact, inputs: dict, allow_draft: bool = False, artifact_dir=None) -> ReplayResult:
@@ -309,6 +315,8 @@ class ReplayEngine:
         prim = allc.primary()
         if not allc.matched:
             raise _Escalation("unknown_screen", png)
+        if prim and prim[1].state_class == "failure":
+            return self._failure(step, prim[0], prim[1])
         if prim and prim[1].state_class == "recoverable" and prim[0] not in (step.expect.any_of or []):
             cleared = self._run_recovery(png, prim[1], states)
             if cleared is None:
@@ -323,6 +331,8 @@ class ReplayEngine:
                 return self._fail_verify(step, png, states)
             if state.state_class == "business_outcome":  # pragma: no cover - defensive
                 return self._outcome(name, state, outputs)
+            if state.state_class == "failure":  # pragma: no cover - defensive
+                return self._failure(step, name, state)
             ta = step.target.text_anchor if step.target else None
             val = None
             if ta:
@@ -371,6 +381,8 @@ class ReplayEngine:
         self._emit("verify_ok", step=step.id, state=name, state_class=state.state_class)
         if state.state_class == "business_outcome":
             return self._outcome(name, state, outputs)
+        if state.state_class == "failure":
+            return self._failure(step, name, state)
         return None
 
     # --- handoff -------------------------------------------------------------
@@ -390,7 +402,7 @@ class ReplayEngine:
                 {ControlState.HUMAN_CONTROL, ControlState.RESUMING}, self.escalation_timeout_s)
             if took_over:
                 if self.control.state == ControlState.HUMAN_CONTROL:
-                    capture = HumanActionCapture(self.log) if self.log else None
+                    capture = HumanActionCapture(self.log, self.surface) if self.log else None
                     if capture:
                         capture.start()
                     try:
@@ -451,6 +463,13 @@ class ReplayEngine:
     def _outcome(self, name, state, outputs) -> ReplayResult:
         return self._result("business_outcome", outputs=outputs, outcome_code=state.outcome_code,
                             observed=[name])
+
+    def _failure(self, step, name, state) -> ReplayResult:
+        """A declared hard-failure screen (outright app error): stop, surface a
+        debuggable code — distinct from a business outcome and from escalation."""
+        code = state.error_code or name
+        self._emit("hard_failure", step=step.id, state=name, error_code=code)
+        return self._result("failed", reason=code, failed_step=step.id, observed=[name])
 
     def _fail_verify(self, step, png, states):
         observed = classify(ocr.words(png), states).names or [ocr.full_text(ocr.words(png))[:120]]

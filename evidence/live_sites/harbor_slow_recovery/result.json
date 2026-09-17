@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "outputs": {
+    "member_name": "SILAS THORNTON",
+    "account_status": "ACTIVE",
+    "savings_balance": "$44,500.00",
+    "checking_balance": "$9,000.00"
+  },
+  "degraded": false,
+  "evidence_dir": "evidence\\live_sites\\harbor_slow_recovery",
+  "capability_id": "harbor_member_lookup",
+  "capability_version": "1.0.0"
+}

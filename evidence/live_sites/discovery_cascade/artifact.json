@@ -1,0 +1,185 @@
+{
+  "schema_version": "1.0",
+  "capability": {
+    "id": "discovered_cascade",
+    "version": "1.0.0",
+    "status": "draft",
+    "description": "Look up member {member_id} and read their name, account status and savings balance",
+    "app": {
+      "id": "cascadeone",
+      "entry": "http:/127.0.0.1:5055/cascade/",
+      "launch": "browser-app-mode",
+      "viewport": [
+        1280,
+        800
+      ]
+    },
+    "inputs": {
+      "member_id": {
+        "type": "string",
+        "pattern": "^[0-9]{5}$",
+        "description": "member_id (parameterized from discovery)"
+      }
+    },
+    "outputs": {}
+  },
+  "steps": [
+    {
+      "id": "step_0_click",
+      "action": {
+        "kind": "click"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Members",
+          "role_hint": "control",
+          "fuzzy_min": 0.85
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [],
+        "timeout_ms": 8000
+      }
+    },
+    {
+      "id": "step_1_enter",
+      "action": {
+        "kind": "type",
+        "value": "{member_id}"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Member ID",
+          "fuzzy_min": 0.85,
+          "relation": "right_of",
+          "max_px": 300
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [],
+        "timeout_ms": 3000
+      }
+    },
+    {
+      "id": "step_2_enter",
+      "action": {
+        "kind": "type",
+        "value": "{member_id}"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Member ID",
+          "fuzzy_min": 0.85,
+          "relation": "right_of",
+          "max_px": 300
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [],
+        "timeout_ms": 3000
+      }
+    },
+    {
+      "id": "step_3_enter",
+      "action": {
+        "kind": "type",
+        "value": "{member_id}"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Member ID",
+          "fuzzy_min": 0.85,
+          "relation": "right_of",
+          "max_px": 300
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [],
+        "timeout_ms": 3000
+      }
+    },
+    {
+      "id": "step_4_enter",
+      "action": {
+        "kind": "type",
+        "value": "{member_id}"
+      },
+      "target": {
+        "text_anchor": {
+          "text": "Member ID",
+          "fuzzy_min": 0.85,
+          "relation": "right_of",
+          "max_px": 300
+        },
+        "template_min": 0.9
+      },
+      "expect": {
+        "any_of": [],
+        "timeout_ms": 3000
+      }
+    }
+  ],
+  "screen_states": {
+    "app_ready": {
+      "all_of": [
+        {
+          "text": "National",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "precondition"
+    },
+    "no_member_found": {
+      "all_of": [
+        {
+          "text": "No member found",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "business_outcome",
+      "outcome_code": "MEMBER_NOT_FOUND"
+    },
+    "validation_error": {
+      "all_of": [
+        {
+          "text": "Invalid member number",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "business_outcome",
+      "outcome_code": "INVALID_INPUT"
+    },
+    "session_timeout": {
+      "all_of": [
+        {
+          "text": "Session expired",
+          "fuzzy_min": 0.85
+        }
+      ],
+      "class": "recoverable",
+      "recovery": {
+        "kind": "click",
+        "target": {
+          "text_anchor": {
+            "text": "Continue",
+            "fuzzy_min": 0.85
+          },
+          "template_min": 0.9
+        },
+        "max_attempts": 1,
+        "then": "retry_step"
+      }
+    }
+  },
+  "provenance": {
+    "discovered_at": "discovery",
+    "model": "deepseek-flash",
+    "platform": "windows",
+    "surface": "cdp",
+    "discovery_run": "evidence\\live_sites\\discovery_cascade"
+  }
+}

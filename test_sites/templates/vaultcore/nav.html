@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>{{ tenant.product }} — Navigation</title>
+<style>body{margin:0;font-family:Verdana,Geneva,sans-serif;} a{text-decoration:none;}</style>
+</head>
+<body bgcolor="{{ theme.nav_bg }}">
+<table width="100%" cellpadding="8" cellspacing="0" border="0">
+  <tr><td bgcolor="{{ theme.masthead }}">
+    <font size="4" color="#ffffff"><b>{{ tenant.product }}</b></font><br>
+    <font size="1" color="#c9d6ea">{{ tenant.institution }}</font>
+  </td></tr>
+  <tr><td>
+    {% for label, route in tenant.nav %}
+      {% if route is none %}
+        <font size="1" color="#5a6b80"><b>{{ label }}</b></font><br>
+      {% else %}
+        <a href="{{ url_for(request.blueprint ~ '.' ~ route) }}" target="content">
+          <font color="{{ theme.link }}" size="2">{{ label }}</font></a><br>
+      {% endif %}
+    {% endfor %}
+  </td></tr>
+</table>
+</body>
+</html>

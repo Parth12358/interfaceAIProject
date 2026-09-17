@@ -28,7 +28,7 @@ class RunLog:
         # Redact recursively: sensitive values can be nested in lists/dicts.
         clean = redact_data(fields)
         rec = {"seq": self._seq, "t_ms": int((time.time() - self._t0) * 1000), "type": type_, **clean}
-        with self._log_path.open("a") as f:
+        with self._log_path.open("a", encoding="utf-8") as f:
             f.write(json.dumps(rec) + "\n")
 
     def screenshot(self, png_bytes: bytes, name: str) -> str:
@@ -40,12 +40,13 @@ class RunLog:
     def tail(self, n: int = 8) -> list[str]:
         """Last n raw JSONL lines (for an escalation request's context)."""
         try:
-            lines = self._log_path.read_text().splitlines()
+            lines = self._log_path.read_text(encoding="utf-8").splitlines()
         except OSError:
             return []
         return lines[-n:]
 
     def result(self, result: dict) -> None:
         # result.json is redacted too (it carries observed/outputs).
-        (self.dir / "result.json").write_text(json.dumps(redact_data(result), indent=2))
+        (self.dir / "result.json").write_text(json.dumps(redact_data(result), indent=2),
+                                              encoding="utf-8")
         self.event("run_end", status=result.get("status"))

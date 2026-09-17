@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title_bar %}Member Profile{% endblock %}
+{% block content %}
+<table width="100%" cellpadding="8" cellspacing="0" border="1" bgcolor="#ffffff">
+  <tr bgcolor="#dfe6ee"><td colspan="2">
+    <font size="2" color="#1f3a5f"><b>Account Holder</b></font>
+  </td></tr>
+  <tr>
+    <td align="right" width="45%"><font size="2" color="#333333">Member Number</font></td>
+    <td><font size="2" color="#000000"><b>{{ member_id }}</b></font></td>
+  </tr>
+  <tr>
+    <td align="right"><font size="2" color="#333333">Member Name</font></td>
+    <td><font size="2" color="#000000"><b>{{ member.name }}</b></font></td>
+  </tr>
+  <tr bgcolor="#dfe6ee"><td colspan="2">
+    <font size="2" color="#1f3a5f"><b>Balances</b></font>
+  </td></tr>
+  <tr>
+    <td align="right"><font size="2" color="#333333">Savings Balance</font></td>
+    <td><font size="2" color="#0a6b2f"><b>{{ member.savings }}</b></font></td>
+  </tr>
+  <tr>
+    <td align="right"><font size="2" color="#333333">Checking Balance</font></td>
+    <td><font size="2" color="#0a6b2f"><b>{{ member.checking }}</b></font></td>
+  </tr>
+</table>
+<br><a href="/search"><font size="2">New Search</font></a>
+{% endblock %}

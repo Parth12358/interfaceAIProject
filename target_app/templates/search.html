@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title_bar %}Member Search{% endblock %}
+{% block content %}
+<form action="/search" method="post">
+<table width="100%" cellpadding="10" cellspacing="0" border="1" bgcolor="#ffffff">
+  <tr bgcolor="#dfe6ee"><td colspan="2">
+    <font size="2" color="#1f3a5f"><b>Look up a member</b></font>
+  </td></tr>
+  <tr>
+    <td align="right" width="40%"><font size="2" color="#333333">Member Number</font></td>
+    <td><input type="text" name="member_number" size="20" maxlength="5"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" value="Find"></td>
+  </tr>
+  <tr bgcolor="#f6f8fa"><td colspan="2">
+    <font size="1" color="#777777">Member numbers are 5 digits. Try 12345, 67890, or 24601.</font>
+  </td></tr>
+</table>
+</form>
+{% endblock %}

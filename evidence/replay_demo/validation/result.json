@@ -1,0 +1,9 @@
+{
+  "status": "business_outcome",
+  "outcome_code": "INVALID_INPUT",
+  "observed": [
+    "validation_error"
+  ],
+  "degraded": false,
+  "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/validation"
+}

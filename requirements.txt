@@ -1,0 +1,27 @@
+# Core (discovery + replay + schema + perception)
+openai>=3,<4            # OpenAI-compatible SDK; pointed at DeepSeek base_url for discovery
+pydantic>=2            # typed artifact schema
+opencv-python-headless>=4  # template matching (headless: no GUI deps)
+pytesseract>=0.3.13    # OCR word boxes (requires the `tesseract` system binary)
+rapidfuzz>=3           # fuzzy text-anchor matching
+numpy>=1.26            # array ops for perception
+Pillow>=10             # image decode/encode
+
+# Surface: CDP (primary) — no browser-driver library, raw protocol over websocket
+websockets>=12         # CDP transport
+requests>=2            # read chromium /json target list
+
+# Surface: OS-level (secondary, documented) + handoff capture
+mss>=9                 # screenshots
+pyautogui>=0.9         # synthetic mouse/keyboard (needs X11 on Linux)
+pynput>=1.7            # input capture during handoff
+
+# Target app + operator console
+flask>=3              # legacy-style demo bank app
+fastapi>=0.110        # operator console
+uvicorn[standard]>=0.29
+
+# Config / tooling
+python-dotenv>=1      # load .env
+pytest>=8            # tests over saved PNGs
+import-linter>=2      # enforce replay/ has no agent/LLM imports

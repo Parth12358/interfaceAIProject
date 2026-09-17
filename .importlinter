@@ -1,0 +1,18 @@
+[importlinter]
+root_packages =
+    src
+include_external_packages = True
+
+[importlinter:contract:replay-is-llm-free]
+name = replay/ must not import agent/ or any LLM SDK
+type = forbidden
+source_modules =
+    src.replay
+forbidden_modules =
+    src.agent
+    openai
+    anthropic
+
+# Note: "only platformx is OS-conditional" is enforced by tests/test_boundaries.py
+# (a grep for sys.platform outside src/platformx), not an import contract — replay
+# legitimately imports perception, so an independence contract is the wrong tool.

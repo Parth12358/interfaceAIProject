@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title_bar %}Search Result{% endblock %}
+{% block content %}
+<table width="100%" cellpadding="12" cellspacing="0" border="1" bgcolor="#fffdf0"><tr><td>
+  <font size="3" color="#8a6d00"><b>Invalid member number</b></font>
+  <hr>
+  <font size="2" color="#333333">
+    "{{ value }}" is not a valid member number. Member numbers must be exactly 5 digits.
+  </font>
+</td></tr></table>
+<br><a href="/search"><font size="2">Back to Search</font></a>
+{% endblock %}

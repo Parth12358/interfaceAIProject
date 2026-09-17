@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "capability": {
+    "id": "member_lookup",
+    "version": "1.0.0",
+    "status": "approved",
+    "description": "Look up a member by 5-digit ID and read their savings balance and name.",
+    "app": {
+      "id": "coreserv-demo",
+      "entry": "http://127.0.0.1:5000/",
+      "launch": "browser-app-mode",
+      "viewport": [1280, 800]
+    },
+    "inputs": {
+      "member_id": { "type": "string", "pattern": "^[0-9]{5}$", "description": "5-digit member number" }
+    },
+    "outputs": {
+      "savings_balance": { "type": "string", "extract": "step:read_balance", "description": "Member savings balance" },
+      "member_name": { "type": "string", "extract": "step:read_name", "description": "Account holder name" }
+    }
+  },
+  "steps": [
+    {
+      "id": "open_search",
+      "action": { "kind": "click" },
+      "target": {
+        "text_anchor": { "text": "Member Lookup", "role_hint": "link", "fuzzy_min": 0.85 },
+        "fallback_point": { "x": 53, "y": 115 }
+      },
+      "expect": { "any_of": ["search_form"], "timeout_ms": 5000 }
+    },
+    {
+      "id": "enter_id",
+      "action": { "kind": "type", "value": "{member_id}" },
+      "target": {
+        "text_anchor": { "text": "Member Number", "relation": "right_of", "max_px": 260, "fuzzy_min": 0.85 }
+      },
+      "expect": { "any_of": ["search_form"], "timeout_ms": 3000 }
+    },
+    {
+      "id": "submit",
+      "action": { "kind": "click" },
+      "target": {
+        "text_anchor": { "text": "Find", "role_hint": "button", "fuzzy_min": 0.9 }
+      },
+      "expect": {
+        "any_of": ["member_detail", "no_member_found", "validation_error"],
+        "timeout_ms": 8000
+      }
+    },
+    {
+      "id": "read_balance",
+      "action": { "kind": "read" },
+      "target": {
+        "text_anchor": { "text": "Savings Balance", "relation": "right_of", "max_px": 400, "fuzzy_min": 0.85 }
+      },
+      "expect": { "any_of": ["member_detail"], "timeout_ms": 3000 },
+      "extract_as": "savings_balance"
+    },
+    {
+      "id": "read_name",
+      "action": { "kind": "read" },
+      "target": {
+        "text_anchor": { "text": "Member Name", "relation": "right_of", "max_px": 400, "fuzzy_min": 0.85 }
+      },
+      "expect": { "any_of": ["member_detail"], "timeout_ms": 3000 },
+      "extract_as": "member_name"
+    }
+  ],
+  "screen_states": {
+    "app_ready":        { "all_of": [{ "text": "CoreServ" }], "class": "precondition" },
+    "search_form":      { "all_of": [{ "text": "Member Search" }], "class": "progress" },
+    "member_detail":    { "all_of": [{ "text": "Member Profile" }], "class": "progress" },
+    "no_member_found":  { "all_of": [{ "text": "No member found" }], "class": "business_outcome", "outcome_code": "MEMBER_NOT_FOUND" },
+    "validation_error": { "all_of": [{ "text": "Invalid member number" }], "class": "business_outcome", "outcome_code": "INVALID_INPUT" },
+    "session_timeout":  { "all_of": [{ "text": "Session expired" }], "class": "recoverable",
+                          "recovery": { "kind": "click", "target": { "text_anchor": { "text": "Continue" } }, "max_attempts": 1, "then": "retry_step" } },
+    "slow_load":        { "all_of": [{ "text": "Loading" }], "class": "recoverable",
+                          "recovery": { "kind": "wait", "ms": 1500, "max_attempts": 4, "then": "retry_step" } }
+  },
+  "provenance": {
+    "discovered_at": "hand-authored",
+    "model": "none",
+    "platform": "linux-wayland",
+    "surface": "cdp",
+    "discovery_run": "n/a — deterministic seed artifact (proves replay before any LLM exists)"
+  }
+}

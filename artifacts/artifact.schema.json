@@ -1,0 +1,675 @@
+{
+  "$defs": {
+    "Action": {
+      "properties": {
+        "kind": {
+          "enum": [
+            "click",
+            "type",
+            "read",
+            "key",
+            "wait"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "Action",
+      "type": "object"
+    },
+    "AppRef": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "entry": {
+          "title": "Entry",
+          "type": "string"
+        },
+        "launch": {
+          "default": "browser-app-mode",
+          "title": "Launch",
+          "type": "string"
+        },
+        "viewport": {
+          "default": [
+            1280,
+            800
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "title": "Viewport",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "entry"
+      ],
+      "title": "AppRef",
+      "type": "object"
+    },
+    "Capability": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "default": "1.0.0",
+          "title": "Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "draft",
+          "enum": [
+            "draft",
+            "approved"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "app": {
+          "$ref": "#/$defs/AppRef"
+        },
+        "inputs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/InputSpec"
+          },
+          "title": "Inputs",
+          "type": "object"
+        },
+        "outputs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/OutputSpec"
+          },
+          "title": "Outputs",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "app"
+      ],
+      "title": "Capability",
+      "type": "object"
+    },
+    "ContextAnchor": {
+      "description": "Disambiguator: prefer the text-anchor match nearest this context text.",
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "relation": {
+          "default": "below",
+          "enum": [
+            "right_of",
+            "left_of",
+            "below",
+            "above",
+            "near"
+          ],
+          "title": "Relation",
+          "type": "string"
+        },
+        "max_px": {
+          "default": 300,
+          "title": "Max Px",
+          "type": "integer"
+        },
+        "fuzzy_min": {
+          "default": 0.85,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Fuzzy Min",
+          "type": "number"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "ContextAnchor",
+      "type": "object"
+    },
+    "Expect": {
+      "properties": {
+        "any_of": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Any Of",
+          "type": "array"
+        },
+        "timeout_ms": {
+          "default": 5000,
+          "title": "Timeout Ms",
+          "type": "integer"
+        }
+      },
+      "title": "Expect",
+      "type": "object"
+    },
+    "FallbackPoint": {
+      "description": "Last resort. Using it marks the run 'degraded'.",
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "title": "Y",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "FallbackPoint",
+      "type": "object"
+    },
+    "InputSpec": {
+      "properties": {
+        "type": {
+          "default": "string",
+          "title": "Type",
+          "type": "string"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pattern"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        }
+      },
+      "title": "InputSpec",
+      "type": "object"
+    },
+    "OutputSpec": {
+      "properties": {
+        "type": {
+          "default": "string",
+          "title": "Type",
+          "type": "string"
+        },
+        "extract": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extract"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        }
+      },
+      "title": "OutputSpec",
+      "type": "object"
+    },
+    "Provenance": {
+      "properties": {
+        "discovered_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Discovered At"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "platform": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Platform"
+        },
+        "surface": {
+          "anyOf": [
+            {
+              "enum": [
+                "cdp",
+                "os"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Surface"
+        },
+        "discovery_run": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Discovery Run"
+        }
+      },
+      "title": "Provenance",
+      "type": "object"
+    },
+    "Recovery": {
+      "properties": {
+        "kind": {
+          "enum": [
+            "click",
+            "wait",
+            "key"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Target"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "ms": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ms"
+        },
+        "max_attempts": {
+          "default": 1,
+          "title": "Max Attempts",
+          "type": "integer"
+        },
+        "then": {
+          "default": "retry_step",
+          "enum": [
+            "retry_step",
+            "continue"
+          ],
+          "title": "Then",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "Recovery",
+      "type": "object"
+    },
+    "ScreenState": {
+      "properties": {
+        "all_of": {
+          "items": {
+            "$ref": "#/$defs/TextMatcher"
+          },
+          "title": "All Of",
+          "type": "array"
+        },
+        "class": {
+          "enum": [
+            "precondition",
+            "progress",
+            "business_outcome",
+            "recoverable"
+          ],
+          "title": "Class",
+          "type": "string"
+        },
+        "outcome_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Outcome Code"
+        },
+        "recovery": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Recovery"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "class"
+      ],
+      "title": "ScreenState",
+      "type": "object"
+    },
+    "Step": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "action": {
+          "$ref": "#/$defs/Action"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Target"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "expect": {
+          "$ref": "#/$defs/Expect"
+        },
+        "extract_as": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extract As"
+        }
+      },
+      "required": [
+        "id",
+        "action"
+      ],
+      "title": "Step",
+      "type": "object"
+    },
+    "Target": {
+      "properties": {
+        "text_anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TextAnchor"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "context_anchor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ContextAnchor"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "template_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template Ref"
+        },
+        "template_min": {
+          "default": 0.9,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Template Min",
+          "type": "number"
+        },
+        "fallback_point": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FallbackPoint"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "Target",
+      "type": "object"
+    },
+    "TextAnchor": {
+      "description": "Primary locator: find this text via OCR, optionally offset to the action point.",
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "role_hint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Role Hint"
+        },
+        "fuzzy_min": {
+          "default": 0.85,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Fuzzy Min",
+          "type": "number"
+        },
+        "relation": {
+          "anyOf": [
+            {
+              "enum": [
+                "right_of",
+                "left_of",
+                "below",
+                "above",
+                "near"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relation"
+        },
+        "max_px": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Px"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "TextAnchor",
+      "type": "object"
+    },
+    "TextMatcher": {
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "fuzzy_min": {
+          "default": 0.85,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Fuzzy Min",
+          "type": "number"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "TextMatcher",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "capability": {
+      "$ref": "#/$defs/Capability"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/Step"
+      },
+      "title": "Steps",
+      "type": "array"
+    },
+    "screen_states": {
+      "additionalProperties": {
+        "$ref": "#/$defs/ScreenState"
+      },
+      "title": "Screen States",
+      "type": "object"
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    }
+  },
+  "required": [
+    "capability"
+  ],
+  "title": "Artifact",
+  "type": "object"
+}

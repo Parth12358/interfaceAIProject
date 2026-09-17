@@ -1,0 +1,22 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay:timeout"}
+{"seq": 2, "t_ms": 250, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1378, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 2758, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 53, "y": 117}
+{"seq": 5, "t_ms": 5379, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 5379, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 5379, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 6872, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 663, "y": 161}
+{"seq": 9, "t_ms": 8110, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 9606, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 9606, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 9606, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 11105, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 683, "y": 207}
+{"seq": 14, "t_ms": 12367, "type": "recovery_start", "recovery": "click", "max_attempts": 1}
+{"seq": 15, "t_ms": 15866, "type": "recovery_ok", "attempt": 1}
+{"seq": 16, "t_ms": 17360, "type": "screenshot", "file": "15_submit_after.png", "label": "submit_after"}
+{"seq": 17, "t_ms": 17360, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 18, "t_ms": 17360, "type": "step_start", "step": "read_balance", "action": "read"}
+{"seq": 19, "t_ms": 20325, "type": "extract", "step": "read_balance", "output": "savings_balance", "value": "$4,213.55"}
+{"seq": 20, "t_ms": 20325, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 21, "t_ms": 23299, "type": "extract", "step": "read_name", "output": "member_name", "value": "Ada Lovelace"}
+{"seq": 22, "t_ms": 23299, "type": "run_end", "status": "success"}

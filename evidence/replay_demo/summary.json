@@ -1,0 +1,38 @@
+{
+  "happy": {
+    "status": "success",
+    "outputs": {
+      "savings_balance": "$4,213.55",
+      "member_name": "Ada Lovelace"
+    },
+    "degraded": false,
+    "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/happy"
+  },
+  "not_found": {
+    "status": "business_outcome",
+    "outcome_code": "MEMBER_NOT_FOUND",
+    "observed": [
+      "no_member_found"
+    ],
+    "degraded": false,
+    "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/not_found"
+  },
+  "validation": {
+    "status": "business_outcome",
+    "outcome_code": "INVALID_INPUT",
+    "observed": [
+      "validation_error"
+    ],
+    "degraded": false,
+    "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/validation"
+  },
+  "timeout": {
+    "status": "success",
+    "outputs": {
+      "savings_balance": "$4,213.55",
+      "member_name": "Ada Lovelace"
+    },
+    "degraded": false,
+    "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/timeout"
+  }
+}

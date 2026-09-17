@@ -1,0 +1,9 @@
+{
+  "status": "success",
+  "outputs": {
+    "savings_balance": "$4,213.55",
+    "member_name": "Ada Lovelace"
+  },
+  "degraded": false,
+  "evidence_dir": "/home/parth/Projects/Interface AI/evidence/runs/demo-1789617715/happy"
+}

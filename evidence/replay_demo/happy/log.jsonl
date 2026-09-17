@@ -1,0 +1,20 @@
+{"seq": 1, "t_ms": 0, "type": "run_start", "kind": "replay:happy"}
+{"seq": 2, "t_ms": 250, "type": "screenshot", "file": "01_precondition.png", "label": "precondition"}
+{"seq": 3, "t_ms": 1426, "type": "step_start", "step": "open_search", "action": "click"}
+{"seq": 4, "t_ms": 2822, "type": "resolve", "step": "open_search", "rung": "text_anchor", "score": 1.0, "x": 53, "y": 117}
+{"seq": 5, "t_ms": 5495, "type": "screenshot", "file": "04_open_search_after.png", "label": "open_search_after"}
+{"seq": 6, "t_ms": 5495, "type": "verify_ok", "step": "open_search", "state": "search_form", "state_class": "progress"}
+{"seq": 7, "t_ms": 5495, "type": "step_start", "step": "enter_id", "action": "type"}
+{"seq": 8, "t_ms": 7009, "type": "resolve", "step": "enter_id", "rung": "text_anchor", "score": 1.0, "x": 663, "y": 161}
+{"seq": 9, "t_ms": 8272, "type": "type", "step": "enter_id", "param": "{member_id}"}
+{"seq": 10, "t_ms": 9812, "type": "screenshot", "file": "09_enter_id_after.png", "label": "enter_id_after"}
+{"seq": 11, "t_ms": 9812, "type": "verify_ok", "step": "enter_id", "state": "search_form", "state_class": "progress"}
+{"seq": 12, "t_ms": 9812, "type": "step_start", "step": "submit", "action": "click"}
+{"seq": 13, "t_ms": 11333, "type": "resolve", "step": "submit", "rung": "text_anchor", "score": 1.0, "x": 683, "y": 207}
+{"seq": 14, "t_ms": 12823, "type": "screenshot", "file": "13_submit_after.png", "label": "submit_after"}
+{"seq": 15, "t_ms": 12823, "type": "verify_ok", "step": "submit", "state": "member_detail", "state_class": "progress"}
+{"seq": 16, "t_ms": 12823, "type": "step_start", "step": "read_balance", "action": "read"}
+{"seq": 17, "t_ms": 15868, "type": "extract", "step": "read_balance", "output": "savings_balance", "value": "$4,213.55"}
+{"seq": 18, "t_ms": 15868, "type": "step_start", "step": "read_name", "action": "read"}
+{"seq": 19, "t_ms": 18859, "type": "extract", "step": "read_name", "output": "member_name", "value": "Ada Lovelace"}
+{"seq": 20, "t_ms": 18859, "type": "run_end", "status": "success"}

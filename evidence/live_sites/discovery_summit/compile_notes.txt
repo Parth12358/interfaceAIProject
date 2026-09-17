@@ -1,2 +1,2 @@
-Inferred precondition anchor 'VaultCore' (present across observed screens).
-Grafted hand-authored error states (no_member_found, validation_error, session_timeout) — not reached by the happy-path discovery run.
+Inferred precondition anchor 'VaultCore' (present across observed screens).
+Grafted hand-authored error states (no_member_found, validation_error, session_timeout) â€” not reached by the happy-path discovery run.

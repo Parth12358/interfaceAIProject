@@ -1,22 +1,23 @@
 {"seq": 1, "t_ms": 0, "type": "run_start", "kind": "discovery"}
-{"seq": 2, "t_ms": 3314, "type": "screenshot", "file": "01_disc_00.png", "label": "disc_00"}
-{"seq": 3, "t_ms": 3314, "type": "decide_start", "step": 0, "marks": 11}
-{"seq": 4, "t_ms": 5117, "type": "agent_action", "step": 0, "kind": "click", "mark": 7, "text": null}
-{"seq": 5, "t_ms": 8280, "type": "screenshot", "file": "04_disc_01.png", "label": "disc_01"}
-{"seq": 6, "t_ms": 8281, "type": "decide_start", "step": 1, "marks": 14}
-{"seq": 7, "t_ms": 9522, "type": "agent_action", "step": 1, "kind": "type", "mark": 14, "text": "<param>"}
-{"seq": 8, "t_ms": 12651, "type": "screenshot", "file": "07_disc_02.png", "label": "disc_02"}
-{"seq": 9, "t_ms": 12651, "type": "decide_start", "step": 2, "marks": 14}
-{"seq": 10, "t_ms": 13908, "type": "agent_action", "step": 2, "kind": "click", "mark": 13, "text": null}
-{"seq": 11, "t_ms": 17652, "type": "screenshot", "file": "10_disc_03.png", "label": "disc_03"}
-{"seq": 12, "t_ms": 17653, "type": "decide_start", "step": 3, "marks": 23}
-{"seq": 13, "t_ms": 18873, "type": "agent_action", "step": 3, "kind": "read", "mark": 12, "text": null}
-{"seq": 14, "t_ms": 22367, "type": "screenshot", "file": "13_disc_04.png", "label": "disc_04"}
-{"seq": 15, "t_ms": 22367, "type": "decide_start", "step": 4, "marks": 23}
-{"seq": 16, "t_ms": 23815, "type": "agent_action", "step": 4, "kind": "read", "mark": 15, "text": null}
-{"seq": 17, "t_ms": 27365, "type": "screenshot", "file": "16_disc_05.png", "label": "disc_05"}
-{"seq": 18, "t_ms": 27366, "type": "decide_start", "step": 5, "marks": 23}
-{"seq": 19, "t_ms": 28511, "type": "agent_action", "step": 5, "kind": "read", "mark": 18, "text": null}
-{"seq": 20, "t_ms": 31971, "type": "screenshot", "file": "19_disc_06.png", "label": "disc_06"}
-{"seq": 21, "t_ms": 31971, "type": "decide_start", "step": 6, "marks": 23}
-{"seq": 22, "t_ms": 33817, "type": "agent_action", "step": 6, "kind": "done", "mark": null, "text": null}
+{"seq": 2, "t_ms": 3614, "type": "screenshot", "file": "01_disc_00.png", "label": "disc_00"}
+{"seq": 3, "t_ms": 3615, "type": "decide_start", "step": 0, "marks": 11}
+{"seq": 4, "t_ms": 5704, "type": "agent_action", "step": 0, "kind": "click", "mark": 7, "target": "Member Lookup", "text": null, "reason": "Open the Member Lookup page to search for member 11111."}
+{"seq": 5, "t_ms": 8895, "type": "screenshot", "file": "04_disc_01.png", "label": "disc_01"}
+{"seq": 6, "t_ms": 8896, "type": "decide_start", "step": 1, "marks": 14}
+{"seq": 7, "t_ms": 9874, "type": "agent_action", "step": 1, "kind": "type", "mark": 14, "target": "(input field)", "text": "<param>", "reason": "Enter the member number 11111 into the Member Number input field."}
+{"seq": 8, "t_ms": 13064, "type": "screenshot", "file": "07_disc_02.png", "label": "disc_02"}
+{"seq": 9, "t_ms": 13065, "type": "decide_start", "step": 2, "marks": 14}
+{"seq": 10, "t_ms": 14210, "type": "agent_action", "step": 2, "kind": "click", "mark": 13, "target": "Find", "text": null, "reason": "Submit the member number search to load member 11111's record."}
+{"seq": 11, "t_ms": 18016, "type": "screenshot", "file": "10_disc_03.png", "label": "disc_03"}
+{"seq": 12, "t_ms": 18016, "type": "decide_start", "step": 3, "marks": 23}
+{"seq": 13, "t_ms": 19699, "type": "agent_action", "step": 3, "kind": "read", "mark": 12, "target": "Member Name", "text": null, "reason": "Read Member Name label row to extract the member's name."}
+{"seq": 14, "t_ms": 23242, "type": "screenshot", "file": "13_disc_04.png", "label": "disc_04"}
+{"seq": 15, "t_ms": 23242, "type": "decide_start", "step": 4, "marks": 23}
+{"seq": 16, "t_ms": 24613, "type": "agent_action", "step": 4, "kind": "read", "mark": 15, "target": "Account Status", "text": null, "reason": "Extract the Account Status field value for member 11111."}
+{"seq": 17, "t_ms": 28112, "type": "screenshot", "file": "16_disc_05.png", "label": "disc_05"}
+{"seq": 18, "t_ms": 28113, "type": "decide_start", "step": 5, "marks": 23}
+{"seq": 19, "t_ms": 29168, "type": "agent_action", "step": 5, "kind": "read", "mark": 18, "target": "Savings Balance", "text": null, "reason": "Read the Savings Balance label row to extract the value for member 11111."}
+{"seq": 20, "t_ms": 32670, "type": "screenshot", "file": "19_disc_06.png", "label": "disc_06"}
+{"seq": 21, "t_ms": 32670, "type": "decide_start", "step": 6, "marks": 23}
+{"seq": 22, "t_ms": 33908, "type": "agent_action", "step": 6, "kind": "done", "mark": null, "target": null, "text": null, "reason": "All requested fields (name, status, savings balance) were read for member 11111."}
+{"seq": 23, "t_ms": 33909, "type": "agent_done", "step": 6, "outputs": ["account_status", "member_number", "name", "savings_balance"], "reason": "All requested fields (name, status, savings balance) were read for member 11111."}

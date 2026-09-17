@@ -7,7 +7,7 @@
     "description": "Look up member {member_id} and read their name, account status and savings balance",
     "app": {
       "id": "vaultcore",
-      "entry": "http:/127.0.0.1:5055/meridian/",
+      "entry": "http://127.0.0.1:5055/meridian/",
       "launch": "browser-app-mode",
       "viewport": [
         1280,
@@ -34,19 +34,11 @@
         "type": "string",
         "extract": "step:step_5_read"
       },
-      "Member Number": {
+      "member_number": {
         "type": "string",
         "description": "reported by the model at discovery (no read step)"
       },
-      "Member Name": {
-        "type": "string",
-        "description": "reported by the model at discovery (no read step)"
-      },
-      "Account Status": {
-        "type": "string",
-        "description": "reported by the model at discovery (no read step)"
-      },
-      "Savings Balance": {
+      "name": {
         "type": "string",
         "description": "reported by the model at discovery (no read step)"
       }

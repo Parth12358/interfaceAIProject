@@ -125,7 +125,12 @@ One dispatch chokepoint (`src/policy/`), applied to both discovery and replay, i
 - **Live discovery is real and committed.** Genuine DeepSeek runs are committed under `evidence/` —
   `evidence/discovery_demo/` (CoreServ) plus `evidence/live_sites/discovery_*/` for the test sites — with
   `log.jsonl`, screenshots, `artifact.json`, and `compile_notes.txt`. Discovery is bounded by `max_steps`
-  **and** a wall-clock `--timeout`, and records the model's stated rationale per action.
+  **and** a wall-clock `--timeout`; each logged action records its target control and, when the model
+  supplies one, its stated rationale.
+- **Grafted taxonomy.** The `screen_states` set is partly hand-authored: discovery reaches the happy path,
+  and the error/recoverable/failure states (`no_member_found`, `validation_error`, `session_timeout`,
+  permission/arrears/outage/compliance) are grafted from the app family's known vocabulary — recorded
+  openly in each bundle's `compile_notes.txt`, not inferred by the model.
 - **Provider deviation:** DeepSeek (vision + function calling via an OpenAI-compatible API), one adapter
   module, model/base_url in config.
 - **Thin/mocked (seam real):** operator console UX (the control-token mechanism itself is real and

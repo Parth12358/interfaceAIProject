@@ -142,18 +142,31 @@ def _template_match(png_bytes: bytes, artifact_dir, tref: str, template_min: flo
 
     import cv2
 
-    tpath = pathlib.Path(artifact_dir) / tref
-    if not tpath.exists():
+    # Path containment: a template_ref comes from the artifact (possibly a
+    # third-party/agent-supplied one), so it must resolve *inside* the artifact
+    # directory. Anything else fails closed (treated as "no match"), never reads
+    # an arbitrary file off disk.
+    base = pathlib.Path(artifact_dir).resolve()
+    tpath = (base / tref).resolve()
+    if tpath != base and base not in tpath.parents:
         return None
-    screen = decode_png(png_bytes)
-    template = cv2.imread(str(tpath), cv2.IMREAD_COLOR)
-    if template is None:
+    if not tpath.is_file():
         return None
-    result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
-    _, max_val, _, max_loc = cv2.minMaxLoc(result)
+    try:
+        screen = decode_png(png_bytes)
+        template = cv2.imread(str(tpath), cv2.IMREAD_COLOR)
+        if template is None:
+            return None
+        sh, sw = screen.shape[:2]
+        th, tw = template.shape[:2]
+        if th > sh or tw > sw:  # cv2.matchTemplate raises on oversized templates
+            return None
+        result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
+        _, max_val, _, max_loc = cv2.minMaxLoc(result)
+    except Exception:
+        return None  # never let a bad template crash replay
     if max_val < template_min:
         return None
-    th, tw = template.shape[:2]
     return Resolution(x=int(max_loc[0] + tw / 2), y=int(max_loc[1] + th / 2),
                       rung="template", score=float(max_val))
 

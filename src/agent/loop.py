@@ -24,6 +24,7 @@ class DiscoveryStep:
     x: int | None = None
     y: int | None = None
     param_value: str | None = None   # literal typed at discovery (NOT persisted to artifact)
+    key: str | None = None           # key name for key actions
     read_value: str | None = None
     post_state_text: str = ""        # flat text of the resulting screen (logging)
     post_words: list = field(default_factory=list)  # word boxes of the resulting screen (for the compiler)
@@ -50,6 +51,9 @@ def run_discovery(goal: str, surface, provider: Provider, run_log=None,
     traj = Trajectory(goal=goal, inputs=dict(inputs or {}))
     policy = policy or Policy()
     history: list[str] = []
+    no_progress = 0
+    repeats = 0
+    last_signature: str | None = None
 
     for i in range(max_steps):
         png = surface.screenshot()
@@ -58,7 +62,13 @@ def run_discovery(goal: str, surface, provider: Provider, run_log=None,
         by_id = {m.id: m for m in marks}
         if run_log:
             run_log.screenshot(overlay(png, marks), f"disc_{i:02d}")
-        action: AgentAction = provider.decide(goal, overlay(png, marks), legend(marks), history)
+        try:
+            action: AgentAction = provider.decide(goal, overlay(png, marks), legend(marks), history)
+        except Exception as e:  # provider/network failure must not crash discovery
+            traj.outcome, traj.reason = "escalated", f"provider_error:{type(e).__name__}"
+            if run_log:
+                run_log.event("provider_error", error=str(e)[:200])
+            break
         if run_log:
             run_log.event("agent_action", step=i, kind=action.kind, mark=action.mark,
                           text=("<param>" if action.text else None))
@@ -79,6 +89,26 @@ def run_discovery(goal: str, surface, provider: Provider, run_log=None,
             break
 
         m = by_id.get(action.mark) if action.mark is not None else None
+        signature = f"{action.kind}:{action.mark}:{action.text}:{action.name}"
+        if signature == last_signature:
+            repeats += 1
+        else:
+            repeats = 0
+        last_signature = signature
+
+        if action.kind in ("click", "type", "read") and m is None:
+            # A hallucinated/out-of-range mark is a no-op, not an action. Detect the
+            # dead end instead of silently burning every remaining step.
+            no_progress += 1
+            if run_log:
+                run_log.event("invalid_mark", step=i, mark=action.mark, kind=action.kind)
+            if no_progress >= 3:
+                traj.outcome, traj.reason = "stalled", "model selected invalid marks repeatedly"
+                break
+            history.append(f"{action.kind}(<invalid mark {action.mark}>)")
+            continue
+
+        no_progress = 0
         rec = DiscoveryStep(action=action.kind, mark_text=(m.text if m else None),
                             neighbors=_neighbors(words, m) if m else [],
                             x=(m.cx if m else None), y=(m.cy if m else None))
@@ -89,7 +119,8 @@ def run_discovery(goal: str, surface, provider: Provider, run_log=None,
             surface.type_text(action.text or "")
             rec.param_value = action.text
         elif action.kind == "key":
-            surface.key(action.name or "enter")
+            rec.key = action.name or "enter"
+            surface.key(rec.key)
         elif action.kind == "read" and m:
             from ..perception.match import read_value
             rec.read_value = read_value(words, m.text, "right_of", 400) or m.text
@@ -99,6 +130,9 @@ def run_discovery(goal: str, surface, provider: Provider, run_log=None,
         rec.post_words = post
         traj.steps.append(rec)
         history.append(f"{action.kind}({label or action.text or action.name or ''})")
+        if repeats >= 3:
+            traj.outcome, traj.reason = "stalled", "model repeated the same action repeatedly"
+            break
 
     else:
         traj.outcome = "max_steps"

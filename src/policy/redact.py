@@ -24,3 +24,19 @@ def redact_text(s: str) -> str:
     for pat in _PATTERNS:
         out = pat.sub("«redacted»", out)
     return out
+
+
+def redact_data(obj):
+    """Recursively redact string values inside dicts/lists/tuples.
+
+    `RunLog.event` used to redact only top-level strings, so a sensitive value nested
+    in `observed`/`expected`/`outputs` was persisted raw. This closes that gap for
+    both the JSONL log and `result.json`.
+    """
+    if isinstance(obj, str):
+        return redact_text(obj)
+    if isinstance(obj, dict):
+        return {k: redact_data(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [redact_data(v) for v in obj]
+    return obj

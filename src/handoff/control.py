@@ -12,6 +12,7 @@ it before every Surface action and emits zero input while the human holds it.
 """
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass, field
 from enum import Enum
 
@@ -95,6 +96,22 @@ class ControlSession:
             self.state = ControlState.ESCALATED  # bounce back to a human
             self.holder = None
         return self.state
+
+    def wait_for_state(self, target: "ControlState", timeout_s: float = 600.0,
+                       poll_s: float = 0.1) -> bool:
+        """Block until `target` is reached (used by the engine to pause for a human).
+
+        Bounded so automation can never hang forever; returns True if `target` was
+        reached before the timeout or a terminal FAILED state.
+        """
+        deadline = time.monotonic() + timeout_s
+        while time.monotonic() < deadline:
+            if self.state == target:
+                return True
+            if self.state == ControlState.FAILED:
+                return False
+            time.sleep(poll_s)
+        return self.state == target
 
     def snapshot(self) -> dict:
         return {

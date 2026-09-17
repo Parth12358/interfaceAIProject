@@ -13,10 +13,19 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, JSONResponse
 
-from .control import ControlSession, InterventionRequest
+from .control import ControlError, ControlSession, InterventionRequest
 
 app = FastAPI(title="CoreServ Operator Console")
 SESSION = ControlSession()
+
+
+def _transition(fn, *args) -> JSONResponse:
+    """Run a state transition, returning 409 (not 500) on an illegal transition."""
+    try:
+        fn(*args)
+    except ControlError as e:
+        return JSONResponse({"error": str(e), **SESSION.snapshot()}, status_code=409)
+    return JSONResponse(SESSION.snapshot())
 
 
 @app.get("/state")
@@ -35,26 +44,22 @@ def escalate(payload: dict):
         screenshot_path=payload.get("screenshot_path"),
         log_tail=payload.get("log_tail", []),
     )
-    SESSION.escalate(req)
-    return SESSION.snapshot()
+    return _transition(SESSION.escalate, req)
 
 
 @app.post("/take")
 def take():
-    SESSION.take_control()
-    return SESSION.snapshot()
+    return _transition(SESSION.take_control)
 
 
 @app.post("/handback")
 def handback():
-    SESSION.hand_back()
-    return SESSION.snapshot()
+    return _transition(SESSION.hand_back)
 
 
 @app.post("/resume")
 def resume(payload: dict):
-    SESSION.resume(bool(payload.get("recognized", True)))
-    return SESSION.snapshot()
+    return _transition(SESSION.resume, bool(payload.get("recognized", True)))
 
 
 @app.get("/", response_class=HTMLResponse)

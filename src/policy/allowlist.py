@@ -28,16 +28,23 @@ class Policy:
     risky_patterns: list = field(default_factory=lambda: list(DEFAULT_RISKY_PATTERNS))
     unattended: bool = True  # block risky actions instead of prompting
 
-    def check(self, action_kind: str, target_label: str | None, current_states: list[str]) -> None:
+    def check_app(self, app_id: str | None) -> None:
+        """The artifact must target the app this policy is configured for."""
+        if self.app_id and app_id != self.app_id:
+            raise PolicyDenied(f"app_not_allowed: '{app_id}' (policy allows '{self.app_id}')")
+
+    def check(self, action_kind: str, target_label: str | None = None,
+              current_states: list[str] | None = None, value: str | None = None) -> None:
         # 1. action allowlist (default-deny unknown kinds)
         if action_kind not in self.allowed_actions:
             raise PolicyDenied(f"action '{action_kind}' not in allowlist")
         # 2. screen-scope: must be on a known state of the allowed app
         if not current_states:
             raise PolicyDenied("off_app: current screen matches no known app state")
-        # 3. risk gate
-        if self.unattended and is_risky(action_kind, target_label, self.risky_patterns):
-            raise PolicyDenied(f"risky_action: '{target_label}' requires human confirmation")
+        # 3. risk gate (inspects target label AND typed/keyed value)
+        if self.unattended and is_risky(action_kind, target_label, self.risky_patterns, value):
+            where = target_label or value or action_kind
+            raise PolicyDenied(f"risky_action: '{where}' requires human confirmation")
 
     @staticmethod
     def load(path: str | pathlib.Path) -> "Policy":

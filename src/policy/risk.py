@@ -23,10 +23,17 @@ SAFE_KINDS = {"read", "wait"}
 MUTATING_KINDS = {"click", "type", "key"}
 
 
-def is_risky(action_kind: str, target_label: str | None, patterns: list[str]) -> bool:
+def is_risky(action_kind: str, target_label: str | None, patterns: list[str],
+             value: str | None = None) -> bool:
+    """True if a mutating action is irreversible.
+
+    Inspects both the target label *and* (for type/key) the action value: a
+    destructive action can be triggered by a keystroke or by a value typed into a
+    field, not only by the text of the clicked control.
+    """
     if action_kind not in MUTATING_KINDS:
         return False
-    if not target_label:
+    haystack = " ".join(x for x in (target_label, value) if x).lower()
+    if not haystack:
         return False
-    label = target_label.lower()
-    return any(re.search(p, label) for p in patterns)
+    return any(re.search(p, haystack) for p in patterns)

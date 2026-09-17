@@ -97,13 +97,14 @@ def compile_artifact(trajectory, cap_id: str, app: AppRef, model: str,
 
         if rec.action == "click":
             # a click that lands on member_detail is the "submit" — it branches over outcomes
-            if post_name == "member_detail":
+            is_submit = post_name == "member_detail"
+            if is_submit:
                 expect_states = ["member_detail", "no_member_found", "validation_error"]
             steps.append(Step(
-                id=f"step_{idx}_{'submit' if post_name=='member_detail' else 'click'}",
+                id=f"step_{idx}_{'submit' if is_submit else 'click'}",
                 action=Action(kind="click"),
                 target=Target(text_anchor=TextAnchor(text=rec.mark_text or "", role_hint="control")),
-                expect=Expect(any_of=expect_states or ["search_form"], timeout_ms=8000),
+                expect=Expect(any_of=expect_states, timeout_ms=8000),
             ))
         elif rec.action == "type":
             param = _param_for_literal(rec.param_value or "", trajectory.inputs)
@@ -113,13 +114,22 @@ def compile_artifact(trajectory, cap_id: str, app: AppRef, model: str,
                     description=f"{param} (parameterized from discovery)"))
                 value = "{" + param + "}"
             else:
-                value = rec.param_value or ""
-                notes.append(f"Typed literal '{value}' had no matching input param; left literal.")
+                # NEVER persist a discovery-time literal. If it doesn't match a
+                # supplied input, synthesize a parameter so the artifact stays
+                # value-free (and note the parameterization, not the literal).
+                param = f"param_{idx}"
+                inputs.setdefault(param, InputSpec(
+                    type="string", pattern=_infer_pattern(rec.param_value or ""),
+                    description=f"{param} (typed at discovery; value not persisted)"))
+                value = "{" + param + "}"
+                notes.append(
+                    f"Typed value at step {idx} had no matching input; parameterized as "
+                    f"'{{{param}}}' (literal intentionally not persisted).")
             steps.append(Step(
                 id=f"step_{idx}_enter",
                 action=Action(kind="type", value=value),
                 target=Target(text_anchor=_label_anchor(rec)),
-                expect=Expect(any_of=expect_states or ["search_form"], timeout_ms=3000),
+                expect=Expect(any_of=expect_states, timeout_ms=3000),
             ))
         elif rec.action == "read":
             out_name = "_".join(w.lower() for w in (rec.mark_text or "value").split()[:2]) or f"output_{idx}"
@@ -127,9 +137,25 @@ def compile_artifact(trajectory, cap_id: str, app: AppRef, model: str,
             steps.append(Step(
                 id=f"step_{idx}_read", action=Action(kind="read"),
                 target=Target(text_anchor=_label_anchor(rec)),
-                expect=Expect(any_of=["member_detail"], timeout_ms=3000),
+                expect=Expect(any_of=expect_states, timeout_ms=3000),
                 extract_as=out_name,
             ))
+        elif rec.action == "key":
+            steps.append(Step(
+                id=f"step_{idx}_key", action=Action(kind="key", value=rec.key or "enter"),
+                target=None, expect=Expect(any_of=expect_states, timeout_ms=8000),
+            ))
+        elif rec.action == "wait":
+            steps.append(Step(
+                id=f"step_{idx}_wait", action=Action(kind="wait"),
+                target=None, expect=Expect(any_of=expect_states),
+            ))
+
+    # Outputs the model reported at `done` but that weren't bound by a read step
+    # (e.g. a run that finished without explicit reads) are kept as declared outputs.
+    for out_name, _val in (trajectory.outputs or {}).items():
+        outputs.setdefault(out_name, OutputSpec(
+            type="string", description="reported by the model at discovery (no read step)"))
 
     artifact = Artifact(
         capability=Capability(

@@ -10,7 +10,7 @@ import json
 import pathlib
 import time
 
-from ..policy.redact import redact_text
+from ..policy.redact import redact_data
 
 
 class RunLog:
@@ -25,8 +25,8 @@ class RunLog:
 
     def event(self, type_: str, **fields) -> None:
         self._seq += 1
-        # Redact any string values defensively.
-        clean = {k: (redact_text(v) if isinstance(v, str) else v) for k, v in fields.items()}
+        # Redact recursively: sensitive values can be nested in lists/dicts.
+        clean = redact_data(fields)
         rec = {"seq": self._seq, "t_ms": int((time.time() - self._t0) * 1000), "type": type_, **clean}
         with self._log_path.open("a") as f:
             f.write(json.dumps(rec) + "\n")
@@ -37,6 +37,15 @@ class RunLog:
         self.event("screenshot", file=path.name, label=name)
         return str(path)
 
+    def tail(self, n: int = 8) -> list[str]:
+        """Last n raw JSONL lines (for an escalation request's context)."""
+        try:
+            lines = self._log_path.read_text().splitlines()
+        except OSError:
+            return []
+        return lines[-n:]
+
     def result(self, result: dict) -> None:
-        (self.dir / "result.json").write_text(json.dumps(result, indent=2))
+        # result.json is redacted too (it carries observed/outputs).
+        (self.dir / "result.json").write_text(json.dumps(redact_data(result), indent=2))
         self.event("run_end", status=result.get("status"))

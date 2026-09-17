@@ -111,3 +111,7 @@ pytest                 # perception/replay/policy/handoff over saved PNGs (deter
 lint-imports           # enforces: replay/ imports no agent/ code and no LLM SDK
 ```
 `tests/test_boundaries.py` additionally asserts `sys.platform` appears only in `src/platformx/`.
+
+## License
+
+Released under the **GNU General Public License v2.0** — see [LICENSE](LICENSE).

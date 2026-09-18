@@ -19,7 +19,7 @@ surface is the browser via the Chrome DevTools Protocol used *only* as a transpo
 | Piece | Path | Notes |
 |---|---|---|
 | Legacy demo app ("CoreServ") | `target_app/` | Flask, table layout, no test IDs; happy path + error taxonomy |
-| Multi-tenant test bed | `test_sites/` | Three branded banking sites (frameset + modern) with every runtime condition |
+| Multi-tenant test bed | `test_sites/` | Eight branded banking sites (frameset, dense legacy, 3270 terminal, modern) with every runtime condition |
 | Surfaces | `src/surface/` | `CdpSurface` (primary), `OsSurface` (secondary), `ScriptedSurface` (offline) |
 | Perception (deterministic) | `src/perception/` | OCR word boxes, anchor resolution, screen-state matching |
 | Artifact schema | `src/artifact/` | Pydantic v2 + exported JSON Schema |

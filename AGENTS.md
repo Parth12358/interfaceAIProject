@@ -165,8 +165,9 @@ it is a graded deliverable.
 
 ## Known open items (see `tests/FINDINGS.md` for the full list)
 
-- Discovery evidence exists in the working tree (`evidence/discovery_demo/` for CoreServ,
-  `evidence/live_sites/discovery_meridian/` for the frameset test site) but is not committed yet.
+- Discovery evidence is committed: `evidence/discovery_demo/` (CoreServ) plus
+  `evidence/live_sites/discovery_*/` for all eight test sites — genuine LLM runs, with the model's
+  per-action rationale recorded in the enriched bundles.
 - OCR reliability is the main real-world tax: white-on-saturated-color text (blue buttons,
   decorative title bars) is often dropped by Tesseract, so artifacts anchor on high-contrast body
   text. Cross-pass OCR garbage is suppressed by an IoU/containment dedupe (`src/perception/ocr.py`).
@@ -175,5 +176,7 @@ it is a graded deliverable.
   internal gaps) is not built.
 - The public remote is `Parth12358/interfaceAIProject`; `main` may be ahead of `origin/main`.
 - Screenshot region-masking is not implemented (redaction is text/JSON only).
-- Multi-tenant `overrides[]` is design-only; the multi-bank stress harness was deferred.
+- Multi-tenant `overrides[]` is design-only. The multi-bank live harness is built
+  (`scripts/live_site_matrix.py`, 75 cases across 8 sites) but needs Tesseract + Chrome, so it is not
+  part of the default `pytest` run.
 - `OsSurface` is not selectable from the CLI (`--surface` is `cdp|scripted`).

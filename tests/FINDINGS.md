@@ -5,7 +5,7 @@ Method: two independent read-only reviews of the codebase, then adversarial test
 against the confirmed breaks. Tests were added to encode both the **fixed** behavior and the
 **remaining** limitations. No test here is a tautology over the docs — each asserts behavior.
 
-Run: `pytest` (59 tests), `lint-imports`.
+Run: `pytest` (94 collected), `lint-imports`.
 
 ## Resolved — now enforced and regression-tested
 
@@ -25,54 +25,84 @@ Run: `pytest` (59 tests), `lint-imports`.
 | 12 | Discovery loop silently burned steps on bad marks / provider faults | invalid-mark + repeat detection → `stalled`; provider exception → `escalated` | `test_discovery_hardening.py` |
 | 13 | Same-second evidence dirs collided; committed `evidence_dir` was an absolute gitignored path | uuid-suffixed run dirs; `evidence_dir` stored repo-relative | `python -m src.cli demo --evidence evidence/replay_demo` regenerated |
 | 14 | Committed `replay_demo` was stale/hand-copied | regenerated via the CLI with relative paths | `evidence/replay_demo/` |
+| 15 | **No committed LLM discovery run** — the brief's one non-negotiable was unmet | 9 genuine DeepSeek runs committed: `evidence/discovery_demo/` (CoreServ) + `evidence/live_sites/discovery_*/` (8 test sites). `meridian_discovered_draft/` replays a model-produced artifact with no model present | `test_discovery.py` (offline round-trip); evidence bundles |
+| 16 | Discovery had no wall-clock bound and logged *what* but not *why* | `--timeout` budget; each `agent_action` records its target control and the model's stated rationale | `test_discovery_wall_clock_timeout`, `test_discovery_logs_rationale` |
+| 17 | The model's free-text rationale could echo a discovery-time literal into committed evidence | `_scrub()` substitutes supplied inputs with `{param}` and applies the redaction hook before logging | `test_discovery_rationale_is_scrubbed_of_input_literals` |
+| 18 | Compile kept title-case twins of read-backed outputs (`"Savings Balance"` **and** `savings_balance`), so drafts declared outputs replay could never produce | `_output_key` normalizes both mint sites; exact twins collapse | `test_model_reported_outputs_dedupe_against_read_steps` |
+| 19 | A machine without Tesseract ran `pytest`, saw green, and silently lost ~half the suite | `addopts = -q -rs` plus a `conftest.py` report header and terminal-summary warning | `tests/conftest.py` |
 
 ## Open — deliberately not fixed (documented)
 
-1. **No committed LLM discovery run yet.** Requires `DEEPSEEK_API_KEY` + a live browser; the run is the
-   user's. The code path is verified offline (`test_discovery.py`) and the capture command writes a
-   committable bundle:
-   `python -m src.cli discover --goal "…" --input member_id=12345 --evidence evidence/discovery_demo`.
-   Until this is run, the brief's "the discovery run has to be real, with evidence in /evidence/" is not
-   satisfied.
-2. **Public repo not pushed.** `origin` (`Parth12358/interfaceAIProject`) is empty; the local history is
-   unpushed. Pushing is an explicit user action.
-3. **Screenshot region-masking does not exist.** Redaction is text/JSON-level only. REPORT says so.
+1. **Screenshot region-masking does not exist.** Redaction is text/JSON-level only. `REPORT §6/§7`
+   say so explicitly.
+2. **Declared business outputs are returned verbatim.** A capability whose job is "open a
+   sub-account" must return the new account number, so masking it would break the contract.
+   Per-field output classification (`OutputSpec.sensitive`) is the production answer and is not
+   implemented — stated in `REPORT §6`.
+3. **Drafts can over-declare outputs.** Exact twins now collapse (#18), but *synonyms* still
+   survive — `savings_bal` read off a 3270 screen label vs the model's reported `savings_balance`,
+   or the input echoed back (`member_id`). Pruning them is the `draft→approved` review's job.
+   Every **approved** artifact's declared outputs are step-backed; the gap exists only in drafts.
 4. **Multi-tenant reuse is design-only.** The schema has no `overrides[]`/tenant field; `REPORT §4`
-   describes the plan, not an implementation. Section 3.7 only asks for a design, but the report's
-   "the schema leaves room" is generous.
-5. **Template-match rung is implemented + traversal-guarded but untested live** (no crops are generated).
-   `read` actions use only `text_anchor`; `fallback_point`/`template_ref` are unusable for reads.
-6. **`OsSurface` is unreachable from the CLI** (`--surface` is `cdp|scripted`); it compiles but no demo
-   exercises it, so `REPORT §1`'s "three real Surface implementations" overstates the running set.
-7. **Recovery `then` semantics** (`retry_step` vs `continue`) remain unread by the engine.
+   describes the plan, not an implementation. Section 3.7 asks only for a design.
+5. **The template-match rung is lightly exercised.** Implemented and traversal-guarded, but only one
+   committed artifact uses `template_ref` (plus `context_anchor` ×1, `fallback_point` ×3) against
+   152 `text_anchor` uses. `read` actions resolve via `text_anchor` only.
+6. **`OsSurface` is unreachable from the CLI.** `--surface` accepts `cdp|scripted`
+   (`src/cli.py:222`); the OS-level surface implements the same protocol and compiles, but no demo
+   exercises it — it is there to prove the seam generalizes to a driver-less desktop target, not as
+   a running path.
+7. **Recovery `then` semantics** (`retry_step` vs `continue`) are declared in the schema but remain
+   unread by the engine; recovery always re-runs the step.
 8. **Screen-scope is anchored on `app_ready`**, which is present on every in-app screen; it catches
-   "wrong app / blank foreground" but not "wrong *screen within* the app". There is no URL/DOM to gate on
-   in a driver-less design; this is the honest limit.
+   "wrong app / blank foreground" but not "wrong *screen within* the app". There is no URL/DOM to
+   gate on in a driver-less design; this is the honest limit.
 
-## Test suite map (67 tests, all green)
+## Test suite map (94 collected — 93 pass, 1 skip)
 
-- `test_engine_hardening.py` — contract/escalation/risk/traversal/redaction (12)
-- `test_handoff_integration.py` — engine↔control-token pause/resume (3)
-- `test_discovery_hardening.py` — loop dead-ends, provider faults, compiler safety (8)
-- `test_operator_api.py` — operator console HTTP contract, 409 not 500 (3)
-- `test_fuzz.py` — Hypothesis invariants: redaction/policy/anchoring never raise, `run()` is total (5)
-- `test_policy.py`, `test_schema.py`, `test_perception.py`, `test_replay.py`, `test_discovery.py`,
-  `test_handoff.py`, `test_boundaries.py` — existing coverage, kept green.
+The skip is `test_live_sites.py`, the opt-in live-Chrome matrix (`RUN_LIVE=1`); `-rs` prints the
+reason rather than hiding it behind a dot.
+
+| File | Tests | Covers |
+|---|---|---|
+| `test_engine_hardening.py` | 16 | contract totality, escalation, risk, traversal, redaction, slow-frame regression |
+| `test_test_sites.py` | 16 | every runtime condition across all 8 tenants via the Flask test client |
+| `test_discovery_hardening.py` | 13 | loop dead-ends, provider faults, budget, rationale scrubbing, compiler safety |
+| `test_perception.py` | 12 | OCR over saved PNGs, anchors, `read_value`, resolve rungs, state classification |
+| `test_policy.py` | 7 | allowlist, `off_app`, risky attended/unattended, redaction |
+| `test_schema.py` | 6 | artifact validation, outcome codes, round-trip, JSON-Schema export |
+| `test_replay.py` | 5 | end-to-end determinism, business outcomes, timeout recovery, precondition |
+| `test_fuzz.py` | 5 | Hypothesis invariants: redaction/policy/anchoring never raise, `run()` is total |
+| `test_handoff.py` | 4 | control-token state machine, illegal transitions |
+| `test_handoff_integration.py` | 3 | engine↔control-token pause/resume, zero automation input under human control |
+| `test_operator_api.py` | 3 | operator console HTTP contract, 409 not 500 |
+| `test_boundaries.py` | 2 | `sys.platform` confined to `platformx/`; replay references no LLM SDK |
+| `test_discovery.py` | 1 | discover → compile → replay round-trip (mock provider) |
+| `test_live_sites.py` | 1 | opt-in live Chrome matrix over all 8 sites |
 
 ## Verification numbers
 
-- `pytest` → 67 passed. `lint-imports` → contract kept.
-- Coverage on the load-bearing modules (targeted run): `replay/engine.py` 86%,
-  `agent/compiler.py` 89%, `agent/loop.py` 91%, `handoff/control.py` 92%,
-  `handoff/operator_api.py` 100%, `policy/*` 93–100% (total 86%).
-  `agent/llm_deepseek.py` (live provider, 0%) is the only unexercised module — it needs the
-  real API call and is covered by the user's live discovery run.
-- Mutation testing (`mutmut`) is not run here (it multiplies the suite runtime); the recommended
-  command is documented in this file's header comment and in `requirements.txt`. Run it after the
-  live discovery bundle exists.
+- `pytest` → **93 passed, 1 skipped**. `lint-imports` → contract kept
+  (`src.replay` may not import `src.agent`, `openai`, or `anthropic`).
+- Verified from a clean `git clone`: modules import, `python -m src.cli demo` runs with no API key
+  and no browser, full suite green.
+- Coverage (`coverage run -m pytest && coverage report -m --include="src/*"`) — **89% total**
+  (1396 statements, 160 missed). Load-bearing modules:
+
+  | Module | Cover | | Module | Cover |
+  |---|---|---|---|---|
+  | `artifact/schema.py` | 100% | | `replay/engine.py` | 86% |
+  | `policy/redact.py` | 100% | | `perception/match.py` | 86% |
+  | `policy/risk.py` | 100% | | `agent/compiler.py` | 92% |
+  | `policy/allowlist.py` | 93% | | `agent/loop.py` | 78% |
+  | `handoff/operator_api.py` | 100% | | `perception/ocr.py` | 97% |
+  | `handoff/control.py` | 92% | | `perception/states.py` | 100% |
+
+  `agent/llm_deepseek.py` is absent from the report: it is never imported offline (it needs a live
+  key), which is the point — it is the only module the deterministic path cannot reach. It is
+  exercised by the committed discovery runs under `evidence/`.
 
 ```bash
-pip install mutmut coverage hypothesis httpx
-coverage run -m pytest && coverage report -m
-# mutmut run --paths-to-mutate src/replay,src/policy,src/agent/compiler.py
+pip install coverage hypothesis httpx
+coverage run -m pytest && coverage report -m --include="src/*"
 ```

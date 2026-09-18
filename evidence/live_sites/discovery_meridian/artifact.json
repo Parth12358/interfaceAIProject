@@ -34,11 +34,15 @@
         "type": "string",
         "extract": "step:step_5_read"
       },
-      "member_number": {
+      "Member Name": {
         "type": "string",
         "description": "reported by the model at discovery (no read step)"
       },
-      "name": {
+      "Account Status": {
+        "type": "string",
+        "description": "reported by the model at discovery (no read step)"
+      },
+      "Savings Balance": {
         "type": "string",
         "description": "reported by the model at discovery (no read step)"
       }

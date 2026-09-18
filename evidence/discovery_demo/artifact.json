@@ -7,7 +7,7 @@
     "description": "Look up member {member_id} and read their savings balance and name",
     "app": {
       "id": "coreserv-demo",
-      "entry": "http:/127.0.0.1:5000/",
+      "entry": "http://127.0.0.1:5000/",
       "launch": "browser-app-mode",
       "viewport": [
         1280,

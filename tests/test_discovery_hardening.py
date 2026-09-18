@@ -69,6 +69,19 @@ def test_discovery_logs_rationale(tmp_path):
     assert "open the lookup" in text
 
 
+def test_discovery_rationale_is_scrubbed_of_input_literals(tmp_path):
+    # The model's free-text rationale must not smuggle a discovery-time literal into
+    # the committed log (the input is parameterized in artifacts; it must be in logs).
+    log = RunLog(tmp_path / "disc2", kind="discovery")
+    provider = MockProvider([AgentAction(kind="click", mark=1, reason="type member 12345 now"),
+                             AgentAction(kind="done", outputs={})])
+    run_discovery("goal", FakeSurface("welcome", HAPPY), provider, run_log=log,
+                  max_steps=3, inputs={"member_id": "12345"})
+    text = (tmp_path / "disc2" / "log.jsonl").read_text(encoding="utf-8")
+    assert "12345" not in text
+    assert "{member_id}" in text
+
+
 # --- compiler -----------------------------------------------------------------
 def test_type_literal_without_input_is_parameterized_and_not_persisted():
     traj = Trajectory(goal="g", inputs={}, steps=[

@@ -42,6 +42,24 @@ class Trajectory:
     reason: str | None = None
 
 
+def _scrub(text, inputs: dict | None) -> str | None:
+    """Remove discovery-time literals from free text before it is logged.
+
+    The model's stated rationale (and a target that could be a value mark) is free
+    text that may echo the supplied input or observed data. Mask supplied input
+    values with their `{param}` placeholder and pass the rest through the same
+    redaction hook the run log uses, so no literal reaches evidence.
+    """
+    if not text:
+        return text
+    out = str(text)
+    for name, val in (inputs or {}).items():
+        if val and len(str(val)) >= 2:
+            out = out.replace(str(val), "{" + name + "}")
+    from ..policy.redact import redact_text
+    return redact_text(out)
+
+
 def _neighbors(words, mark: Mark) -> list[str]:
     near = [w for w in words if abs(w.cy - mark.cy) < 30 and w.text != mark.text]
     # Closest first: for an input field the label ("Member Number") sits on the same
@@ -140,16 +158,16 @@ def run_discovery(goal: str, surface, provider: Provider, run_log=None,
             break
         label = by_id.get(action.mark).text if action.mark in by_id else None
         if run_log:
-            # Record the target control and the model's stated rationale ("what and why").
+            # Record the target control and the model's stated rationale ("what and
+            # why"), scrubbed of discovery-time literals.
             run_log.event("agent_action", step=i, kind=action.kind, mark=action.mark,
-                          target=label, text=("<param>" if action.text else None),
-                          reason=action.reason or None)
-
+                          target=_scrub(label, inputs), text=("<param>" if action.text else None),
+                          reason=_scrub(action.reason, inputs))
         if action.kind == "done":
             traj.outcome, traj.outputs = "done", action.outputs
             if run_log:
                 run_log.event("agent_done", step=i, outputs=sorted(action.outputs),
-                              reason=action.reason or None)
+                              reason=_scrub(action.reason, inputs))
             break
         if action.kind == "escalate":
             if _discovery_handoff(control, run_log, i, action.reason or "model escalated"):

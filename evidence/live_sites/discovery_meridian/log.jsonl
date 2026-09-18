@@ -1,23 +1,23 @@
 {"seq": 1, "t_ms": 0, "type": "run_start", "kind": "discovery"}
-{"seq": 2, "t_ms": 3614, "type": "screenshot", "file": "01_disc_00.png", "label": "disc_00"}
-{"seq": 3, "t_ms": 3615, "type": "decide_start", "step": 0, "marks": 11}
-{"seq": 4, "t_ms": 5704, "type": "agent_action", "step": 0, "kind": "click", "mark": 7, "target": "Member Lookup", "text": null, "reason": "Open the Member Lookup page to search for member 11111."}
-{"seq": 5, "t_ms": 8895, "type": "screenshot", "file": "04_disc_01.png", "label": "disc_01"}
-{"seq": 6, "t_ms": 8896, "type": "decide_start", "step": 1, "marks": 14}
-{"seq": 7, "t_ms": 9874, "type": "agent_action", "step": 1, "kind": "type", "mark": 14, "target": "(input field)", "text": "<param>", "reason": "Enter the member number 11111 into the Member Number input field."}
-{"seq": 8, "t_ms": 13064, "type": "screenshot", "file": "07_disc_02.png", "label": "disc_02"}
-{"seq": 9, "t_ms": 13065, "type": "decide_start", "step": 2, "marks": 14}
-{"seq": 10, "t_ms": 14210, "type": "agent_action", "step": 2, "kind": "click", "mark": 13, "target": "Find", "text": null, "reason": "Submit the member number search to load member 11111's record."}
-{"seq": 11, "t_ms": 18016, "type": "screenshot", "file": "10_disc_03.png", "label": "disc_03"}
-{"seq": 12, "t_ms": 18016, "type": "decide_start", "step": 3, "marks": 23}
-{"seq": 13, "t_ms": 19699, "type": "agent_action", "step": 3, "kind": "read", "mark": 12, "target": "Member Name", "text": null, "reason": "Read Member Name label row to extract the member's name."}
-{"seq": 14, "t_ms": 23242, "type": "screenshot", "file": "13_disc_04.png", "label": "disc_04"}
-{"seq": 15, "t_ms": 23242, "type": "decide_start", "step": 4, "marks": 23}
-{"seq": 16, "t_ms": 24613, "type": "agent_action", "step": 4, "kind": "read", "mark": 15, "target": "Account Status", "text": null, "reason": "Extract the Account Status field value for member 11111."}
-{"seq": 17, "t_ms": 28112, "type": "screenshot", "file": "16_disc_05.png", "label": "disc_05"}
-{"seq": 18, "t_ms": 28113, "type": "decide_start", "step": 5, "marks": 23}
-{"seq": 19, "t_ms": 29168, "type": "agent_action", "step": 5, "kind": "read", "mark": 18, "target": "Savings Balance", "text": null, "reason": "Read the Savings Balance label row to extract the value for member 11111."}
-{"seq": 20, "t_ms": 32670, "type": "screenshot", "file": "19_disc_06.png", "label": "disc_06"}
-{"seq": 21, "t_ms": 32670, "type": "decide_start", "step": 6, "marks": 23}
-{"seq": 22, "t_ms": 33908, "type": "agent_action", "step": 6, "kind": "done", "mark": null, "target": null, "text": null, "reason": "All requested fields (name, status, savings balance) were read for member 11111."}
-{"seq": 23, "t_ms": 33909, "type": "agent_done", "step": 6, "outputs": ["account_status", "member_number", "name", "savings_balance"], "reason": "All requested fields (name, status, savings balance) were read for member 11111."}
+{"seq": 2, "t_ms": 3144, "type": "screenshot", "file": "01_disc_00.png", "label": "disc_00"}
+{"seq": 3, "t_ms": 3144, "type": "decide_start", "step": 0, "marks": 11}
+{"seq": 4, "t_ms": 5238, "type": "agent_action", "step": 0, "kind": "click", "mark": 7, "target": "Member Lookup", "text": null, "reason": "The Member Lookup link opens the member search screen to find member {member_id}."}
+{"seq": 5, "t_ms": 8370, "type": "screenshot", "file": "04_disc_01.png", "label": "disc_01"}
+{"seq": 6, "t_ms": 8370, "type": "decide_start", "step": 1, "marks": 14}
+{"seq": 7, "t_ms": 9678, "type": "agent_action", "step": 1, "kind": "type", "mark": 14, "target": "(input field)", "text": "<param>", "reason": "Enter member number {member_id} into the Member Number input field."}
+{"seq": 8, "t_ms": 12801, "type": "screenshot", "file": "07_disc_02.png", "label": "disc_02"}
+{"seq": 9, "t_ms": 12802, "type": "decide_start", "step": 2, "marks": 14}
+{"seq": 10, "t_ms": 14161, "type": "agent_action", "step": 2, "kind": "click", "mark": 13, "target": "Find", "text": null, "reason": "Click Find to search for member {member_id}."}
+{"seq": 11, "t_ms": 17877, "type": "screenshot", "file": "10_disc_03.png", "label": "disc_03"}
+{"seq": 12, "t_ms": 17878, "type": "decide_start", "step": 3, "marks": 23}
+{"seq": 13, "t_ms": 19378, "type": "agent_action", "step": 3, "kind": "read", "mark": 12, "target": "Member Name", "text": null, "reason": "Read the Member Name row to extract the member's name."}
+{"seq": 14, "t_ms": 22944, "type": "screenshot", "file": "13_disc_04.png", "label": "disc_04"}
+{"seq": 15, "t_ms": 22945, "type": "decide_start", "step": 4, "marks": 23}
+{"seq": 16, "t_ms": 24391, "type": "agent_action", "step": 4, "kind": "read", "mark": 15, "target": "Account Status", "text": null, "reason": "Read the Account Status label row to extract the member's status value."}
+{"seq": 17, "t_ms": 27913, "type": "screenshot", "file": "16_disc_05.png", "label": "disc_05"}
+{"seq": 18, "t_ms": 27913, "type": "decide_start", "step": 5, "marks": 23}
+{"seq": 19, "t_ms": 29134, "type": "agent_action", "step": 5, "kind": "read", "mark": 18, "target": "Savings Balance", "text": null, "reason": "Read the Savings Balance row label to extract its value for member {member_id}."}
+{"seq": 20, "t_ms": 32623, "type": "screenshot", "file": "19_disc_06.png", "label": "disc_06"}
+{"seq": 21, "t_ms": 32623, "type": "decide_start", "step": 6, "marks": 23}
+{"seq": 22, "t_ms": 33870, "type": "agent_action", "step": 6, "kind": "done", "mark": null, "target": null, "text": null, "reason": "All three requested fields for member {member_id} have been read from the Member Profile screen."}
+{"seq": 23, "t_ms": 33871, "type": "agent_done", "step": 6, "outputs": ["Account Status", "Member Name", "Savings Balance"], "reason": "All three requested fields for member {member_id} have been read from the Member Profile screen."}

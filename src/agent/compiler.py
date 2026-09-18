@@ -104,6 +104,17 @@ def _is_brand_candidate(text: str) -> bool:
             and any(c.islower() for c in text))
 
 
+def _output_key(raw: str, idx: int | None = None) -> str:
+    """Output names are identifiers, normalized identically wherever they are minted.
+
+    Read steps derive `<label> -> savings_balance`; the model's `done` outputs are
+    normalized the same way, otherwise "Savings Balance" and "savings_balance" become
+    phantom twins and the entry the model reported is never produced on replay.
+    """
+    key = "_".join(w.lower() for w in (raw or "value").split()[:2])
+    return key or (f"output_{idx}" if idx is not None else "output")
+
+
 def _state_for_words(words) -> tuple[str | None, str]:
     """Map an observed screen's word boxes to a known state name + class (phrase match)."""
     for name, st in _ERROR_STATES.items():
@@ -192,7 +203,7 @@ def compile_artifact(trajectory, cap_id: str, app: AppRef, model: str,
                 expect=Expect(any_of=expect_states, timeout_ms=3000),
             ))
         elif rec.action == "read":
-            out_name = "_".join(w.lower() for w in (rec.mark_text or "value").split()[:2]) or f"output_{idx}"
+            out_name = _output_key(rec.mark_text, idx)
             outputs[out_name] = OutputSpec(type="string", extract=f"step:step_{idx}_read")
             steps.append(Step(
                 id=f"step_{idx}_read", action=Action(kind="read"),
@@ -212,9 +223,11 @@ def compile_artifact(trajectory, cap_id: str, app: AppRef, model: str,
             ))
 
     # Outputs the model reported at `done` but that weren't bound by a read step
-    # (e.g. a run that finished without explicit reads) are kept as declared outputs.
-    for out_name, _val in (trajectory.outputs or {}).items():
-        outputs.setdefault(out_name, OutputSpec(
+    # (e.g. a run that finished without explicit reads) are kept as declared outputs,
+    # normalized to the same identifier form as read-step outputs so duplicates of a
+    # backed output collapse instead of surviving as phantom entries.
+    for raw_name, _val in (trajectory.outputs or {}).items():
+        outputs.setdefault(_output_key(raw_name), OutputSpec(
             type="string", description="reported by the model at discovery (no read step)"))
 
     artifact = Artifact(

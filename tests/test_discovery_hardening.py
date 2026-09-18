@@ -124,6 +124,16 @@ def test_compiler_preserves_done_outputs():
     assert "confirmation_id" in artifact.capability.outputs
 
 
+def test_model_reported_outputs_dedupe_against_read_steps():
+    # "Savings Balance" and the read step's "savings_balance" are the same output;
+    # the model-reported twin must not survive as a phantom, unproduced entry.
+    traj = Trajectory(goal="g", inputs={}, outputs={"Savings Balance": "$1.00"}, steps=[
+        DiscoveryStep(action="read", mark_text="Savings Balance", read_value="$1.00", post_words=[]),
+    ])
+    artifact, _ = _compile(traj)
+    assert list(artifact.capability.outputs) == ["savings_balance"]
+
+
 def test_compiled_artifact_round_trips_through_schema():
     from src.artifact.schema import Artifact
 

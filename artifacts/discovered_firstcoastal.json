@@ -34,19 +34,7 @@
         "type": "string",
         "extract": "step:step_5_read"
       },
-      "Member Number": {
-        "type": "string",
-        "description": "reported by the model at discovery (no read step)"
-      },
-      "Member Name": {
-        "type": "string",
-        "description": "reported by the model at discovery (no read step)"
-      },
-      "Account Status": {
-        "type": "string",
-        "description": "reported by the model at discovery (no read step)"
-      },
-      "Savings Balance": {
+      "member_number": {
         "type": "string",
         "description": "reported by the model at discovery (no read step)"
       }

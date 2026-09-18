@@ -116,9 +116,13 @@ One dispatch chokepoint (`src/policy/`), applied to both discovery and replay, i
   patterns ("Confirm Transfer", "Delete", "Wire", "Close Account", …) is **blocked in unattended replay and
   escalated**.
 - **Containment** — a `template_ref` must resolve inside the artifact directory or it fails closed.
-- **Redaction** — logs and `result.json` pass a recursive hook masking account-number shapes **and
-  credential shapes** (provider keys, bearer tokens, JWT-ish, `password=/token=`); artifacts store parameter
-  *names* only and the compiler never persists a discovery literal. Fake seeded data only.
+- **Redaction** — logs and `result.json` pass a recursive hook masking credential shapes (provider
+  keys, bearer tokens, JWT-ish, `password=`/`token=`) and bare account/SSN-shaped digit runs, and
+  discovery rationale is scrubbed of supplied input literals. **Declared business outputs are returned
+  verbatim by design** — a capability whose job is "open a sub-account" must return the new account
+  number, so masking it would break the contract. Per-field output classification (an
+  `OutputSpec.sensitive` flag driving masking in logs while preserving the caller's result) is the
+  production answer and is not implemented. Artifacts store parameter *names* only; fake seeded data.
 
 ## 7. Cuts
 

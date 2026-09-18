@@ -135,6 +135,11 @@ One dispatch chokepoint (`src/policy/`), applied to both discovery and replay, i
   and the error/recoverable/failure states (`no_member_found`, `validation_error`, `session_timeout`,
   permission/arrears/outage/compliance) are grafted from the app family's known vocabulary — recorded
   openly in each bundle's `compile_notes.txt`, not inferred by the model.
+- **Drafts may over-declare outputs.** A draft can declare a model-reported output with no backing read
+  step — a synonym of one already read (`savings_bal` off a 3270 label vs the model's `savings_balance`)
+  or the input echoed back (`member_id`). Compile normalizes both mint sites to the same key so exact
+  twins collapse, but synonyms need a human; pruning them is what the `draft→approved` review is for, and
+  every **approved** artifact's declared outputs are step-backed.
 - **Provider deviation:** DeepSeek (vision + function calling via an OpenAI-compatible API), one adapter
   module, model/base_url in config.
 - **Thin/mocked (seam real):** operator console UX (the control-token mechanism itself is real and

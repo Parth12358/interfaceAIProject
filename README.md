@@ -49,6 +49,15 @@ pip install -r requirements.txt
 
 Copy `.env.example` to `.env` and set `DEEPSEEK_API_KEY` (only needed for the live discovery run).
 
+**Provider note (reproducibility).** The committed discovery bundles were produced against
+`https://api.deepseek.com` with `LLM_MODEL=deepseek-flash` (DeepSeek V4.1 Flash) — a vision +
+function-calling model over an OpenAI-compatible API, driven at `temperature=0`. The model id is
+recorded in each artifact's `provenance.model`. Nothing in the system is DeepSeek-specific: the
+adapter is one module (`src/agent/llm_deepseek.py`, ~100 lines) talking to the `openai` SDK, so if
+that id has been retired or is unavailable on your account, point `LLM_BASE_URL` / `LLM_MODEL` at
+any OpenAI-compatible endpoint whose model accepts an image plus tool definitions — no code change.
+Discovery is the only path that calls it; replay never does.
+
 ## Run it without live services
 
 Everything except the one genuine discovery run works with no browser and no API key.
